@@ -1,5 +1,6 @@
 package com.fastcare.hello;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,5 +18,11 @@ public class HelloTests {
     @Test
     public void contexLoads() throws Exception {
         assertThat(controller).isNotNull();
+    }
+    
+    @Test
+    public void testHomeController() {
+        String result = controller.HelloWorld();
+        assertEquals(result, "Hello, World!");
     }
 }
