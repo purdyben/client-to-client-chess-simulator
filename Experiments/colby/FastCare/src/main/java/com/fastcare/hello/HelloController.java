@@ -14,10 +14,6 @@ public class HelloController {
 		return "Hello, World!";
 	}
 	
-	@RequestMapping("/getAllUsers")
-	public String getUserList() {
-		return "list";
-	}
 	@GetMapping("/greeting")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
         model.addAttribute("name", name);

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 	
-	@RequestMapping
+	@GetMapping("/getAllUsers")
 	public List<User> getUserList() {
 		User u = new User("Colby");
 		List<User> userList = new LinkedList<>();
