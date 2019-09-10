@@ -4,6 +4,14 @@
 *.ap_
 *.aab
 
+# Files for Apache Tomcat
+*.policy
+*.MF
+*.properties
+/context.xml
+/server.xml
+/tomcat-users.xml
+/web.xml
 # Files for the ART/Dalvik VM
 *.dex
 
