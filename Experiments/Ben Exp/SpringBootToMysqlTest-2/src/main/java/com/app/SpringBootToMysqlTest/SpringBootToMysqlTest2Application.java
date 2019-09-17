@@ -1,9 +1,8 @@
-package com.app.accessingdatamysql;
+package com.app.SpringBootToMysqlTest;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
 
 @SpringBootApplication
 @ComponentScan(basePackages={"com.app.accessingdatamysql"})

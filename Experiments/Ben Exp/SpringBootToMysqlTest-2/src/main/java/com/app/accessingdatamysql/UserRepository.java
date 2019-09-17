@@ -7,6 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
 	
-	//@Query(value="SELECT * from user",nativeQuery=true)
-	public List<User> findAll();
+//	@Query(value="SELECT * from user",nativeQuery=true)
+//	public List<User> findAll();
 }
