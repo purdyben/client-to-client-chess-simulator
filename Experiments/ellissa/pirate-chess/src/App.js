@@ -15,34 +15,33 @@ const Home = () => (
 )
 
 const Login = () => (
-  <div>
+  <header className="App-header">
     Login
-  </div>
+  </header>
 )
 
 const GuestLogin = () => (
-  <div>
+  <header className="App-header">
     GuestLogin
-  </div>
+  </header>
 )
 
 const CreateAccount = () => (
-  <div>
+  <header className="App-header">
     CreateAccount
-  </div>
+  </header>
 )
 
 const Game = () => (
-  <div>
+  <header className="App-header">
     Game
-  </div>
+  </header>
 )
 
 function App() {
   return (
     <Router>
       <div className="App">
-        
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/guestLogin" component={GuestLogin} />
