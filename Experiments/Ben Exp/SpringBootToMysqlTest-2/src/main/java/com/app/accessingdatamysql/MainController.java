@@ -1,5 +1,8 @@
 package com.app.accessingdatamysql;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,24 +18,20 @@ public class MainController {
 	@Autowired
 	private UserRepository userRepository;
 
-	@PostMapping(path="/add") // Map ONLY POST Requests
-	public @ResponseBody String addNewUser (@RequestParam String name
-			, @RequestParam String email) {
-
-		
-		User n = new User();
-		n.setName(name);
-		n.setEmail(email);
-		userRepository.save(n);
-		return "Saved";
-	}
-
 	@GetMapping(value = "/all")
-	public @ResponseBody Iterable<User> getAllUsers() {
-		return userRepository.findAll();
+	public List<User> getAllUsers() {
+		//return (List<User>) userRepository.findAll();
+		List<User> list  = new  LinkedList<User>();
+		list = (List<User>) userRepository.findAll();
+		System.out.print(list.toString());
+		return list;
 	}
 	@RequestMapping("/hello")
     String home() {
         return "Hello World - v3!";
     }
-}
+	@GetMapping("/getall")
+	public @ResponseBody Iterable<User> getAll(){
+		return userRepository.getAll();
+	}
+}	
