@@ -23,6 +23,29 @@ FOREIGN KEY (Passsword_id)
 	REFERENCES UserPassword(passID)
     ON DELETE CASCADE
 );
+CREATE table GameLog(
+Game_id int NOT null unique,
+GameFile varchar(30),
+-- could look into filestream object for storing data
+GameDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+player_id int,
+opponent_id int,
+FOREIGN KEY (player_id)
+        REFERENCES UserID(Name_id),
+FOREIGN KEY (opponent_id)
+	REFERENCES UserID(Name_id)
+);
+CREATE table UserData(
+timeDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+player_id int,
+Game_id int NOT null unique,
+FOREIGN KEY (player_id)
+        REFERENCES UserID(Name_id),
+FOREIGN KEY (GameID)
+		REFERENCES GameLog(Game_id),	
+        
+); 
+
 DROP TRIGGER /*!50032 IF EXISTS */ `after_password`;
 
 DELIMITER //
