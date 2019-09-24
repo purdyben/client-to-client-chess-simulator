@@ -8,7 +8,7 @@ const Home = () => (
     <img src="logo.png" className="App-logo" alt="logo" />
       <div className="Login-buttons">
         <Button color="primary" size="lg" href="/login" block>Login</Button>
-        <Button color="secondary" size="lg" href="/game"block>Guest Login</Button>
+        <Button color="secondary" size="lg" href="/mainScreen"block>Guest Login</Button>
       </div>
       <NavLink href="/createAccount" classname="Create-account-link">Create Account</NavLink>
   </header>
@@ -28,7 +28,7 @@ const Login = () => (
           <Input type="password" name="password" id="password" placeholder="Password" />
         </FormGroup>
       </Form>
-      <Button color="primary" size="lg" href="/game" block>Login</Button>
+      <Button color="primary" size="lg" href="/mainScreen" block>Login</Button>
     </div>
   </header>
 )
@@ -51,15 +51,29 @@ const CreateAccount = () => (
           <Input type="confirmNewPassword" name="confirmNewPassword" id="confirmNewPassword" placeholder="Confirm Password" />
         </FormGroup>
       </Form>
-      <Button color="primary" size="lg" href="/game" block>Create Account</Button>
+      <Button color="primary" size="lg" href="/mainScreen" block>Create Account</Button>
+    </div>
+  </header>
+)
+
+const MainScreen = () => (
+  <header className="App-header-custom">
+    <img src="logo.png" className="App-logo-small" alt="logo" />
+    <div className="Login-buttons">
+    <Button color="primary" size="lg" href="/" block>Home</Button>
+    <Button color="primary" size="lg" href="/game" block>Game</Button>
+    <Button color="primary" size="lg" href="/mainScreen" block>Tournament</Button>
+    <Button color="primary" size="lg" href="/mainScreen" block>Profile</Button>
+    <Button color="primary" size="lg" href="/leaderboard" block>Leaderboard</Button>
+    <Button color="primary" size="lg" href="/mainScreen" block>Settings</Button>
+    <Button color="primary" size="lg" href="/mainScreen" block>How To Play</Button>
     </div>
   </header>
 )
 
 const Game = () => (
-  <header className="App-header">
-    Game
-    <img src="chess-board.jpg" className="Chess-board" alt="logo" />
+  <header className="App-header-custom">
+    <img src="logo.png" className="App-logo-small" alt="logo" />
   </header>
 )
 
@@ -76,8 +90,9 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/createAccount" component={CreateAccount} />
-          <Route exact path="/game" component={Game} />
+          <Route exact path="/mainScreen" component={MainScreen} />
           <Route exact path="/leaderboard" component={Leaderboard} />
+          <Route exact path="/game" component={Game} />
       </div>
     </Router>
   );
