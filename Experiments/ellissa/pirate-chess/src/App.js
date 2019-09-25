@@ -57,29 +57,56 @@ const CreateAccount = () => (
 )
 
 const MainScreen = () => (
-  <header className="App-header-custom">
+  <header className="App-header">
     <img src="logo.png" className="App-logo-small" alt="logo" />
     <div className="Login-buttons">
     <Button color="primary" size="lg" href="/" block>Home</Button>
     <Button color="primary" size="lg" href="/game" block>Game</Button>
-    <Button color="primary" size="lg" href="/mainScreen" block>Tournament</Button>
-    <Button color="primary" size="lg" href="/mainScreen" block>Profile</Button>
+    <Button color="primary" size="lg" href="/tournament" block>Tournament</Button>
+    <Button color="primary" size="lg" href="/profile" block>Profile</Button>
     <Button color="primary" size="lg" href="/leaderboard" block>Leaderboard</Button>
-    <Button color="primary" size="lg" href="/mainScreen" block>Settings</Button>
-    <Button color="primary" size="lg" href="/mainScreen" block>How To Play</Button>
+    <Button color="primary" size="lg" href="/settings" block>Settings</Button>
+    <Button color="primary" size="lg" href="/howToPlay" block>How To Play</Button>
     </div>
   </header>
 )
 
 const Game = () => (
-  <header className="App-header-custom">
+  <div>
     <img src="logo.png" className="App-logo-small" alt="logo" />
-  </header>
+    <div className="Game-board">
+      <div className="Black-square"></div>
+    </div>
+  </div>
 )
 
 const Leaderboard = () => (
   <header className="App-header">
     Leaderboard
+  </header>
+)
+
+const Tournament = () => (
+  <header className="App-header">
+    Tournament
+  </header>
+)
+
+const Profile = () => (
+  <header className="App-header">
+    Profile
+  </header>
+)
+
+const Settings = () => (
+  <header className="App-header">
+    Settings
+  </header>
+)
+
+const HowToPlay = () => (
+  <header className="App-header">
+    How To Play
   </header>
 )
 
@@ -93,6 +120,10 @@ function App() {
           <Route exact path="/mainScreen" component={MainScreen} />
           <Route exact path="/leaderboard" component={Leaderboard} />
           <Route exact path="/game" component={Game} />
+          <Route exact path="/tournament" component={Tournament} />
+          <Route exact path="/profile" component={Profile} />
+          <Route exact path="/settings" component={Settings} />
+          <Route exact path="/howToPlay" component={HowToPlay} />
       </div>
     </Router>
   );

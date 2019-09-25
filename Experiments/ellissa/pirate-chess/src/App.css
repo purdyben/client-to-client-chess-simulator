@@ -8,10 +8,8 @@
 }
 
 .App-logo-small {
-  left: 100px;
   height: 20vmin;
   pointer-events: none;
-  left: 10px;
 }
 
 .App-header {
@@ -25,15 +23,15 @@
   color: white;
 }
 
-.App-header-custom {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.Game-board {
+  height: 75%;
+  width: 50%;
+}
+
+.Black-square {
+  background-color: black;
+  height: 10vmin;
+  width: 10vmin;
 }
 
 .App-link {
