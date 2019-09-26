@@ -24,4 +24,4 @@ const CreateAccount = () => (
     </header>
   )
 
-  export default CreateAccount;
+export default CreateAccount;
