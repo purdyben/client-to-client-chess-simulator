@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, NavLink, Form, Label, FormGroup, Input} from 'reactstrap';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 import Login from './components/Login';
+import CreateAccount from './components/CreateAccount';
 
 const Home = () => (
   <header className="App-header">
@@ -11,29 +12,6 @@ const Home = () => (
         <Button color="secondary" size="lg" href="/mainScreen"block>Guest Login</Button>
       </div>
       <NavLink href="/createAccount" classname="Create-account-link">Create Account</NavLink>
-  </header>
-)
-
-const CreateAccount = () => (
-  <header className="App-header">
-    <img src="logo.png" className="App-logo" alt="logo" />
-    <div className="Login-buttons">
-      <Form>
-        <FormGroup>
-          <Label for="newUsername">Enter Username</Label>
-          <Input type="newUsername" name="newUsername" id="newUsername" placeholder="Username" />
-        </FormGroup>
-        <FormGroup>
-          <Label for="newPassword">Password</Label>
-          <Input type="newPassword" name="newPassword" id="newPassword" placeholder="Password" />
-        </FormGroup>
-        <FormGroup>
-          <Label for="confirmNewPassword">Confirm Password</Label>
-          <Input type="confirmNewPassword" name="confirmNewPassword" id="confirmNewPassword" placeholder="Confirm Password" />
-        </FormGroup>
-      </Form>
-      <Button color="primary" size="lg" href="/mainScreen" block>Create Account</Button>
-    </div>
   </header>
 )
 
