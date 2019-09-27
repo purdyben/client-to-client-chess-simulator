@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,21 @@ public class UserController {
 	@Autowired
 	public IUserRepository userRepository;
 	private final Logger logger = LoggerFactory.getLogger(UserController.class);
+	
+	/**
+	 * Saves a new user into the database.
+	 * 
+	 * @param user - The user being added.
+	 * @return -  The user name of the user
+	 */
+	@RequestMapping(method = RequestMethod.POST, path = "/users/new", produces = "application/json")
+	public String saveUser(@RequestBody User user)
+	{
+		userRepository.save(user);
+		logger.info("Saved user: " + user.getUserName());
+		return user.getUserName();
+	}
+
 	/**
 	 * Gets a list of all the users in the database.
 	 * 
@@ -31,5 +47,7 @@ public class UserController {
 		logger.info("Number of Records Fetched:" + results.size());
 		return results;
 	}
+	
+	
 
 }
