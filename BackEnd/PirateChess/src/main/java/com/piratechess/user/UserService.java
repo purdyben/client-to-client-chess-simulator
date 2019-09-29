@@ -15,6 +15,8 @@ public class UserService {
 			newScoreA -= 400;
 			newScoreB += 400;
 		}
+		newScoreA /= a.getNumGames();
+		newScoreB /= b.getNumGames();
 		a.setRankScore(newScoreA);
 		b.setRankScore(newScoreB);
 	}
