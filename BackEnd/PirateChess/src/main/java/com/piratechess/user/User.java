@@ -10,6 +10,7 @@ import org.hibernate.annotations.NotFoundAction;
 
 /**
  * User Model
+ * 
  * @author Colby McKinley
  *
  */
@@ -40,7 +41,16 @@ public class User {
 	@NotFound(action = NotFoundAction.IGNORE)
 	private String classification;
 
-	public User(Long id, String userName, String displayName, String email, String userPassword, String classification) {
+	@Column(name = "rankScore")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private int rankScore;
+
+	@Column(name = "numGames")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private int numGames;
+
+	public User(Long id, String userName, String displayName, String email, String userPassword, String classification,
+			int rankScore) {
 		super();
 		this.userName = userName;
 		this.displayName = displayName;
@@ -48,6 +58,7 @@ public class User {
 		this.userPassword = userPassword;
 		this.classification = classification;
 		this.id = id;
+		this.rankScore = rankScore;
 	}
 
 	public User() {
@@ -99,6 +110,26 @@ public class User {
 
 	public void setClassification(String classification) {
 		this.classification = classification;
+	}
+
+	public int getRankScore() {
+		return rankScore;
+	}
+
+	public void setRankScore(int newScore) {
+		rankScore = newScore;
+	}
+
+	public int getNumGames() {
+		return numGames;
+	}
+
+	public void setNumGames(int numGames) {
+		this.numGames = numGames;
+	}
+
+	public void incrementNumGames() {
+		++numGames;
 	}
 
 	public Long getPrimaryID() {

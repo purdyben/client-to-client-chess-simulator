@@ -23,7 +23,7 @@ public class UserTests {
     
     @Test
     public void createsUser() throws Exception {
-    	User u = new User((long) 123, "Colby", "CM", "colbym@iastate.edu", "admin", "master");
+    	User u = new User((long) 123, "Colby", "CM", "colbym@iastate.edu", "admin", "master", 12);
     	controller.saveUser(u);
     	List<User> list = controller.getAllUsers();
     	assertThat(list.size() > 0);
