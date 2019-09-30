@@ -1,5 +1,8 @@
 package com.piratechess.user;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class UserService {
 
 	/**
@@ -22,6 +25,8 @@ public class UserService {
 			newScoreA -= 400;
 			newScoreB += 400;
 		}
+		a.incrementNumGames();
+		b.incrementNumGames();
 		newScoreA /= a.getNumGames();
 		newScoreB /= b.getNumGames();
 		a.setRankScore(newScoreA);
