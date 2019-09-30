@@ -2,6 +2,16 @@ import React from 'react';
 import {Table, Button, ButtonGroup} from 'reactstrap';
 
 const Leaderboard = () => (
+  <div>
+    <div className="Navigation-bar">
+      <ButtonGroup vertical size="lg">
+          <Button color="primary" href="/mainScreen">Main Screen</Button>
+          <Button color="primary" href="/game">Play Now</Button>
+          <Button color="primary" href="/leaderboard">Chat</Button>
+          <Button color="primary" href="/howToPlay">How To Play</Button>
+          <Button color="primary" href="/tournament">Tournament</Button>
+        </ButtonGroup>
+    </div>
     <header className="App-header">
     <img src="logo.png" className="App-logo-small" alt="logo" />
       Leaderboard
@@ -91,7 +101,8 @@ const Leaderboard = () => (
         </tbody>
       </Table>
     </header>
-  )
+  </div>
+)
 
 export default Leaderboard;
   
