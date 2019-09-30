@@ -43,15 +43,6 @@
   width: 75%;
 }
 
-.Leaderboard {
-  height: 85%;
-  width: 65%;
-}
-
-.Leaderboard-Buttons {
-  width: 100%;
-}
-
 .Chess-board {
   height: 80vmin;
   pointer-events: none;
