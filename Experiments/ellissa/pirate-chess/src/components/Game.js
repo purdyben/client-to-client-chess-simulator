@@ -1,12 +1,17 @@
 import React from 'react';
 
-const Game = () => (
-    <div>
-      <img src="logo.png" className="App-logo-small" alt="logo" />
-      <div className="Game-board">
-        <div className="Black-square"></div>
-      </div>
-    </div>
-  )
+export default class CreateAccount extends React.Component {
   
-export default Game;
+  //get and post methods here
+  
+  render() {
+    return (
+      <div>
+        <img src="logo.png" className="App-logo-small" alt="logo" />
+        <div className="Game-board">
+          <div className="Black-square"></div>
+        </div>
+      </div>
+    )
+  }
+}
