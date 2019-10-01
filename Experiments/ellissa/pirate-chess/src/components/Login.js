@@ -20,36 +20,26 @@ export default class Leaderboard extends React.Component {
 
     axios.post(`https://jsonplaceholder.typicode.com/users`, { user })
       .then(res => {
-        console.log(res);
-        console.log(res.data);
+        console.log(res.data.user);
       })
   }
 
   render() {
     return (
       <header className="App-header">
-        <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Person Name:
-            <input type="text" name="name" onChange={this.handleChange} />
-          </label>
-          <button type="submit">Add</button>
-        </form>
-      </div>
         <img src="logo.png" className="App-logo" alt="logo" />
         <div className="Login-buttons">
           <Form>
             <FormGroup>
               <Label for="username">Username</Label>
-              <Input type="username" name="username" id="username" placeholder="Username" />
+              <Input type="username" name="username" id="username" placeholder="Username" onChange={this.handleChange}/>
             </FormGroup>
             <FormGroup>
               <Label for="password">Password</Label>
               <Input type="password" name="password" id="password" placeholder="Password" />
             </FormGroup>
+            <Button type="submit" color="primary" size="lg" href="/mainScreen" onClick={this.handleSubmit} block>Login</Button> 
           </Form>
-          <Button color="primary" size="lg" href="/mainScreen" block>Login</Button>
         </div>
       </header>
     )
