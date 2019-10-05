@@ -2,6 +2,8 @@ package com.piratechess.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -19,6 +21,7 @@ import org.hibernate.annotations.NotFoundAction;
 public class User {
 	@Id
 	@Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NotFound(action = NotFoundAction.IGNORE)
 	private long id;
 	@Column(name = "user_name")
