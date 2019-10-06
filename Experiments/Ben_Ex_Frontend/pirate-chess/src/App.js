@@ -10,9 +10,10 @@ import Tournament from './components/Tournament';
 import Profile from './components/Profile';
 import Settings from './components/Settings';
 import HowToPlay from './components/HowToPlay';
-import personList from './components/personList';
-import testAxios from './components/testAxios';
-import testPostAxios from './components/testPostAxios';
+import personList from './components/HTTP_Requests/personList';
+// import testAxios from './components/HTTP_Requests/testAxios';
+// import testPostAxios from './components/HTTP_Requests/testPostAxios';
+import GameBoard from './components/Game/GameBoard';
 
 
 const Home = () => (
@@ -25,17 +26,7 @@ const Home = () => (
         <NavLink href="/createAccount" classname="Create-account-link">Create Account</NavLink>
     </header>
 );
-// const put = () => (
-//     <div>
-//         <header>
-//             <testAxios/>
-//             <personList/>
-//             <h1> hello!!</h1>
-//         </header>
-//         <testPostAxios/>
-//         <testAxios/>
-//     </div>
-// );
+
 class puttt extends React.Component {
     render(){
         return(
@@ -58,9 +49,11 @@ function App() {
     return (
         <Router>
             <div className="App">
-                <Route exact path="/puttt" component={puttt}/>
-                <Route exact path="/testPostAxios" component={testPostAxios}/>
-                <Route exact path="/testAxios" component={testAxios}/>
+                <Route exact path="/GameBoard" component={GameBoard}/>
+                {/*<Route exact path="/puttt" component={puttt}/>*/}
+                {/*<Route exact path="/testPostAxios" component={testPostAxios}/>*/}
+                {/*<Route exact path="/testAxios" component={testAxios}/>*/}
+                {/*<Route exact path="/personList" component={personList}/>*/}
                 <Route exact path="/" component={Home}/>
                 <Route exact path="/login" component={Login}/>
                 <Route exact path="/createAccount" component={CreateAccount}/>
@@ -71,7 +64,7 @@ function App() {
                 <Route exact path="/profile" component={Profile}/>
                 <Route exact path="/settings" component={Settings}/>
                 <Route exact path="/howToPlay" component={HowToPlay}/>
-                <Route exact path="/personList" component={personList}/>
+
             </div>
         </Router>
     );

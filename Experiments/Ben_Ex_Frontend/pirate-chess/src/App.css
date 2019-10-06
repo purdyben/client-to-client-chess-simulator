@@ -22,16 +22,25 @@
     font-size: calc(10px + 2vmin);
     color: white;
 }
+.testPawn{
+    height: 10vmin;
+    width: 10vmin;
+    cursor: pointer;
+    move-to: pointer;
 
-.Game-board {
-    height: 75%;
-    width: 50%;
+}
+
+.board {
+    margin: auto;
+    height: 70vmin;
+    width: 70vmin;
+    display: flex;
 }
 
 .Black-square {
     background-color: black;
-    height: 10vmin;
-    width: 10vmin;
+    height: 9vmin;
+    width: 9vmin;
 }
 
 .App-link {
@@ -41,11 +50,6 @@
 .Login-buttons {
     height: 5%;
     width: 75%;
-}
-
-.Chess-board {
-    height: 80vmin;
-    pointer-events: none;
 }
 
 @keyframes App-logo-spin {

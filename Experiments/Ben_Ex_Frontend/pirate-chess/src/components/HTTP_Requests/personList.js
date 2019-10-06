@@ -12,7 +12,19 @@ export default class personList extends React.Component {
 
     componentDidMount() {
         // axios.get('https://jsonplaceholder.typicode.com/users').then(res => {
-        axios.get('http://coms-309-bs-4.misc.iastate.edu:8080/test/hello').then(res => {
+
+        let URL_testString = 'http://coms-309-bs-4.misc.iastate.edu:8080/test/hello';
+        axios.get(URL_testString, {
+            method: 'GET',
+            mode: 'yes-cors',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+            credentials: 'same-origin',
+        })
+            .then(res => {
             this.setState({message: res.data});
             console.log(res);
             this.testMassage = this.state.message + "hellowergwy";
