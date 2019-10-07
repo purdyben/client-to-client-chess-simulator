@@ -1,16 +1,24 @@
 import React, {Component} from 'react';
-{/*<img src="chessboard.png" className="Chess-board" alt="logo"/>*/}
+import PiecesEnum from './PiecesEnum'
 
 class getPieces extends Component{
     state = {
+        whitePieces: [],
+        blackPieces: [],
+        whiteTakenPieces: [],
+        blackTakenPieces: []
 
-
+    };
+    defaultBoard(){
+        this.state.whitePieces = PiecesEnum.StartingSet();
+        console.log(this.state.whitePieces[0]);
     };
 
 
 
 
     render(){
+        this.defaultBoard();
         return(null)
 
     }

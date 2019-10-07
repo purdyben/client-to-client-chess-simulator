@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 class GameBoard extends Component{
     state = {
-        board : '',
+        board: ['testPawn','testPawn','testPawn','testPawn','testPawn'],
         time: 10,
         players: [{
            player: 1,
@@ -15,16 +15,19 @@ class GameBoard extends Component{
 
     };
     render(){
+
         return(
             <div>
                 <h1>{this.state.time} is the time</h1>
-                <img
-                    className={"board"}
-                    src = {'./images/chessboard.png'}/>
-                <img
-                    className={"testPawn"}
-                    src = {'./images/testPawn.png'}/>
+                {
+                    this.state.board.map(board =>(
+                        <img
+                            className={"testPawn"}
+                            src = {'./images/testPawn.png'}/>
 
+                        )
+                    )
+                }
             </div>
 
         )
@@ -32,3 +35,7 @@ class GameBoard extends Component{
     }
 }
 export default GameBoard;
+{/*<img*/}
+{/*    className={"board"}*/}
+{/*    src = {'./images/chessboard.png'}/>*/}
+{/*{*/}

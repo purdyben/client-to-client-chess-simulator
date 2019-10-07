@@ -23,13 +23,14 @@
     color: white;
 }
 .testPawn{
+    
     height: 10vmin;
     width: 10vmin;
+    grid-auto-columns: 100px;
     cursor: pointer;
     move-to: pointer;
 
 }
-
 .board {
     margin: auto;
     height: 70vmin;
