@@ -20,9 +20,8 @@ import org.hibernate.annotations.NotFoundAction;
 @Table(name = "userTable")
 public class User {
 	@Id
-	@Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NotFound(action = NotFoundAction.IGNORE)
+	@Column(name = "id", updatable = false, nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	@Column(name = "user_name")
 	@NotFound(action = NotFoundAction.IGNORE)
@@ -60,10 +59,21 @@ public class User {
 		this.email = email;
 		this.userPassword = userPassword;
 		this.classification = classification;
-		this.id = id;
+		//this.id = id;
 		this.rankScore = rankScore;
 	}
 
+	public User(String userName, String displayName, String email, String userPassword, String classification,
+			int rankScore) {
+		super();
+		this.userName = userName;
+		this.displayName = displayName;
+		this.email = email;
+		this.userPassword = userPassword;
+		this.classification = classification;
+		this.rankScore = rankScore;
+	}
+	
 	public User() {
 
 	}
