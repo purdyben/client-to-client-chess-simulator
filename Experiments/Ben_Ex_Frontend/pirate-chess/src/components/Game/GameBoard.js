@@ -1,8 +1,14 @@
 import React, {Component} from 'react';
 
 class GameBoard extends Component{
+    constructor(props){
+        super(props);
+
+    }
     state = {
-        board: ['testPawn','testPawn','testPawn','testPawn','testPawn'],
+        board: popTile(),
+            // ['testPawn','testPawn','testPawn','testPawn','testPawn','testPawn',
+            // 'testPawn','testPawn','testPawn','testPawn','testPawn','testPawn','testPawn'],
         time: 10,
         players: [{
            player: 1,
@@ -14,19 +20,30 @@ class GameBoard extends Component{
 
 
     };
+    SetBoard = () =>{
+
+        while(this.i < 64){
+            this.setState((previousState) => ({
+                board: [...previousState.board, 'testPawn']
+            }));
+            this.state.board.push('testPawn')
+        }
+        return this.arrays
+    };
+
     render(){
 
         return(
             <div>
-                <h1>{this.state.time} is the time</h1>
+                {/*{this.SetBoard}*/}
+                <h1>{this.state.board.length} this is my board length</h1>
                 {
-                    this.state.board.map(board =>(
-                        <img
-                            className={"testPawn"}
-                            src = {'./images/testPawn.png'}/>
-
-                        )
-                    )
+                    <div className="grid-container">
+                        {this.state.board.map(board =>(
+                            <img className={"testPawn"}
+                                src = {'./images/testPawn.png'}/>
+                            ))}
+                    </div>
                 }
             </div>
 
@@ -35,7 +52,56 @@ class GameBoard extends Component{
     }
 }
 export default GameBoard;
-{/*<img*/}
-{/*    className={"board"}*/}
-{/*    src = {'./images/chessboard.png'}/>*/}
-{/*{*/}
+function pop() {
+    var tileArr;
+    var i;
+    tileArr = [];
+    for(i = 0; i < 64; i++){
+        tileArr.push("testPawn")
+    }
+    console.log(tileArr);
+    return(tileArr);
+}
+function popTile(){
+    var tileArr:any = [];
+    var i;
+    for(i = 0; i < 64; i++) {
+        if (i % 2 === 0) {
+
+            tileArr.push(new tile({
+                Id: i,
+                piece: "null",
+                color: "light",
+            }));
+        }
+        else{
+            tileArr.push(new tile({
+                Id: i,
+                piece: "null",
+                color: "dark",
+            }));
+        }
+
+
+    }
+    return tileArr;
+}
+
+class tile extends Component{
+    state = {
+        Id:"",
+        piece: "",
+        color: null,
+
+    };
+    getState(Name) {
+        if(Name === "id"){
+            return(this.state.Id);
+        }else if(Name === "piece"){
+            return(this.state.piece);
+        }
+        else{
+            return(this.state.color);
+        }
+    }
+}
