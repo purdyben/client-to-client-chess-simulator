@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 /**
  * 
@@ -41,6 +42,7 @@ public class UserController {
 	 * @return - A list of all the users in the database.
 	 */
 	@RequestMapping(method = RequestMethod.GET, path = "/users")
+	@ResponseBody
 	public List<User> getAllUsers()
 	{
 		List<User> results = userRepository.findAll();

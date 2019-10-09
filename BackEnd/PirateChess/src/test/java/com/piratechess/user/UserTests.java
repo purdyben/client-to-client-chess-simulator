@@ -20,7 +20,7 @@ public class UserTests {
 	private UserController controller;
 	@Autowired
 	private UserService service;
-
+	
 	@Test
 	public void contexLoads() throws Exception {
 		assertThat(controller).isNotNull();
@@ -32,15 +32,15 @@ public class UserTests {
 		User u = new User("Colby", "CM", "colbym@iastate.edu", "admin", "master", 12);
 		controller.saveUser(u);
 		List<User> list = controller.getAllUsers();
-		assertThat(list.size() > 0);
-		assertThat(list.contains(u));
+		assert(list.size() > 0);
+		assert(list.contains(u));
 		controller.userRepository.delete(u);
 	}
 
 	@Test
 	public void getsDataFromDB() {
 		List<User> list = controller.getAllUsers();
-		assertThat(list.size() > 0);
+		assert(list != null);
 	}
 
 	@Test
@@ -63,46 +63,29 @@ public class UserTests {
 
 	@Test
 	public void updateUserRankTest_awins() {
-		User a = new User("Colby", "CM", "colbym@iastate.edu", "admin", "master", 12);
-
-		User b = new User("Ben", "BP", "ben@iastate.edu", "password", "Class J", 12);
+		User a = new User("Colby", "CM", "colbym@iastate.edu", "admin", "Class J", 0);
+		User b = new User("Ben", "BP", "ben@iastate.edu", "password", "Class J", 0);
 		service.updateRank(a, b, a);
+		assert(a.getRankScore() == 400);
+		assert(b.getRankScore() == 0);
+		assert(a.getNumGames() == 1);
+		assert(b.getNumGames() == 1);
+
 	}
 
 	@Test
 	public void updateUserRankTest_bwins() {
-		User a = new User("Colby", "CM", "colbym@iastate.edu", "admin", "master", 12);
-		User b = new User("Ben", "BP", "ben@iastate.edu", "password", "Class J", 12);
+		User a = new User("Colby", "CM", "colbym@iastate.edu", "admin", "Class J", 0);
+		User b = new User("Ben", "BP", "ben@iastate.edu", "password", "Class J", 0);
 		service.updateRank(a, b, b);
+		assert(a.getRankScore() == 0);
+		assert(b.getRankScore() == 400);
+		assert(a.getNumGames() == 1);
+		assert(b.getNumGames() == 1);
 	}
 
-	@Test
-	public void findUsersByClassifcationTest() {
-		User a = new User("Ben", "BP", "benp@iastate.edu", "password", "master", 11);
-		User b = new User("Ben", "BP", "ben@iastate.edu", "password", "master", 12);
-		User c = new User("Elissa", "ES", "ellisa@iastate.edu", "password1", "master", 12);
-		User d = new User("BenSmith", "BS", "bsmith@iastate.edu", "password2", "Class J", 1);
-		controller.saveUser(a);
-		controller.saveUser(b);
-		controller.saveUser(c);
-		controller.saveUser(d);
-    	Collection<User> actual = controller.userRepository.findUsersByClassifcation("master");
-    	assertThat(actual.size() >= 3);
-    	assertThat(actual.contains(a));
-    	assertThat(actual.contains(b));
-    	assertThat(actual.contains(c));
-    	assertThat(!actual.contains(d));
-    	actual = controller.userRepository.findUsersByClassifcation("Chess J");
-    	assertThat(actual.size() >= 1);
-    	assertThat(!actual.contains(a));
-    	assertThat(!actual.contains(b));
-    	assertThat(!actual.contains(c));
-    	assertThat(actual.contains(d));
-		controller.userRepository.delete(a);
-		controller.userRepository.delete(b);
-		controller.userRepository.delete(c);
-		controller.userRepository.delete(d);
-	}
 	
+	
+
 	
 }

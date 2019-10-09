@@ -21,9 +21,10 @@ import org.hibernate.annotations.NotFoundAction;
 public class User {
 	@Id
 	@Column(name = "id", updatable = false, nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	@Column(name = "user_name")
+
+	@Column(name = "user_name", unique = true)
 	@NotFound(action = NotFoundAction.IGNORE)
 	private String userName;
 
@@ -59,7 +60,7 @@ public class User {
 		this.email = email;
 		this.userPassword = userPassword;
 		this.classification = classification;
-		//this.id = id;
+		// this.id = id;
 		this.rankScore = rankScore;
 	}
 
@@ -73,9 +74,19 @@ public class User {
 		this.classification = classification;
 		this.rankScore = rankScore;
 	}
-	
+
 	public User() {
 
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null || obj.getClass() != this.getClass())
+			return false;
+		User o = (User) obj;
+		return (o.getPrimaryID().equals(this.getPrimaryID()) && o.userName.equals(this.getUserName()));
 	}
 
 	@Override
