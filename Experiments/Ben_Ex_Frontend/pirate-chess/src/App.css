@@ -22,29 +22,27 @@
     font-size: calc(10px + 2vmin);
     color: white;
 }
-.testPawn{
-    
+.gamePage{
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.tile{
     height: 10vmin;
     width: 10vmin;
-    grid-auto-columns: 100px;
+
     cursor: pointer;
     move-to: pointer;
-
 }
-.grid-container {
-    display: grid;
-    justify-content: start;
-    grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px; /*Make the grid smaller than the container*/
 
-}
 .grid {
-
     display: grid;
-    margin: 40px;
     grid-template-columns: repeat(8, 0fr);
     overflow: hidden;
 }
-
 .grid-cell {
     position: relative;
 }

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import getPieces from "./getPieces";
 
 
 class GameBoard extends Component{
@@ -48,6 +49,7 @@ class GameBoard extends Component{
                 }
             }
         console.log(tileArr);
+        SetBoard(tileArr);
         return tileArr;
     }
     getPrev(tileArr, row, col){
@@ -67,22 +69,28 @@ class GameBoard extends Component{
         }
     render(){
         return(
-            <div>
-                <h1>{this.state.board.length} this is my board length</h1>
+            <div className="gamePage">
                     <div className="grid">
                         {
                             this.state.board.map(row =>(
                                row.map(tile =>(
                                     <div className={"grid-cell"}>
-                                        <img className={"testPawn"}
+                                        <img className={"tile"}
                                              src = {`./images/${tile.getColor()}-board.jpg`}/>
                                     </div>
                                     ))
                             ))
+
                         }
+                        { this.state.board.map(row =>(
+                            row.map(tile =>(
+                                <div className={"grid-cell"}>
+                                    <img className={"tile"}
+                                         src = {`./images/${tile.getPiece()}-board.jpg`}/>
+                                </div>
+                            ))
+                        ))}
                     </div>
-                <img className={"testPawn"}
-                     src = {`./images/chessboard.png`}/>
             </div>
         )
 
@@ -99,6 +107,7 @@ class tile extends Component{
             color: props.color};
         this.getColor = this.getColor.bind(this);
         this.getId = this.getId.bind(this);
+        this.getpiece = this.getPiece.bind((this));
     };
     state = {
         Id:"",
@@ -109,7 +118,25 @@ class tile extends Component{
     getColor(){
         return(this.state.color);
     }
-    getId(){
-        return(this.state.color + " " + this.state.Id)
+    getPiece(){
+        return(this.state.piece);
     }
+
+    getId(){
+        return(this.state.Id)
+    }
+}
+
+function SetBoard(tileArr){
+    var Whitepawns = tileArr[2];
+    var Blackpawns = tileArr[7];
+    Whitepawns.map(tile =>{
+       this.tile.setState(this.piece === "test9")
+        }
+    );
+    Blackpawns.map(tile =>{
+        this.tile.setState(this.piece === "test9")
+        }
+    );
+
 }
