@@ -26,25 +26,6 @@ const Home = () => (
         <NavLink href="/createAccount" classname="Create-account-link">Create Account</NavLink>
     </header>
 );
-
-class puttt extends React.Component {
-    render(){
-        return(
-
-            <div>
-                <testAxios/>
-                <header>
-                    <personList/>
-                    <h1> hello!!</h1>
-                </header>
-                <testPostAxios/>
-                <testAxios/>
-            </div>
-        )
-    }
-}
-
-
 function App() {
     return (
         <Router>
