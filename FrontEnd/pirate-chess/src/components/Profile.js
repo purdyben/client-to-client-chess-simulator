@@ -2,8 +2,8 @@ import React from 'react';
 
 const Profile = () => (
     <header className="App-header">
-      Profile
+        Profile
     </header>
-  )
+);
 
 export default Profile;

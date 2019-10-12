@@ -2,8 +2,8 @@ import React from 'react';
 
 const Settings = () => (
     <header className="App-header">
-      Settings
+        Settings
     </header>
-  )
+);
 
 export default Settings;

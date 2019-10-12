@@ -11,8 +11,8 @@ public class UserService {
 	 * @author Colby McKinley
 	 * @param a      - player 1
 	 * @param b      - player 2
-	 * @param winner
-	 * @see https://en.wikipedia.org/wiki/Elo_rating_system
+	 * @param winner - player who won game
+	 * @see <a href="https://en.wikipedia.org/wiki/Elo_rating_system">Elo Rating System</a>
 	 */
 	public void updateRank(User a, User b, User winner) {
 		int newScoreA = a.getRankScore() + b.getRankScore();
@@ -29,6 +29,10 @@ public class UserService {
 		b.incrementNumGames();
 		newScoreA /= a.getNumGames();
 		newScoreB /= b.getNumGames();
+		if(newScoreA < 0)
+			newScoreA = 0;
+		if(newScoreB < 0)
+			newScoreB = 0;
 		a.setRankScore(newScoreA);
 		a.setClassification(getRankByScore(newScoreA));
 		b.setRankScore(newScoreB);
@@ -37,9 +41,9 @@ public class UserService {
 	}
 
 	/**
-	 * 
-	 * @param score
-	 * @return
+	 * Converts a score to a ranking title
+	 * @param score - Elo system value
+	 * @return - ranking title
 	 */
 	public String getRankByScore(int score) {
 		if (score >= 2400) {

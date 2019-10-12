@@ -49,7 +49,7 @@ class GameBoard extends Component{
                 }
             }
         console.log(tileArr);
-        SetBoard(tileArr);
+        //SetBoard(tileArr);
         return tileArr;
     }
     getPrev(tileArr, row, col){
@@ -82,15 +82,17 @@ class GameBoard extends Component{
                             ))
 
                         }
-                        { this.state.board.map(row =>(
-                            row.map(tile =>(
-                                <div className={"grid-cell"}>
-                                    <img className={"tile"}
-                                         src = {`./images/${tile.getPiece()}-board.jpg`}/>
-                                </div>
-                            ))
-                        ))}
                     </div>
+                <div className="grid">
+                    { this.state.board.map(row =>(
+                        row.map(tile =>(
+                            <div className={"grid-cell"}>
+                                <img className={"tile"}
+                                     src = {`./images/${tile.getPiece()}-board.jpg`}/>
+                            </div>
+                        ))
+                    ))}
+                </div>
             </div>
         )
 

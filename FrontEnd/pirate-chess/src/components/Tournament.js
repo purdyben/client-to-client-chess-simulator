@@ -2,8 +2,8 @@ import React from 'react';
 
 const Tournament = () => (
     <header className="App-header">
-      Tournament
+        Tournament
     </header>
-  )
+);
 
 export default Tournament;
