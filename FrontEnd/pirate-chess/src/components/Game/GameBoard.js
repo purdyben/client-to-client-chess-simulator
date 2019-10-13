@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import getPieces from "./getPieces";
-
+import tile from '../Game/tile';
+import Pawn from '../Game/GamePieces/Pawn'
 
 class GameBoard extends Component{
     constructor(props){
@@ -17,9 +17,8 @@ class GameBoard extends Component{
            player: 2 ,
            type: 'black'
         }]
-
-
     };
+
     popTile(){
         var tileArr: any=  [[],[],[],[],
             [],[],[],[]];
@@ -29,55 +28,56 @@ class GameBoard extends Component{
                     if(j%8 === 0){
                         tileArr[i].push(new tile({
                             Id: i*j + j,
-                            piece: "null",
+                            piece: null,
                             color: this.getPrev(tileArr, i,j).getColor()
                         }));
-                    }else if(this.getPrev(tileArr,i,j).getColor() !== "dark"){
+                    }else if(this.getPrev(tileArr,i,j).getColor() !== "OrangeTile"){
                         tileArr[i].push(new tile({
                             Id: i*j + j,
-                            piece: "null",
-                            color: "dark"
+                            piece: null,
+                            color: "OrangeTile"
                         }));
 
-                    }else if(this.getPrev(tileArr,i,j).getColor() !== "light"){
+                    }else if(this.getPrev(tileArr,i,j).getColor() !== "WhiteTile"){
                         tileArr[i].push(new tile({
                             Id: i*j + j,
-                            piece: "null",
-                            color: "light"
+                            piece: null,
+                            color: "WhiteTile"
                         }));
                     }
                 }
             }
         console.log(tileArr);
-        this.setPawns(tileArr);
-        //SetBoard(tileArr);
+        this.setDefaultBoard(tileArr);
         return tileArr;
     }
-    setPawns(tileArr) {
-        var Whitepawns = tileArr[6];
-        var Blackpawns = tileArr[1];
-        Whitepawns.map(tile =>{
-                tile.setPiece("test9")
-            }
-        );
-        Blackpawns.map(tile =>{
-                tile.setPiece("test9")
-            }
-        );
-
-    }
+    setDefaultBoard(tileArr) {
+        var Default = ["Rook","Knight","Bishop","Queen","King","Bishop","Knight","Rook"];
+        var White = tileArr[6];
+        var Black = tileArr[1];
+        var i;
+       for(i = 0 ; i < 8 ; i++){
+           White[i].setPiece(new Pawn({tile: tileArr[i],name: "WhitePawn"}));
+           Black[i].setPiece(new Pawn({tile: tileArr[i], name: "BlackPawn"}));
+       }
+        // White = tileArr[7];
+        // Black = tileArr[0];
+        //
+        // for(i = 0; i < 8 ; i++){
+        //     White[i].setPiece("White"+Default[i]);
+        //     Black[i].setPiece("Black"+Default[i]);
+        // }
+    };
     getPrev(tileArr, row, col){
 
         if(row === 0 && col === 0){
             return(new tile({
                 Id: 0,
                 piece: "null",
-                color: "light",}));
+                color: "WhiteTile",}));
         }else if(col === 0) {
-            //console.log("i:" + row+" "+"j: " + col);
             return(tileArr[row-1][7])
         }else{
-            //console.log("i:" + row+" "+"j: " + col);
             return(tileArr[row][col-1])
             }
         }
@@ -90,22 +90,23 @@ class GameBoard extends Component{
                                row.map(tile =>(
                                     <div className={"grid-cell"}>
                                         <img className={"tile"}
-                                             src = {`./images/${tile.getColor()}-board.jpg`}/>
+                                             src = {`./images/${tile.getColor()}.png`}/>
                                     </div>
                                     ))
                             ))
 
                         }
                     </div>
+                <div><h1>this is a divider</h1></div>
                 <div className="grid">
                     { this.state.board.map(row =>(
                         row.map(tile =>(
-                            <div className={"grid-cell"}>
-                                <img className={"tile"}
-                                     src = {`./images/${tile.getPiece()}-board.jpg`}/>
-                            </div>
+                            renderPieces(tile)
                         ))
                     ))}
+                    <div>
+                        {}
+                    </div>
                 </div>
             </div>
         )
@@ -113,36 +114,23 @@ class GameBoard extends Component{
     }
 }
 export default GameBoard;
+function renderPieces(tile){
+   var arr = [];
+   var i;
+   console.log(tile.getPiece());
+      if(tile.getPiece() !== null){
+         return(<div className={"grid-cell"}>
+              <img className={"tile"}
+                   src = {`./images/${tile.getPiece().getName()}.png`}/>
+          </div>)
+      }else{
+          return(<div className={"grid-cell"}>
+              <img className={"tile"}
+                   src = {`./images/${tile.getColor()}.png`}/>
+          </div>)
+      }
 
-class tile extends Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            Id: props.Id,
-            piece: props.piece,
-            color: props.color};
-        this.getColor = this.getColor.bind(this);
-        this.getId = this.getId.bind(this);
-        this.getpiece = this.getPiece.bind((this));
-    };
-    state = {
-        Id:"",
-        piece: "",
-        color: null,
-
-    };
-    getColor(){
-        return(this.state.color);
-    }
-    getPiece(){
-        return(this.state.piece);
-    }
-    getId(){
-        return(this.state.Id)
-    }
-    setPiece = (pie) => {
-        this.state.piece = pie;
-    }
 }
+
 
 
