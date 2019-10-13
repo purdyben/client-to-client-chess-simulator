@@ -100,6 +100,7 @@ class GameBoard extends Component{
             return(tileArr[row][col-1])
             }
         }
+
     render(){
         return(
             <div className="gamePage">
@@ -120,12 +121,10 @@ class GameBoard extends Component{
                 <div className="grid">
                     { this.state.board.map(row =>(
                         row.map(tile =>(
-                            renderPieces(tile)
+                            renderPiece(tile)
                         ))
                     ))}
-                    <div>
-                        {}
-                    </div>
+
                 </div>
             </div>
         )
@@ -133,23 +132,46 @@ class GameBoard extends Component{
     }
 }
 export default GameBoard;
-function renderPieces(tile){
-   var arr = [];
-   var i;
-   //console.log(tile.getPiece());
+function renderPiece(tile){
       if(tile.getPiece() !== null){
-
-         return(<div className={"grid-cell"}>
-              <img className={"tile"}
-                   src = {`./images/${tile.getPiece().getName()}.png`}/>
-          </div>)
+          if(tile.getColor() === "OrangeTile"){
+              return(<div className={"grid-cell"}>
+                  <img style = {styles.OrangeTile} className={"tile"}
+                       src = {`./images/${tile.getPiece().getName()}.png`}/>
+              </div>)
+          }else{
+              return(<div className={"grid-cell"}>
+                  <img style = {styles.WhiteTile} className={"tile"}
+                       src = {`./images/${tile.getPiece().getName()}.png`}/>
+              </div>)
+          }
       }else{
-          return(<div className={"grid-cell"}>
-              <img className={"tile"}
-                   src = {`./images/${tile.getColor()}.png`}/>
-          </div>)
+          if(tile.getColor() !== "OrangeTile"){
+              console.log(tile.getColor() + "!== Orange" + tile.getId()) ;
+              return(<div className={"grid-cell"}>
+                  <img style = {styles.BlackTile} className={"tile"}
+                       src = {`./images/${tile.getColor()}.png`}/>
+              </div>)
+          }else if(tile.getColor() !== "WhiteTile"){
+              console.log(tile.getColor() + "=== Orange");
+              return(<div className={"grid-cell"}>
+                  <img style = {styles.BlackTile} className={"tile"}
+                       src = {`./images/${tile.getColor()}.png`}/>
+              </div>)
+          }
       }
 
+}
+const styles = {
+    WhiteTile: {
+        backgroundImage: `url('./images/WhiteTile.png')`
+    },
+    BlackTile:{
+        backgroundImage: `url('./images/BlackTile.png')`
+    },
+    OrangeTile:{
+        backgroundImage: `url('./images/OrangeTile.png')`
+    }
 }
 
 

@@ -54,6 +54,11 @@
     height: 5%;
     width: 75%;
 }
+#testImage{
+    background-image: url('/public/images/WhiteTile.png');
+    height: 10vmin;
+    width: 10vmin;
+}
 
 @keyframes App-logo-spin {
     from {
