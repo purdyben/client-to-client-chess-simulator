@@ -10,13 +10,19 @@ class King extends Component{
             tile: props.tile,
             name: props.name
         };
-        this.getName = this.getName.bind(this)
+        this.getName = this.getName.bind(this);
+        this.setTile = this.setTile.bind(this);
+        this.setName = this.setName.bind(this);
     }
     getName(){
         return(this.state.name);
     }
-
-
+    setName(newName){
+        this.state.name = newName;
+    }
+    setTile(newTile){
+        this.state.tile = newTile;
+    }
 
     // PosibleMoves(){
     //

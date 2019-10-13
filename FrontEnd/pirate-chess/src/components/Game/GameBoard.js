@@ -1,6 +1,11 @@
 import React, {Component} from 'react';
 import tile from '../Game/tile';
 import Pawn from '../Game/GamePieces/Pawn'
+import Rook from "./GamePieces/Rook";
+import Knight from "./GamePieces/Knight";
+import Bishop from "./GamePieces/Bishop";
+import Queen from "./GamePieces/Queen";
+import King from "./GamePieces/King";
 
 class GameBoard extends Component{
     constructor(props){
@@ -52,7 +57,7 @@ class GameBoard extends Component{
         return tileArr;
     }
     setDefaultBoard(tileArr) {
-        var Default = ["Rook","Knight","Bishop","Queen","King","Bishop","Knight","Rook"];
+        var Default = this.startingPiecesArr();
         var White = tileArr[6];
         var Black = tileArr[1];
         var i;
@@ -60,14 +65,28 @@ class GameBoard extends Component{
            White[i].setPiece(new Pawn({tile: tileArr[i],name: "WhitePawn"}));
            Black[i].setPiece(new Pawn({tile: tileArr[i], name: "BlackPawn"}));
        }
-        // White = tileArr[7];
-        // Black = tileArr[0];
-        //
-        // for(i = 0; i < 8 ; i++){
-        //     White[i].setPiece("White"+Default[i]);
-        //     Black[i].setPiece("Black"+Default[i]);
-        // }
+        White = tileArr[7];
+        Black = tileArr[0];
+        for(i = 0; i < 8 ; i++){
+            Default[i].setTile(White[i]);
+            Default[i].setName("White"+Default[i].getName());
+             White[i].setPiece(Default[i]);
+        }
+        for(i = 0; i < 8 ; i++) {
+            Default = this.startingPiecesArr();
+            Default[i].setTile(Black[i]);
+            Default[i].setName("Black" + Default[i].getName());
+            Black[i].setPiece(Default[i]);
+        }
+        console.log(tileArr);
     };
+
+    startingPiecesArr() {
+        return([new Rook({name: "Rook"}),new Knight({name: "Knight"}),new Bishop({name: "Bishop"}),
+            new Queen({name: "Queen"}),new King({name: "King"}),new Bishop({name: "Bishop"}),
+            new Knight({name: "Knight"}),new Rook({name: "Rook"})]);
+    }
+
     getPrev(tileArr, row, col){
 
         if(row === 0 && col === 0){
@@ -117,8 +136,9 @@ export default GameBoard;
 function renderPieces(tile){
    var arr = [];
    var i;
-   console.log(tile.getPiece());
+   //console.log(tile.getPiece());
       if(tile.getPiece() !== null){
+
          return(<div className={"grid-cell"}>
               <img className={"tile"}
                    src = {`./images/${tile.getPiece().getName()}.png`}/>

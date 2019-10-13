@@ -13,12 +13,6 @@ class tile extends Component{
         this.getPiece = this.getPiece.bind(this);
         this.setPiece = this.setPiece.bind((this));
     };
-    state = {
-        Id:"",
-        piece: Pawn,
-        color: null,
-
-    };
     getColor(){
         return(this.state.color);
     }
