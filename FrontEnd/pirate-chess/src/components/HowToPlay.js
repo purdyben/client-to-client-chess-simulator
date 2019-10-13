@@ -1,9 +1,14 @@
 import React from 'react';
 
-const HowToPlay = () => (
-    <header className="App-header">
+export default class CreateAccount extends React.Component {
+  
+  //get and post methods here
+  
+  render() {
+    return (
+      <header className="App-header">
         How To Play
-    </header>
-);
-
-export default HowToPlay;
+      </header>
+    )
+  }
+}

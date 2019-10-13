@@ -1,10 +1,6 @@
 import React from 'react';
 
-const Leaderboard = () => (
-    <header className="App-header">
-        Leaderboard
-    </header>
-);
+class Leaderboard extends React.Component{
 
+}
 export default Leaderboard;
-  

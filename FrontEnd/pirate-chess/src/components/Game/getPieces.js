@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-
-
 class getPieces extends Component{
     state = {
         whitePieces: [],
@@ -10,12 +8,7 @@ class getPieces extends Component{
 
     };
     defaultBoard(){
-
     };
-
-
-
-
     render(){
         this.defaultBoard();
         return(null)

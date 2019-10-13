@@ -1,9 +1,14 @@
 import React from 'react';
 
-const Tournament = () => (
-    <header className="App-header">
-        Tournament
-    </header>
-);
+export default class CreateAccount extends React.Component {
 
-export default Tournament;
+    //get and post methods here
+
+    render() {
+        return (
+            <header className="App-header">
+                Tournament
+            </header>
+        )
+    }
+}
