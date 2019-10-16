@@ -23,10 +23,18 @@ class Pawn extends Component{
     setTile(newTile){
         this.state.tile = newTile;
     }
-
-
     // PosibleMoves(){
     //
     // };
+    render(){
+        return(
+            <div>
+                <h1>hello</h1>
+                <img className={"tile"}
+                     src = {`./images/${this.state.name+"Pawn"}.png`}/>
+            </div>
+        );
+    }
+
 }
 export default Pawn;

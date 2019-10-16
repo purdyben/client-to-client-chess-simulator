@@ -40,7 +40,7 @@ function App() {
                 <Route exact path="/profile" component={Profile}/>
                 <Route exact path="/settings" component={Settings}/>
                 <Route exact path="/howToPlay" component={HowToPlay}/>
-
+                <Route exact path="/personList" component={personList}/>
             </div>
         </Router>
     );

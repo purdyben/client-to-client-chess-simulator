@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import tile from '../tile';
+import ReactDOM from 'react-dom';
 import Draggable from 'react-draggable';
 
 

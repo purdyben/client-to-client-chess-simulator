@@ -14,6 +14,8 @@
 
 .App-header {
     background-color: #282c34;
+    height: 100%;
+    width: 100%;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -26,18 +28,39 @@
     background-color: #282c34;
     min-height: 100vh;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+.gameBoard{
+    background-color: black;
+    height: 100%;
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+.BoardNum{
+    height: 90%;
+    width: 90%;
 }
 .tile{
     height: 10vmin;
     width: 10vmin;
-
     cursor: pointer;
     move-to: pointer;
-}
 
+}
+.leftRow{
+    background-color: black;
+    float:right;
+    display:inline;
+    margin-bottom: 0;
+    margin-top: 0;
+    height: 80px;
+    width: 80px;
+
+}
 .grid {
     display: grid;
     grid-template-columns: repeat(8, 0fr);
@@ -46,10 +69,6 @@
 .grid-cell {
     position: relative;
 }
-.App-link {
-    color: #61dafb;
-}
-
 .Login-buttons {
     height: 5%;
     width: 75%;
