@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PiecesEnum from './PiecesEnum'
+
 
 class getPieces extends Component{
     state = {
@@ -10,8 +10,7 @@ class getPieces extends Component{
 
     };
     defaultBoard(){
-        this.state.whitePieces = PiecesEnum.StartingSet();
-        console.log(this.state.whitePieces[0]);
+
     };
 
 
