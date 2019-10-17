@@ -7,9 +7,13 @@ export default class Leaderboard extends React.Component {
     persons: []
   }
   componentDidMount() {
+    //https://jsonplaceholder.typicode.com/users
+    //coms-309-bs-4.misc.iastate.edu:8080/test/hello
     axios.get(`https://jsonplaceholder.typicode.com/users`)
       .then(res => {
-        console.log(res);
+        console.log(res.data);
+        this.setState({persons : res.data});
+        console.log(this.state.persons);
       })
   }
   
@@ -49,54 +53,6 @@ export default class Leaderboard extends React.Component {
             </tr>
             <tr>
               <th scope="row">3</th>
-              <td>[Name]</td>
-              <td>[Point Value]</td>
-              <td>[Rank]</td>
-            </tr>
-            <tr>
-              <th scope="row">4</th>
-              <td>[Name]</td>
-              <td>[Point Value]</td>
-              <td>[Rank]</td>
-            </tr>
-            <tr>
-              <th scope="row">5</th>
-              <td>[Name]</td>
-              <td>[Point Value]</td>
-              <td>[Rank]</td>
-            </tr>
-            <tr>
-              <th scope="row">6</th>
-              <td>[Name]</td>
-              <td>[Point Value]</td>
-              <td>[Rank]</td>
-            </tr>
-            <tr>
-              <th scope="row">7</th>
-              <td>[Name]</td>
-              <td>[Point Value]</td>
-              <td>[Rank]</td>
-            </tr>
-            <tr>
-              <th scope="row">8</th>
-              <td>[Name]</td>
-              <td>[Point Value]</td>
-              <td>[Rank]</td>
-            </tr>
-            <tr>
-              <th scope="row">9</th>
-              <td>[Name]</td>
-              <td>[Point Value]</td>
-              <td>[Rank]</td>
-            </tr>
-            <tr>
-              <th scope="row">10</th>
-              <td>[Name]</td>
-              <td>[Point Value]</td>
-              <td>[Rank]</td>
-            </tr>
-            <tr>
-              <th scope="row">11</th>
               <td>[Name]</td>
               <td>[Point Value]</td>
               <td>[Rank]</td>
