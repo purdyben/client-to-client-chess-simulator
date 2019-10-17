@@ -4,16 +4,17 @@ import {Table, Button, ButtonGroup} from 'reactstrap';
 
 export default class Leaderboard extends React.Component {
   state = {
-    persons: []
+    persons: [],
+    name: ""
   }
   componentDidMount() {
-    //https://jsonplaceholder.typicode.com/users
     //coms-309-bs-4.misc.iastate.edu:8080/test/hello
     axios.get(`https://jsonplaceholder.typicode.com/users`)
       .then(res => {
-        console.log(res.data);
+        console.log(res.data[0]);
         this.setState({persons : res.data});
-        console.log(this.state.persons);
+        console.log(this.state.persons[0].name);
+        this.setState({name : res.data[0].name});
       })
   }
   
@@ -41,7 +42,7 @@ export default class Leaderboard extends React.Component {
           <tbody>
             <tr>
               <th scope="row">1</th>
-              <td>[Name]</td>
+              <td>{this.state.name}</td>
               <td>[Point Value]</td>
               <td>[Rank]</td>
             </tr>
