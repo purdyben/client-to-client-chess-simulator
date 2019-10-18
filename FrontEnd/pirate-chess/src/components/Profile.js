@@ -27,6 +27,8 @@ export default class Profile extends React.Component {
           <Row>
             <Col>
             <img src="logo.png" className="App-logo-small" alt="logo" />
+            <br></br>
+            <Button color="primary" size="sm" href="/mainScreen">Main Screen</Button>
               <h1>
                 Profile
               </h1>
@@ -35,7 +37,7 @@ export default class Profile extends React.Component {
                 [Username]
               </div>
               <ButtonGroup>
-                <Button color="primary" href="/profile">Profile Settings</Button>
+                <Button color="primary" href="/settings">Settings</Button>
                 <Button color="primary" href="/leaderboard">Leaderboard</Button>
               </ButtonGroup>
               <div>

@@ -26,8 +26,12 @@ export default class Leaderboard extends React.Component {
   render() {
     return (
       <header className="App-header">
-      <img src="logo.png" className="App-logo-small" alt="logo" />
-        Leaderboard
+        <img src="logo.png" className="App-logo-small" alt="logo" />
+        <Button color="primary" size="sm" href="/mainScreen">Main Screen</Button>
+        <br></br>
+        <h1>
+          Leaderboard
+        </h1>
         <div className="Leaderboard-Buttons">
           <ButtonGroup size="lg">
             <Button color="primary" href="/leaderboard">All Time</Button>

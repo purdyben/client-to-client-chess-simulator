@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {Dropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
+import {Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button} from 'reactstrap';
 import {Container, Row, Col} from 'react-bootstrap';
 
 export default class Settings extends React.Component {
@@ -42,14 +42,16 @@ export default class Settings extends React.Component {
           <Container>
             <Row>
               <Col>
-                <img src="logo.png" className="App-logo-small" alt="logo" />
+                <img src="logo.png" className="App-logo" alt="logo" />
+                <br></br>
+                <Button color="primary" size="sm" href="/mainScreen">Main Screen</Button>
                 <h1>
                   Settings
                 </h1>
               </Col>
               <Col>
                 <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} size="lg">
-                <DropdownToggle caret color="primary">
+                <DropdownToggle caret color="primary" block>
                   Theme
                 </DropdownToggle>
                 <DropdownMenu>
