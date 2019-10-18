@@ -11,11 +11,16 @@ export default class Leaderboard extends React.Component {
     //coms-309-bs-4.misc.iastate.edu:8080/test/hello
     axios.get(`https://jsonplaceholder.typicode.com/users`)
       .then(res => {
-        console.log(res.data[0]);
+        //console.log(res.data[0]);
         this.setState({persons : res.data});
-        console.log(this.state.persons[0].name);
+        //console.log(this.state.persons[0].name);
         this.setState({name : res.data[0].name});
       })
+
+      axios.get('http://coms-309-bs-4.misc.iastate.edu:8080/test/hello')
+          .then(response => {
+              console.log(response);
+          });
   }
   
   render() {
