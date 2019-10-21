@@ -89,9 +89,9 @@ frontend:
     - node_modules/
  
  stage: frontend  
-  only:
-   - master
-   - configuring-ci-cd
+  #only:
+   #- master
+   #- configuring-ci-cd
  #before_script:
   #- export GRADLE_USER_HOME=`pwd`/.gradle
   #- chmod +x ./Experiments/gradlew
@@ -110,9 +110,9 @@ frontend:
 
 test_async:
   stage: test_async
-   only:
-    - master
-    - configuring-ci-cd
+   #only:
+    #- master
+    #- configuring-ci-cd
    script:
     - cd FrontEnd/pirate-chess/src
     - npm install
@@ -120,9 +120,9 @@ test_async:
    
 test_db:
   stage: test_db
-   only:
-    - master
-    - configuring-ci-cd
+   #only:
+    #- master
+    #- configuring-ci-cd
    script:
     - cd FrontEnd/pirate-chess/src
     - npm install
