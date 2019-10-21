@@ -89,8 +89,9 @@ frontend:
     - node_modules/
  
  stage: frontend  
- only:
-  - master
+  only:
+   - master
+   - configuring-ci-cd
  #before_script:
   #- export GRADLE_USER_HOME=`pwd`/.gradle
   #- chmod +x ./Experiments/gradlew
@@ -108,16 +109,24 @@ frontend:
   #- /Experiments/android/
 
 test_async:
-  script:
-   - cd FrontEnd/pirate-chess/src
-   - npm install
-   - node ./specs/start.js ./specs/async.spec.js
+  stage: test_async
+   only:
+    - master
+    - configuring-ci-cd
+   script:
+    - cd FrontEnd/pirate-chess/src
+    - npm install
+    - node ./specs/start.js ./specs/async.spec.js
    
 test_db:
-  script:
-   - cd FrontEnd/pirate-chess/src
-   - npm install
-   - node ./specs/start.js ./specs/db-postgres.spec.js
+  stage: test_db
+   only:
+    - master
+    - configuring-ci-cd
+   script:
+    - cd FrontEnd/pirate-chess/src
+    - npm install
+    - node ./specs/start.js ./specs/db-postgres.spec.js
 
 
 
