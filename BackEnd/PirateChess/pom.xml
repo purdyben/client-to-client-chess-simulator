@@ -12,6 +12,7 @@
 	<groupId>com.piratechess</groupId>
 	<artifactId>PirateChess</artifactId>
 	<name>PirateChess</name>
+		<version>1.0.0</version>
 	<description>CS309 Project</description>
 
 	<properties>
