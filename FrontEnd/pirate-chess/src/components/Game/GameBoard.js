@@ -8,11 +8,15 @@ import Queen from "./GamePieces/Queen";
 import King from "./GamePieces/King";
 import HandleMovment from './HandleMovment'
 
+const  movement = new HandleMovment();
+
 class GameBoard extends Component {
     constructor(props) {
         super(props);
         this.popTile = this.popTile.bind(this);
+        this._imageClick = this._imageClick.bind(this);
     }
+
     state = {
         board: this.popTile(),
         time: 10,
@@ -23,8 +27,11 @@ class GameBoard extends Component {
         }, {
             player: 2,
             type: 'black'
-        }]
+        }],
+        selectTile: false,
+
     };
+
     popTile() {
         let tileArr: any = [[], [], [], [],
             [], [], [], []];
@@ -104,71 +111,102 @@ class GameBoard extends Component {
         }
     }
 
+    _imageClick(tile) {
+        //this.state.board[0][0].movePiece(this.state.board[0][3]);
+        console.log(this.state);
+        console.log(movement);
+        if(movement.state.ifSelected === false){
+            movement.state.selectedTile = tile;
+            movement.state.ifSelected = true;
+
+        }else{
+            movement.moveablePiece(movement.getSelectedTile(),tile);
+            movement.reset()
+        }
+        this.forceUpdate();
+
+         //movement.moveablePiece(this.state.board[6][4], this.state.board[5][4]);
+
+    }
+
+
+    _getTile() {
+
+    }
+
     render() {
         return (
-
             <div className='gamePage'>
-                {this.state.board[0][0].movePiece(this.state.board[0][3])}
+                {/*{this.state.board[0][0].movePiece(this.state.board[0][3])}*/}
                 <div className='flex-row'>
-                        {[this.state.board[0][0],this.state.board[1][0],this.state.board[2][0],this.state.board[3][0],
-                            this.state.board[4][0],this.state.board[5][0],this.state.board[6][0],this.state.board[7][0]].map(tile => (
-                            displayNum(tile,true)
-                        ))}
+                    {[this.state.board[0][0], this.state.board[1][0], this.state.board[2][0], this.state.board[3][0],
+                        this.state.board[4][0], this.state.board[5][0], this.state.board[6][0], this.state.board[7][0]].map(tile => (
+                        this.displayNum(tile, true)
+                    ))}
                 </div>
                 <div className='gameBoard'>
                     <div className="grid">
                         {this.state.board.map(row => (
                             row.map(tile => (
-                                renderPiece(tile)
+                                this.renderPiece(tile)
                             ))
                         ))}
                         {this.state.board[7].map(tile => (
-                            displayNum(tile,false)
+                            this.displayNum(tile, false)
                         ))}
                     </div>
                 </div>
-                {/*<button onClick={movePiece(this.state.board[0][0],this.state.board[3][3])}>button</button>*/}
+                <button onClick={this._imageClick}>Click me</button>
             </div>
         )
     }
-    imageClick() {
-        this.state.board[2][0].setState({piece: this.state.board[0][0]});
-        this.state.board[0][0].setState({piece: null});
-        console.log(this.state.board[0][0].getPiece());
-    }
-}
 
-export default GameBoard;
-function renderPiece(tile) {
-    if (tile.getPiece() !== null) {
-        if (tile.getColor() === "OrangeTile") {
-            return (<div className={"grid-cell"}>
-                    <img style={styles.OrangeTile} className={"tile"}
-                         src={`./images/${tile.getPiece().getName()}.png`} alt={`${tile.getId()}`}/>
-                </div>
-            )
+    displayNum(tile, left) {
+        if (tile.getId().substring(0, 1) === "a" && left === true) {
+            return (<div className={"grid-cell"} key={`${tile.getId()}`}>
+                <p className={"leftRow"} >{tile.getId().substring(1,2)}</p>
+            </div>)
+        }
+        else if (tile.getId().substring(1, 2) === "1") {
+            return (<div className={"grid-cell"} key={`${tile.getId()}`}>
+                <p className={"tile"}>{tile.getId()}</p>
+            </div>)
+        }
+    }
+
+    renderPiece(tile) {
+        if (tile.getPiece() !== null) {
+            if (tile.getColor() === "OrangeTile") {
+                return (<div className={"grid-cell"} key={`${tile.getId()}`}>
+                        <img style={styles.OrangeTile} className={"tile"}
+                             src={`./images/${tile.getPiece().getName()}.png`} onClick={() => this._imageClick(tile)}
+                             alt={`${tile.getId()}`}/>
+                    </div>
+                )
+            } else {
+                return (
+                    <div className={"grid-cell"} key={`${tile.getId()}`}>
+                        <img style={styles.WhiteTile} className={"tile"}
+                             src={`./images/${tile.getPiece().getName()}.png`} onClick={() => this._imageClick(tile)}
+                             alt={`${tile.getId()}`}/>
+                    </div>
+                )
+            }
         } else {
-            return (
-                <div className={"grid-cell"}>
-                    <img style={styles.WhiteTile} className={"tile"}
-                         src={`./images/${tile.getPiece().getName()}.png`} alt={`${tile.getId()}`}/>
-                </div>
-            )
+            if (tile.getColor() === "OrangeTile") {
+                return (<div className={"grid-cell"} key={`${tile.getId()}`}>
+                    <img style={styles.OrangeTile} className={"tile"} onClick={() => this._imageClick(tile)}/>
+                </div>)
+            } else if (tile.getColor() === "WhiteTile") {
+                return (<div className={"grid-cell"} key={`${tile.getId()}`}>
+                    <img style={styles.WhiteTile} className={"tile"} onClick={() => this._imageClick(tile)}/>
+                </div>)
+            }
         }
-    } else {
-        if (tile.getColor() === "OrangeTile") {
-            return (<div className={"grid-cell"}>
-                <img style={styles.OrangeTile} className={"tile"}/>
-            </div>)
-        } else if (tile.getColor() === "WhiteTile") {
-            return (<div className={"grid-cell"}>
-                <img style={styles.WhiteTile} className={"tile"}/>
-            </div>)
-        }
+        console.log(tile)
     }
-
 }
-
+export default GameBoard;
 const styles = {
     WhiteTile: {
         backgroundImage: `url('./images/WhiteTile.png')`
@@ -181,18 +219,6 @@ const styles = {
     }
 };
 
-function displayNum(tile,left) {
-    if (tile.getId().substring(0, 1) === "a" && left === true) {
-        return (<div className={"grid-cell"}>
-            <p className={"leftRow"} >{tile.getId().substring(1,2)}</p>
-        </div>)
-    }
-    else if (tile.getId().substring(1, 2) === "1") {
-        return (<div className={"grid-cell"}>
-            <p className={"tile"}>{tile.getId()}</p>
-        </div>)
-    }
-}
 
 
 
