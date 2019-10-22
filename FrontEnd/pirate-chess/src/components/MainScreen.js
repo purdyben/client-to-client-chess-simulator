@@ -5,7 +5,7 @@ const MainScreen = () => (
     <header className="App-header">
         <img src="logo.png" className="App-logo-small" alt="logo"/>
         <div className="Login-buttons">
-            <Button color="primary" size="lg" href="/personList" block>HTTPList</Button>
+            {/*<Button color="primary" size="lg" href="/personList" block>HTTPList</Button>*/}
             <Button color="primary" size="lg" href="/" block>Home</Button>
             <Button color="primary" size="lg" href="/GameBoard" block>GameBoard</Button>
             <Button color="primary" size="lg" href="/tournament" block>Tournament</Button>
