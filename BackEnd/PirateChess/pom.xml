@@ -11,8 +11,8 @@
 	</parent>
 	<groupId>com.piratechess</groupId>
 	<artifactId>PirateChess</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
 	<name>PirateChess</name>
+		<version>1.0.0</version>
 	<description>CS309 Project</description>
 
 	<properties>
@@ -20,7 +20,7 @@
 	</properties>
 
 	<dependencies>
-	<dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
@@ -54,8 +54,14 @@
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-feed</artifactId>
+		</dependency>
+
+
 	</dependencies>
-<build>
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -81,5 +87,5 @@
 		</plugins>
 	</build>
 
-	
+
 </project>
