@@ -34,7 +34,7 @@ class tile extends Component {
        finalTile.setPiece(this.state.piece);
        console.log(this,finalTile);
       this.state.piece = null;
-
+        console.log(this,finalTile);
     }
 }
 

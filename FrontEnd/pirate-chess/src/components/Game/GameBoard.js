@@ -112,20 +112,16 @@ class GameBoard extends Component {
     }
 
     _imageClick(tile) {
-        //this.state.board[0][0].movePiece(this.state.board[0][3]);
-        console.log(this.state);
+        console.log(this.state.board)
         console.log(movement);
         if(movement.state.ifSelected === false){
             movement.state.selectedTile = tile;
             movement.state.ifSelected = true;
-
         }else{
             movement.moveablePiece(movement.getSelectedTile(),tile);
             movement.reset()
         }
         this.forceUpdate();
-
-         //movement.moveablePiece(this.state.board[6][4], this.state.board[5][4]);
 
     }
 
@@ -156,7 +152,6 @@ class GameBoard extends Component {
                         ))}
                     </div>
                 </div>
-                <button onClick={this._imageClick}>Click me</button>
             </div>
         )
     }
@@ -173,10 +168,13 @@ class GameBoard extends Component {
             </div>)
         }
     }
-
     renderPiece(tile) {
+        if(tile.getId() == "c3") {
+            console.log("dipshit look at me", tile.getId() == "c3");
+            console.log("The vodka takes away my pain", tile.getPiece());
+        }
         if (tile.getPiece() !== null) {
-            if (tile.getColor() === "OrangeTile") {
+            if (tile.getColor() == "OrangeTile") {
                 return (<div className={"grid-cell"} key={`${tile.getId()}`}>
                         <img style={styles.OrangeTile} className={"tile"}
                              src={`./images/${tile.getPiece().getName()}.png`} onClick={() => this._imageClick(tile)}
@@ -193,13 +191,13 @@ class GameBoard extends Component {
                 )
             }
         } else {
-            if (tile.getColor() === "OrangeTile") {
+            if (tile.getColor() == "OrangeTile") {
                 return (<div className={"grid-cell"} key={`${tile.getId()}`}>
-                    <img style={styles.OrangeTile} className={"tile"} onClick={() => this._imageClick(tile)}/>
+                    <img src='./images/OrangeTile.png'className={"tile"} onClick={() => this._imageClick(tile)}/>
                 </div>)
             } else if (tile.getColor() === "WhiteTile") {
                 return (<div className={"grid-cell"} key={`${tile.getId()}`}>
-                    <img style={styles.WhiteTile} className={"tile"} onClick={() => this._imageClick(tile)}/>
+                    <img src='./images/WhiteTile.png' className={"tile"} onClick={() => this._imageClick(tile)}/>
                 </div>)
             }
         }
