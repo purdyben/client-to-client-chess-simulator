@@ -93,9 +93,9 @@ frontend:
     - node_modules/
  
  stage: frontend  
-   only:
-   - master
-   - configuring-ci-cd
+ only:
+  - master
+  - configuring-ci-cd
   script:
     - cd FrontEnd/pirate-chess/src
     - npm install
