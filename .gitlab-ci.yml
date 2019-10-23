@@ -55,11 +55,12 @@ autoDeploy:
  tags:
   - backend
  script:
-  #- cd BackEnd/PirateChess
+  - cd BackEnd/PirateChess
   #ls for debugging
   - ls
   - mvn package
   #- sudo mv target/*.jar target/web-demo.jar
+  - cd
   - sudo mv BackEnd/PirateChess/target/*.jar target/web-demo.jar
   #- sudo mv target/PirateChess-0.0.1-SNAPSHOT.jar target/web-demo.jar
   #ls target for debugging
