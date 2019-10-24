@@ -78,6 +78,13 @@ autoDeploy:
 FrontEnd:
  image: node:latest
  stage: frontend
+ services:
+  - mysql:latest
+  - redis:latest
+  - postgres:latest
+ cache:
+  paths:
+   - node_modules/
  only:
   - master
   - configuring-ci-cd
@@ -86,7 +93,10 @@ FrontEnd:
  script:
   - cd FrontEnd/pirate-chess/src
   - npm install
-  - npm run-script build
+  - npm install -g nodemon
+  
+  - node App.js
+  #- npm run-script build
  #services:
   #- mysql:latest
   #- redis:latest
