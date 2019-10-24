@@ -78,10 +78,10 @@ autoDeploy:
 FrontEnd:
  image: node:latest
  stage: frontend
-  script:
-   - cd FrontEnd/pirate-chess/src
-   - npm install
-   - npm run-script build
+ script:
+  - cd FrontEnd/pirate-chess/src
+  - npm install
+  - npm run-script build
  #services:
   #- mysql:latest
   #- redis:latest
