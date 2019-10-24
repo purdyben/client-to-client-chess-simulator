@@ -75,8 +75,13 @@ autoDeploy:
 # building apk.   
 # Ensure the tag matches with the tag created for Android runner
 # Android runner should have docker as executor.
-#FrontEnd:
- #stage: frontend
+FrontEnd:
+ image: node:latest
+ stage: frontend
+  script:
+   - cd FrontEnd/pirate-chess/src
+   - npm install
+   - npm run-script build
  #services:
   #- mysql:latest
   #- redis:latest
@@ -85,7 +90,6 @@ autoDeploy:
   #paths:
     #- node_modules/
     
- #image: node:latest
  
  #stage: frontend  
  #only:
