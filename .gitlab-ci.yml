@@ -61,6 +61,7 @@ autoDeploy:
   - mvn package
   #- sudo mv target/*.jar target/web-demo.jar
   - cd
+  - ls
   - sudo mv BackEnd/PirateChess/target/*.jar target/web-demo.jar
   #- sudo mv target/PirateChess-0.0.1-SNAPSHOT.jar target/web-demo.jar
   #ls target for debugging
