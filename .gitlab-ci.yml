@@ -92,6 +92,9 @@ FrontEnd:
   - backend
  script:
   - cd FrontEnd/pirate-chess/src
+  #debugging node
+  - npm -v
+  #
   - npm install
   - npm install -g nodemon
   
