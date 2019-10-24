@@ -78,6 +78,11 @@ autoDeploy:
 FrontEnd:
  image: node:latest
  stage: frontend
+ only:
+  - master
+  - configuring-ci-cd
+ tags:
+  - backend
  script:
   - cd FrontEnd/pirate-chess/src
   - npm install
