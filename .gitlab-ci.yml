@@ -99,8 +99,8 @@ FrontEnd:
   #
   - npm install
   - npm install -g nodemon
-  
-  - node App.js
+  - npm run-script build
+  #- node App.js
   #- npm run-script build
  #services:
   #- mysql:latest
