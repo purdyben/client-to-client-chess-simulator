@@ -84,7 +84,8 @@ FrontEnd:
   - postgres:latest
  cache:
   paths:
-   - node_modules/
+   #- node_modules/
+   - .nvm/versions/node/v13.0.1/lib/node_modules/
  only:
   - master
   - configuring-ci-cd
