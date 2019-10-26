@@ -101,8 +101,6 @@ FrontEnd:
   - npm install
   - npm install -g nodemon
   - npm run-script build
-  #- node App.js
-  #- npm run-script build
  #services:
   #- mysql:latest
   #- redis:latest
@@ -121,25 +119,25 @@ FrontEnd:
     #- npm install
     #- npm run-script build
 
-#test_async:
-  #stage: test_async
-   #only:
-    #- master
-    #- configuring-ci-cd
-   #script:
-    #- cd FrontEnd/pirate-chess/src
-    #- npm install
-    #- node ./specs/start.js ./specs/async.spec.js
+test_async:
+  stage: test_async
+  only:
+   - master
+   - configuring-ci-cd
+  script:
+   - cd FrontEnd/pirate-chess/src
+   - npm install
+   - node ./specs/start.js ./specs/async.spec.js
    
-#test_db:
-  #stage: test_db
-   #only:
-    #- master
-    #- configuring-ci-cd
-   #script:
-    #- cd FrontEnd/pirate-chess/src
-    #- npm install
-    #- node ./specs/start.js ./specs/db-postgres.spec.js
+test_db:
+  stage: test_db
+  only:
+    - master
+    - configuring-ci-cd
+  script:
+    - cd FrontEnd/pirate-chess/src
+    - npm install
+    - node ./specs/start.js ./specs/db-postgres.spec.js
 
 
 
