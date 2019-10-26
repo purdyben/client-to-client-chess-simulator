@@ -124,6 +124,8 @@ test_async:
   only:
    - master
    - configuring-ci-cd
+  tags:
+   - frontend
   script:
    - cd FrontEnd/pirate-chess/src
    - npm install
@@ -134,6 +136,8 @@ test_db:
   only:
     - master
     - configuring-ci-cd
+  tags:
+    - frontend
   script:
     - cd FrontEnd/pirate-chess/src
     - npm install
