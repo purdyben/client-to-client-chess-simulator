@@ -36,11 +36,9 @@ maven-test:
   - backend
  script:
   - cd BackEnd/PirateChess
-  - mvn package
-  #- mvn test!!!!!!!!!!!!!!!!!
+  - mvn test
  artifacts:
   paths:
-   #- BackEnd/tcom/target/*.jar
    - BackEnd/PirateChess/target/*.jar
 
 # Below stage builds, deploys and executes the jar as service.
@@ -93,32 +91,12 @@ FrontEnd:
   - backend
  script:
   - cd FrontEnd/pirate-chess/src
-  #debugging node
   - nvm use node
   - npm -v
   - npm install -g react-native-cli
-  #
-  - npm install
   - npm install -g nodemon
   - npm run-script build
- #services:
-  #- mysql:latest
-  #- redis:latest
-  #- postgres:latest
- #cache:
-  #paths:
-    #- node_modules/
-    
- 
- #stage: frontend  
- #only:
-  #- master
-  #- configuring-ci-cd
-  #script:
-    #- cd FrontEnd/pirate-chess/src
-    #- npm install
-    #- npm run-script build
-
+  
 test_async:
   stage: test_async
   only:
