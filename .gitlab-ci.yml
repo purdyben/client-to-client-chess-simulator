@@ -94,6 +94,7 @@ FrontEnd:
   - nvm use node
   - npm -v
   - npm install -g react-native-cli
+  - npm install
   - npm install -g nodemon
   - npm run-script build
   
