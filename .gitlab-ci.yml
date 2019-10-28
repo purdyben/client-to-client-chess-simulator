@@ -6,8 +6,8 @@ stages:
  - maventest
  - autodeploy
  - frontend
- - test_async
- - test_db
+ #- test_async
+ #- test_db
 
 # tags: "shell" should match with the tag name provided to runner, for spring runner should execute in shell.
 # Notice that in petclinic project, the spring project is in root of master, if yours is in# folder then cd to that folder.
@@ -54,17 +54,12 @@ autoDeploy:
   - backend
  script:
   - cd BackEnd/PirateChess
-  #ls for debugging
   - ls
   - mvn package
-  #- sudo mv target/*.jar target/web-demo.jar
   - ls
   - sudo mv target/*.jar /target/web-demo.jar
-  #- sudo mv target/PirateChess-0.0.1-SNAPSHOT.jar target/web-demo.jar
-  #ls target for debugging
   - cd target
   - ls
-  #
   - sudo systemctl stop system-web-demo
   - sudo systemctl start system-web-demo
 
@@ -98,29 +93,31 @@ FrontEnd:
   - npm install -g nodemon
   - npm run-script build
   
-test_async:
-  stage: test_async
-  only:
-   - master
-   - configuring-ci-cd
-  tags:
-   - frontend
-  script:
-   - cd FrontEnd/pirate-chess/src
-   - npm install
-   - node ./specs/start.js ./specs/async.spec.js
+#test_async:
+  #stage: test_async
+  #only:
+   #- master
+   #- configuring-ci-cd
+  #tags:
+   #- frontend
+  #script:
+   #- cd FrontEnd/pirate-chess/src
+   ##- cd FrontEnd/pirate-chess/node_modules
+   #- npm install
+   #- node ./specs/start.js ./specs/async.spec.js
+   ##- node react-scripts/scripts/start.js 
    
-test_db:
-  stage: test_db
-  only:
-    - master
-    - configuring-ci-cd
-  tags:
-    - frontend
-  script:
-    - cd FrontEnd/pirate-chess/src
-    - npm install
-    - node ./specs/start.js ./specs/db-postgres.spec.js
+#test_db:
+  #stage: test_db
+  #only:
+    #- master
+    #- configuring-ci-cd
+  #tags:
+    #- frontend
+  #script:
+    #- cd FrontEnd/pirate-chess/src
+    #- npm install
+    #- node ./specs/start.js ./specs/db-postgres.spec.js
 
 
 
