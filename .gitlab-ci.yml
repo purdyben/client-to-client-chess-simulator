@@ -75,9 +75,9 @@ FrontEnd:
   - mysql:latest
   - redis:latest
   - postgres:latest
- cache:
-  paths:
-   - node_modules/
+ #cache:
+  #paths:
+   #- node_modules/
    #- .nvm/versions/node/v13.0.1/lib/node_modules/react-native-cli/node_modules/
    #- ./.nvm/versions/node/v13.0.1/lib/node_modules/react-native-cli/node_modules/mkdirp/node_modules
 
