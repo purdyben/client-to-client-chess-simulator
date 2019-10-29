@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import tile from '../tile';
-import Draggable from 'react-draggable';
+import * as Constants from '../Constants'
 
-
-class Knight extends Component{
+class Knight extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -14,18 +13,23 @@ class Knight extends Component{
         this.setTile = this.setTile.bind(this);
         this.setName = this.setName.bind(this);
     }
-    getName(){
-        return(this.state.name);
+
+    getName() {
+        return (this.state.name);
     }
-    setName(newName){
+
+    setName(newName) {
         this.state.name = newName;
     }
-    setTile(newTile){
+
+    setTile(newTile) {
         this.state.tile = newTile;
     }
 
-    // PosibleMoves(){
-    //
-    // };
+    posibleMoves(tile){
+
+    };
+
 }
+
 export default Knight;

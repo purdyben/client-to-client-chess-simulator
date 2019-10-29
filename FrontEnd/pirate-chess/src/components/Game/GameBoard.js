@@ -6,9 +6,8 @@ import Knight from "./GamePieces/Knight";
 import Bishop from "./GamePieces/Bishop";
 import Queen from "./GamePieces/Queen";
 import King from "./GamePieces/King";
-import HandleMovment from './HandleMovment'
+import * as Constants from './Constants';
 
-const  movement = new HandleMovment();
 
 class GameBoard extends Component {
     constructor(props) {
@@ -20,7 +19,6 @@ class GameBoard extends Component {
     state = {
         board: this.popTile(),
         time: 10,
-        moveCount: 0,
         players: [{
             player: 1,
             type: 'white'
@@ -29,10 +27,9 @@ class GameBoard extends Component {
             type: 'black'
         }],
         selectTile: false,
-
     };
 
-    popTile() {
+    popTile(){
         let tileArr: any = [[], [], [], [],
             [], [], [], []];
         const IdNumber = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
@@ -43,26 +40,27 @@ class GameBoard extends Component {
                     tileArr[i].push(new tile({
                         Id: IdNumber[j] + (8 - i),
                         piece: null,
-                        color: this.getPrev(tileArr, i, j).getColor()
+                        color: this.getPrev(tileArr, i, j).getColor(),
                     }));
                 } else if (this.getPrev(tileArr, i, j).getColor() !== "OrangeTile") {
                     tileArr[i].push(new tile({
                         Id: IdNumber[j] + (8 - i),
                         piece: null,
-                        color: "OrangeTile"
+                        color: "OrangeTile",
                     }));
 
                 } else if (this.getPrev(tileArr, i, j).getColor() !== "WhiteTile") {
                     tileArr[i].push(new tile({
                         Id: IdNumber[j] + (8 - i),
                         piece: null,
-                        color: "WhiteTile"
+                        color: "WhiteTile",
                     }));
                 }
             }
         }
         console.log(tileArr);
         this.setDefaultBoard(tileArr);
+        Constants.setGameBoard(tileArr);
         return tileArr;
     }
 
@@ -97,7 +95,6 @@ class GameBoard extends Component {
     }
 
     getPrev(tileArr, row, col) {
-
         if (row === 0 && col === 0) {
             return (new tile({
                 Id: 0,
@@ -112,20 +109,19 @@ class GameBoard extends Component {
     }
 
     _imageClick(tile) {
-        console.log(this.state.board)
-        console.log(movement);
-        if(movement.state.ifSelected === false){
-            movement.state.selectedTile = tile;
-            movement.state.ifSelected = true;
-        }else{
-            movement.moveablePiece(movement.getSelectedTile(),tile);
-            movement.reset()
-        }
-        this.forceUpdate();
+       if (Constants.moveHandler.handleMovment(tile))
+           this.forceUpdate();
 
     }
 
+    colorSelect(tile){
+        if(this.state.moveHandler.getSelectedTile() === tile){
+            return(this.style.GreenTile)
+        }else{
+            return(this.style.GreenTile)
+        }
 
+    }
     _getTile() {
 
     }
@@ -133,7 +129,6 @@ class GameBoard extends Component {
     render() {
         return (
             <div className='gamePage'>
-                {/*{this.state.board[0][0].movePiece(this.state.board[0][3])}*/}
                 <div className='flex-row'>
                     {[this.state.board[0][0], this.state.board[1][0], this.state.board[2][0], this.state.board[3][0],
                         this.state.board[4][0], this.state.board[5][0], this.state.board[6][0], this.state.board[7][0]].map(tile => (
@@ -151,7 +146,16 @@ class GameBoard extends Component {
                             this.displayNum(tile, false)
                         ))}
                     </div>
+                    <div className="grid">
+                        {/*{this.state.board.map(row => (*/}
+                        {/*    row.map(tile => (*/}
+                        {/*        tile.render()*/}
+
+                        {/*    ))*/}
+                        {/*))}*/}
+                    </div>
                 </div>
+
             </div>
         )
     }
@@ -169,14 +173,25 @@ class GameBoard extends Component {
         }
     }
     renderPiece(tile) {
-        if(tile.getId() == "c3") {
-            console.log("dipshit look at me", tile.getId() == "c3");
-            console.log("The vodka takes away my pain", tile.getPiece());
-        }
-        if (tile.getPiece() !== null) {
-            if (tile.getColor() == "OrangeTile") {
+        if(tile.getSelectedTile() === true){
+            if(tile.getPiece() !== null){
                 return (<div className={"grid-cell"} key={`${tile.getId()}`}>
-                        <img style={styles.OrangeTile} className={"tile"}
+                    <img style={Constants.style.GreenTile} className={"tile"}
+                         src={`./images/${tile.getPiece().getName()}.png`} onClick={() => this._imageClick(tile)}
+                         alt={`${tile.getId()}`}/>
+                </div>)
+            }
+            return (<div className={"grid-cell"} key={`${tile.getId()}`}>
+                <img className={"tile"}
+                     src={`./images/BlackTile.png`} onClick={() => this._imageClick(tile)}
+                     alt={`${tile.getId()}`}/>
+            </div>)
+        }
+        // -------------------------------------------------- obove needs to be re done
+        if (tile.getPiece() !== null) {
+            if (tile.getColor() === "OrangeTile") {
+                return (<div className={"grid-cell"} key={`${tile.getId()}`}>
+                        <img style={Constants.style.OrangeTile} className={"tile"}
                              src={`./images/${tile.getPiece().getName()}.png`} onClick={() => this._imageClick(tile)}
                              alt={`${tile.getId()}`}/>
                     </div>
@@ -184,14 +199,14 @@ class GameBoard extends Component {
             } else {
                 return (
                     <div className={"grid-cell"} key={`${tile.getId()}`}>
-                        <img style={styles.WhiteTile} className={"tile"}
+                        <img style={Constants.style.WhiteTile} className={"tile"}
                              src={`./images/${tile.getPiece().getName()}.png`} onClick={() => this._imageClick(tile)}
                              alt={`${tile.getId()}`}/>
                     </div>
                 )
             }
         } else {
-            if (tile.getColor() == "OrangeTile") {
+            if (tile.getColor() === "OrangeTile") {
                 return (<div className={"grid-cell"} key={`${tile.getId()}`}>
                     <img src='./images/OrangeTile.png'className={"tile"} onClick={() => this._imageClick(tile)}/>
                 </div>)
@@ -205,17 +220,6 @@ class GameBoard extends Component {
     }
 }
 export default GameBoard;
-const styles = {
-    WhiteTile: {
-        backgroundImage: `url('./images/WhiteTile.png')`
-    },
-    BlackTile: {
-        backgroundImage: `url('./images/BlackTile.png')`
-    },
-    OrangeTile: {
-        backgroundImage: `url('./images/OrangeTile.png')`
-    }
-};
 
 
 

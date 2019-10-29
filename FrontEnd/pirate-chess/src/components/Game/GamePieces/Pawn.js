@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import tile from '../tile';
-import Draggable from 'react-draggable';
-import GameBoard from "../GameBoard";
+import * as Constants from '../Constants'
 
 class Pawn extends Component{
     constructor(props) {
         super(props);
         this.state = {
             tile: props.tile,
-            name: props.name
+            name: props.name,
+            firstMove: true
         };
         this.getName = this.getName.bind(this);
         this.setTile = this.setTile.bind(this);
@@ -23,9 +23,16 @@ class Pawn extends Component{
     setTile(newTile){
         this.state.tile = newTile;
     }
-    // PosibleMoves(){
-    //
-    // };
+    posibleMoves(tile){
+        if(this.state.firstMove === true){
+
+        }else{
+
+        }
+
+    };
+
+
     render(){
         return(
             <div>
