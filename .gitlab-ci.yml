@@ -90,6 +90,7 @@ FrontEnd:
   - cd FrontEnd/pirate-chess/src
   - nvm use node
   - npm -v
+  - rm package-lock.json
   - npm install -g react-native-cli
   - npm install
   - npm install -g nodemon
