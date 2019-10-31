@@ -1,25 +1,144 @@
+# Stages of pipeline, should match with stage tag inside each job.
+# Each stages executes in sequence, if previous job fails, then all the preceeding jobs 
+# are skipped.
+stages:
+ - mavenbuild
+ - maventest
+ - autodeploy
+ - frontend
+ #- test_async
+ #- test_db
+
+# tags: "shell" should match with the tag name provided to runner, for spring runner should execute in shell.
+# Notice that in petclinic project, the spring project is in root of master, if yours is in# folder then cd to that folder.
+# maven -B means batch mode (i.e. not interactive)
+
+maven-build:
+ stage: mavenbuild
+ only:
+  - master
+  - configuring-ci-cd
+ tags:
+  - backend   
+ script:
+  - cd BackEnd/PirateChess
+  - mvn package -B 
+  
+# artifacts are created when job executes successfully, and can be manually downloaded from GitLab GUI.
+# artifacts are not mandatory, but it is  good practice, in case auto deploy fails, you 
+# can manually download the jar.
+maven-test:
+ stage: maventest
+ only:
+  - master
+  - configuring-ci-cd
+ tags:
+  - backend
+ script:
+  - cd BackEnd/PirateChess
+  - mvn test
+ artifacts:
+  paths:
+   - BackEnd/PirateChess/target/*.jar
+
+# Below stage builds, deploys and executes the jar as service.
+# Make sure there is /target directory in your server, else script will fail, or use any 
+# other folder you like.
+# If you are changing the folder, reflect the change in systemd-web  -demo service 
+autoDeploy:  
+ stage: autodeploy 
+ only:
+  - master
+  - configuring-ci-cd
+ tags:
+  - backend
+ script:
+  - cd BackEnd/PirateChess
+  - ls
+  - mvn package
+  - ls
+  - sudo mv target/*.jar /target/web-demo.jar
+  - cd target
+  - ls
+  - sudo systemctl stop system-web-demo
+  - sudo systemctl start system-web-demo
+
+# To build android projects
+# Notice that we cd into Android_test folder which contains all Android files before
+# building apk.   
+# Ensure the tag matches with the tag created for Android runner
+# Android runner should have docker as executor.
+FrontEnd:
+ #image: node:latest
+ stage: frontend
+ #services:
+  #- mysql:latest
+  #- redis:latest
+  #- postgres:latest
+ only:
+  - master
+  #- configuring-ci-cd
+ tags:
+  - backend
+ script:
+  - cd FrontEnd/pirate-chess/src
+  #- nvm use node
+  #- npm -v
+  #- npm install -g react-native-cli
+  #- npm install
+  #- npm install -g nodemon
+  #- npm run-script build
+  
+#test_async:
+  #stage: test_async
+  #only:
+   #- master
+   #- configuring-ci-cd
+  #tags:
+   #- frontend
+  #script:
+   #- cd FrontEnd/pirate-chess/src
+   ##- cd FrontEnd/pirate-chess/node_modules
+   #- npm install
+   #- node ./specs/start.js ./specs/async.spec.js
+   ##- node react-scripts/scripts/start.js 
+   
+#test_db:
+  #stage: test_db
+  #only:
+    #- master
+    #- configuring-ci-cd
+  #tags:
+    #- frontend
+  #script:
+    #- cd FrontEnd/pirate-chess/src
+    #- npm install
+    #- node ./specs/start.js ./specs/db-postgres.spec.js
+
+
+
 # Official framework image. Look for the different tagged releases at:
 # https://hub.docker.com/r/library/node/tags/
-image: node:latest
+#image: node:latest
 
 # Pick zero or more services to be used on all builds.
 # Only needed when using a docker container to run your tests in.
 # Check out: http://docs.gitlab.com/ce/ci/docker/using_docker_images.html#what-is-a-service
-services:
-  - mysql:latest
-  - redis:latest
-  - postgres:latest
+#services:
+  #- mysql:latest
+  #- redis:latest
+  #- postgres:latest
 
 # This folder is cached between builds
 # http://docs.gitlab.com/ce/ci/yaml/README.html#cache
-cache:
-  paths:
-    - node_modules/
+#cache:
+  #paths:
+    #- node_modules/
 
-frontend:
-    script:
-     - npm install
-     - npm run-script build
+#frontend:
+    #script:
+     #- npm install
+     #- npm run-script build
 
 #test_async:
 #  script:
