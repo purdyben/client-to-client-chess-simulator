@@ -70,7 +70,7 @@ autoDeploy:
 # Android runner should have docker as executor.
 FrontEnd:
  #image: node:latest
- #stage: frontend
+ stage: frontend
  #services:
   #- mysql:latest
   #- redis:latest
