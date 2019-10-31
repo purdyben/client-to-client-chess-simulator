@@ -55,7 +55,7 @@ public class GameServer {
 	 * 
 	 * @param session
 	 * @param move - Algebraic notation of chess move
-	 * @see https://en.wikipedia.org/wiki/Algebraic_notation_(chess)
+	 * @see https:en.wikipedia.org/wiki/Algebraic_notation_(chess)
 	 * @throws IOException
 	 */
 	@OnMessage
