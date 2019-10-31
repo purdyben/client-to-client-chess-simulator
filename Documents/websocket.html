@@ -4,7 +4,9 @@
   <script language="javascript" type="text/javascript">
 
   var wsUri = "ws://coms-309-bs-4.misc.iastate.edu:8080/chat/Gekyume"
-  //var wsUri2 = "ws://coms-309-bs-4.misc.iastate.edu:8080/game/Yeet"
+  //var wsUri = "ws://localhost:8080/chat/Gekyume"
+  var wsUri2 = "ws://coms-309-bs-4.misc.iastate.edu:8080/chat/Yeet"
+  //var wsUri2 = "ws://localhost:8080/chat/Yeet"
   var output;
 
   function init()
@@ -16,29 +18,43 @@
   function testWebSocket()
   {
     websocket = new WebSocket(wsUri);
-    websocket.onopen = function(evt) { onOpen(evt) };
-    websocket.onclose = function(evt) { onClose(evt) };
-    websocket.onmessage = function(evt) { onMessage(evt) };
-    websocket.onerror = function(evt) { onError(evt) };
-	/**
 	websocket2 = new WebSocket(wsUri2);
-    websocket2.onopen = function(evt) { onOpen(evt) };
-    websocket2.onclose = function(evt) { onClose(evt) };
-    websocket2.onmessage = function(evt) { onMessage(evt) };
+    websocket.onopen = function(evt) { onOpen(evt) };
+	websocket2.onopen = function(evt) { onOpen2(evt) };
+    websocket.onmessage = function(evt) { onMessage(evt) };
+	websocket2.onmessage = function(evt) { onMessage(evt) };
+	
+	
+	
+    websocket.onerror = function(evt) { onError(evt) };
     websocket2.onerror = function(evt) { onError(evt) };
-	**/
+	websocket.onclose = function(evt) { onClose(evt) };
+	websocket2.onclose = function(evt) { onClose2(evt) };
+	
   }
 
   function onOpen(evt)
   {
-    writeToScreen("CONNECTED");
+    writeToScreen("USER 1 CONNECTED");
     //doSend("Bcc6");
-	doSend("To the owner of the White Sedan. You left your lights on.");
+	doSend("@Yeet To the owner of the White Sedan. You left your lights on.");
+  }
+  
+  function onOpen2(evt)
+  {
+    writeToScreen("USER 2 CONNECTED");
+    //doSend("Bcc6");
+	doSend("@Gekyume Poo poo stinky haha.");
   }
 
   function onClose(evt)
   {
-    writeToScreen("DISCONNECTED");
+    writeToScreen("USER 1 DISCONNECTED");
+  }
+  
+  function onClose2(evt)
+  {
+    writeToScreen("USER 2 DISCONNECTED");
   }
 
   function onMessage(evt)
