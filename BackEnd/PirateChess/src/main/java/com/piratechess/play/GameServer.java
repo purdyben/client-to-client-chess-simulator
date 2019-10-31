@@ -96,6 +96,7 @@ public class GameServer {
 	 */
 	private void sendMove(String receiver, String move) {
 		try {
+			
 			usersSessionMap.get(receiver).getBasicRemote().sendText(move);
 		} catch (IOException e) {
 			logger.info("Exception: " + e.getMessage().toString());
