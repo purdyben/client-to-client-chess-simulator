@@ -67,10 +67,19 @@ public class ChatServer {
 		/*
 		 * From the client side, just do the following... message = "@" +
 		 * {receivingUser} + " " + message;
+		 * To broadcast to everyone, receivingUser="!all"
 		 */
 		String receivingUser = message.split(" ")[0].substring(1);
+		if(receivingUser.equals("!all"))
+		{
+			logger.info("Entered into broadcast");
+			broadcast(message);
+		}
+		else
+		{
 		sendMessageToParticularUser(receivingUser, "[DM] " + sendingUser + ": " + message);
 		sendMessageToParticularUser(sendingUser, "[DM] " + sendingUser + ": " + message);
+		}
 	}
 
 	@OnClose
@@ -115,6 +124,10 @@ public class ChatServer {
 	 * @throws IOException
 	 */
 	private static void broadcast(String message) throws IOException {
+		/*
+		 * From the client side, just do the following... message = "@" +
+		 * {!all} + " " + message;
+		 */
 		sessionUsersMap.forEach((session, user) -> {
 			synchronized (session) {
 				try {
