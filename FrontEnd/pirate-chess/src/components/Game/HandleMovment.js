@@ -36,25 +36,23 @@ class HandleMovment extends Component {
                this.state.ifSelected = true;
                console.log(this.state.selectedTile)
            }else{
-               this.moveablePiece(this.getSelectedTile(),tile);
-               this.getSelectedTile().setSelectedTile(false);
-               this.reset();
-               console.log(this.state.selectedTile)
+               if(true){
+                   this.moveablePiece(this.getSelectedTile(),tile);
+                   this.getSelectedTile().setSelectedTile(false);
+                   this.reset();
+                   console.log(this.state.selectedTile)
+               }
            }
        }
        return true;
-
-
-
     }
     pieceMovement(selectedTile,comparableTile){
         const bool = this.state.selectedTile.getPiece().posibleMoves(comparableTile);
         return bool;
 
     }
-    TileSelect(){
 
-    }
+
     reset(){
         this.state.ifSelected = false;
         this.state.selectedTile = null;

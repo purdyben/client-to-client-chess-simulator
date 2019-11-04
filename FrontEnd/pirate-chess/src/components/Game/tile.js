@@ -8,6 +8,8 @@ class tile extends Component {
         super(props);
         this.state = {
             Id: props.Id,
+            x: props.x,
+            y: props.y,
             piece: props.piece,
             color: props.color,
             selectedTile: false,
@@ -64,6 +66,11 @@ class tile extends Component {
     }
 
     render() {
+        console.log("render method")
+        if(this.state.Id == 'ai'){
+            return(<h1>work damn it</h1>)
+        }
+
         if (this.state.selectedTile === true) {
             return (<div className={"grid-cell"} key={`${this.getId()}`}>
                     <img style={Constants.style.GreenTile} className={"tile"}
