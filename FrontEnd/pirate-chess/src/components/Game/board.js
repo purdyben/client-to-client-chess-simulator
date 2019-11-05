@@ -28,7 +28,6 @@ export default class board {
                     tileArr[i].push(<tile Id={IdNumber[j] + (8 - i)} x={j} y={i} piece={null} color={"WhiteTile"}/>
                     );
                 }
-                console.log(tileArr[i][j])
             }
         }
         console.log(tileArr);
