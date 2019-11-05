@@ -8,7 +8,6 @@ const MainScreen = () => (
             {/*<Button color="primary" size="lg" href="/personList" block>HTTPList</Button>*/}
             <Button color="primary" size="lg" href="/" block>Home</Button>
             <Button color="primary" size="lg" href="/GameBoard" block>GameBoard</Button>
-            <Button color="primary" size="lg" href="/GamePage" block>GamePage</Button>
             <Button color="primary" size="lg" href="/tournament" block>Tournament</Button>
             <Button color="primary" size="lg" href="/profile" block>Profile</Button>
             <Button color="primary" size="lg" href="/leaderboard" block>Leaderboard</Button>

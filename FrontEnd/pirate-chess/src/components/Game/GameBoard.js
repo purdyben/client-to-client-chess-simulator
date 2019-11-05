@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import tile from './tile';
 import * as Constants from './Constants';
+import Timer from './Timer.js';
 
 
 class GameBoard extends Component {
@@ -38,6 +39,7 @@ class GameBoard extends Component {
         }
         return (
             <div className='gamePage'>
+                <Timer/>
                 <tile Id={0} x={0} y={0} piece={null} color={"GreenTile"}/>
                 <div className='flex-row'>
                     {/*{[this.state.board[0][0], this.state.board[1][0], this.state.board[2][0], this.state.board[3][0],*/}
