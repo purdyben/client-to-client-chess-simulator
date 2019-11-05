@@ -14,6 +14,7 @@ import personList from './components/HTTP_Requests/personList';
 // import testAxios from './components/HTTP_Requests/testAxios';
 // import testPostAxios from './components/HTTP_Requests/testPostAxios';
 import GameBoard from './components/Game/GameBoard';
+import Chat from './components/Chat';
 
 
 const Home = () => (
@@ -41,6 +42,7 @@ function App() {
                 <Route exact path="/settings" component={Settings}/>
                 <Route exact path="/howToPlay" component={HowToPlay}/>
                 <Route exact path="/personList" component={personList}/>
+                <Route exact path="/chat" component={Chat}/>
             </div>
         </Router>
     );
