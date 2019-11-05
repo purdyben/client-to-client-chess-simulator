@@ -13,6 +13,7 @@ const MainScreen = () => (
             <Button color="primary" size="lg" href="/leaderboard" block>Leaderboard</Button>
             <Button color="primary" size="lg" href="/settings" block>Settings</Button>
             <Button color="primary" size="lg" href="/howToPlay" block>How To Play</Button>
+            <Button color="primary" size="lg" href="/chat" block>Chat</Button>
         </div>
     </header>
 );
