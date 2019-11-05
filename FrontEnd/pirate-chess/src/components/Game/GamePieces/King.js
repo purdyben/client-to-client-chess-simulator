@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import tile from '../tile';
-import Draggable from 'react-draggable';
+import * as Constants from '../Constants'
 
 
 class King extends Component{
@@ -24,8 +24,9 @@ class King extends Component{
         this.state.tile = newTile;
     }
 
-    // PosibleMoves(){
-    //
-    // };
+    posibleMoves(tile){
+
+    };
+
 }
 export default King;
