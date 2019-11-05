@@ -19,10 +19,10 @@ public class GameReader {
 		return content.toString();
 	}
 
-	public String readFile() {
+	public String readFile(String filePath) {
 		BufferedReader reader = null;
 		try {
-			reader = new BufferedReader(new FileReader("src/main/resources/input.txt"));
+			reader = new BufferedReader(new FileReader(filePath));
 			String content = readAllLines(reader);
 			return content;
 		} catch (IOException e) {
@@ -30,9 +30,8 @@ public class GameReader {
 			return null;
 		} finally {
 			try {
-				if (reader != null) {
+				if (reader != null)
 					reader.close();
-				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
