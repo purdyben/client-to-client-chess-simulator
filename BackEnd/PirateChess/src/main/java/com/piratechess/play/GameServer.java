@@ -35,7 +35,8 @@ public class GameServer {
 	private static Map<String, Session> usersSessionMap = new HashMap<>();
 
 	private final Logger logger = LoggerFactory.getLogger(GameServer.class);
-
+	
+	
 	/**
 	 * User enters game
 	 * 
