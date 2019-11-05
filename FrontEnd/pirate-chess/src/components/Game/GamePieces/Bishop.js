@@ -26,8 +26,9 @@ class Bishop extends Component{
 
 
 
-    // PosibleMoves(){
-    //
-    // };
+    posibleMoves(tile){
+
+    };
+
 }
 export default Bishop;
