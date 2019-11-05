@@ -346,12 +346,6 @@ typings/
 # nuxt.js build output
 .nuxt
 
-<<<<<<< HEAD
-# react / gatsby 
-# public/
-
-=======
->>>>>>> demo3/Ben
 # vuepress build output
 .vuepress/dist
 
