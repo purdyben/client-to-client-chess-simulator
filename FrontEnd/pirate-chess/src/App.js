@@ -13,7 +13,8 @@ import HowToPlay from './components/HowToPlay';
 import personList from './components/HTTP_Requests/personList';
 // import testAxios from './components/HTTP_Requests/testAxios';
 // import testPostAxios from './components/HTTP_Requests/testPostAxios';
-//import GameBoard from './components/Game/GameBoard';
+import GameBoard from './components/Game/GameBoard';
+import GamePage from './components/Game/GamePage'
 
 
 const Home = () => (
@@ -30,7 +31,8 @@ function App() {
     return (
         <Router>
             <div className="App">
-                {/*<Route exact path="/GameBoard" component={GameBoard}/>*/}
+                <Route exact path="/GamePage" component={GamePage}/>
+                <Route exact path="/GameBoard" component={GameBoard}/>
                 <Route exact path="/" component={Home}/>
                 <Route exact path="/login" component={Login}/>
                 <Route exact path="/createAccount" component={CreateAccount}/>

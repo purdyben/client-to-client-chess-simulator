@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import tile from '../tile';
-import ReactDOM from 'react-dom';
-import Draggable from 'react-draggable';
+import * as Constants from '../Constants'
 
 
 class Rook extends Component{
@@ -27,8 +26,9 @@ class Rook extends Component{
     }
 
 
-    // PosibleMoves(){
-    //
-    // };
+    posibleMoves(tile){
+
+    };
+
 }
 export default Rook;
