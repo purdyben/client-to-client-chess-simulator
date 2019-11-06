@@ -1,8 +1,10 @@
 import React from 'react';
 import {Button, Form, FormGroup, Input, Label} from 'reactstrap';
+import CHeader from './CustomHeader';
 
 const Login = () => (
     <header className="App-header">
+        <CHeader/>
         <img src="logo.png" className="App-logo" alt="logo"/>
         <div className="Login-buttons">
             <Form>

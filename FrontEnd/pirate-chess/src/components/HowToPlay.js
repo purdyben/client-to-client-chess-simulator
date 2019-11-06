@@ -1,4 +1,5 @@
 import React from 'react';
+import CHeader from './CustomHeader';
 
 export default class CreateAccount extends React.Component {
   
@@ -7,6 +8,7 @@ export default class CreateAccount extends React.Component {
   render() {
     return (
       <header className="App-header">
+        <CHeader/>
         How To Play
       </header>
     )

@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import {Table, Button, ButtonGroup} from 'reactstrap';
+import CHeader from './CustomHeader';
 
 export default class Leaderboard extends React.Component {
   state = {
@@ -26,6 +27,7 @@ export default class Leaderboard extends React.Component {
   render() {
     return (
       <header className="App-header">
+        <CHeader/>
         <img src="logo.png" className="App-logo-small" alt="logo" />
         <Button color="primary" size="sm" href="/mainScreen">Main Screen</Button>
         <br></br>

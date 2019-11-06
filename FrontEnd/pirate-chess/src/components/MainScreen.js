@@ -1,8 +1,10 @@
 import React from 'react';
 import {Button} from 'reactstrap';
+import CHeader from './CustomHeader';
 
 const MainScreen = () => (
     <header className="App-header">
+        <CHeader/>
         <img src="logo.png" className="App-logo-small" alt="logo"/>
         <div className="Login-buttons">
             {/*<Button color="primary" size="lg" href="/personList" block>HTTPList</Button>*/}

@@ -1,8 +1,10 @@
 import React from 'react';
 import {Button, Form, FormGroup, Input, Label} from 'reactstrap';
+import CHeader from './CustomHeader';
 
 const CreateAccount = () => (
     <header className="App-header">
+        <CHeader/>
         <div className="col-lg-3 col-md-3">
             <li>
                 <a href="/"><img style={{width: 150, height: 150}} src="logo.png" className="App-logo-small" alt="logo"

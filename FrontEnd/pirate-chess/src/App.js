@@ -15,10 +15,12 @@ import personList from './components/HTTP_Requests/personList';
 // import testPostAxios from './components/HTTP_Requests/testPostAxios';
 import GameBoard from './components/Game/GameBoard';
 import Chat from './components/Chat';
+import CHeader from './components/CustomHeader';
 
 
 const Home = () => (
     <header className="App-header">
+        <CHeader/>
         <img src="logo.png" className="App-logo" alt="logo"/>
         <div className="Login-buttons">
             <Button color="primary" size="lg" href="/login" block>Login</Button>

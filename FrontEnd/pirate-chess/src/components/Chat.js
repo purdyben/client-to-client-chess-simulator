@@ -1,5 +1,6 @@
 import React from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
+import CHeader from './CustomHeader';
 
 export default class Chat extends React.Component {
   ws = new WebSocket('ws://coms-309-bs-4.misc.iastate.edu:8080/chat/userName')
@@ -29,6 +30,7 @@ export default class Chat extends React.Component {
   render() {
     return (
       <header className="App-header">
+        <CHeader/>
         <img src="logo.png" className="App-logo-small" alt="logo" />
         <Container>
           <Row>
