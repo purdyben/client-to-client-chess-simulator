@@ -2,55 +2,31 @@ import React, {Component} from 'react';
 import * as Constants from './Constants'
 
 
-class tile extends Component {
+class Tile extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            Id: props.Id,
+            id: props.id,
             x: props.x,
             y: props.y,
             piece: props.piece,
             color: props.color,
             selectedTile: false,
         };
-        this.getColor = this.getColor.bind(this);
-        this.getId = this.getId.bind(this);
-        this.getPiece = this.getPiece.bind(this);
-        this.setPiece = this.setPiece.bind(this);
-        this.getSelectedTile = this.getSelectedTile.bind(this)
-        this.setSelectedTile = this.setSelectedTile.bind(this)
     };
-
-    getSelectedTile() {
-        return (this.state.selectedTile);
-    }
 
     setSelectedTile = (bool) => {
         this.state.selectedTile = bool;
     }
 
-    getColor() {
-        return (this.state.color);
-    }
-
-    getPiece() {
-        return (this.state.piece);
-    }
-
-    getId() {
-        return (this.state.Id);
-    }
-
-    setPiece = (pie) => {
-        this.state.piece = pie;
-    };
-
     _TestimageClick(tile) {
         if (Constants.moveHandler.handleMovment(tile)) {
+            console.log('Tile render')
             this.forceUpdate();
         }
     }
+
 
     getstyle(color) {
         switch (color) {
@@ -66,31 +42,28 @@ class tile extends Component {
     }
 
     render() {
-        console.log("render method")
-        if(this.state.Id == 'ai'){
-            return(<h1>work damn it</h1>)
-        }
-
+        const {id, color, piece, selectedTile} = this.props
+        //console.log(this.state.piece)
         if (this.state.selectedTile === true) {
-            return (<div className={"grid-cell"} key={`${this.getId()}`}>
+            return (<div className={"grid-cell"} key={`${id}`}>
                     <img style={Constants.style.GreenTile} className={"tile"}
-                         src={`./images/${this.getPiece().getName()}.png`} onClick={() => this._TestimageClick(this)}
-                         alt={`${this.getId()}`}/>
+                         src={`./images/${this.state.piece.getName()}.png`} onClick={() => this._TestimageClick(this)}
+                         alt={`${id}`}/>
                 </div>
             )
-        } else if (this.getPiece() != null) {
-            return (<div className={"grid-cell"} key={`${this.getId()}`}>
-                    <img style={this.getstyle(this.getColor())} className={"tile"}
-                         src={`./images/${this.getPiece().getName()}.png`} onClick={() => this._TestimageClick(this)}
-                         alt={`${this.getId()}`}/>
+        } else if (this.state.piece != null) {
+            return (<div className={"grid-cell"} key={`${id}`}>
+                    <img style={this.getstyle(color)} className={"tile"}
+                         src={`./images/${this.state.piece.getName()}.png`} onClick={() => this._TestimageClick(this)}
+                         alt={`${id}`}/>
                 </div>
             )
         } else {
             return (
-                <div className={"grid-cell"} key={`${this.getId()}`}>
+                <div className={"grid-cell"} key={`${id}`}>
                     <img className={"tile"}
-                         src={`./images/${this.getColor()}.png`} onClick={() => this._TestimageClick(this)}
-                         alt={`${this.state.Id}`}/>
+                         src={`./images/${color}.png`} onClick={() => this._TestimageClick(this)}
+                         alt={`${id}`}/>
                 </div>
             )
         }
@@ -98,4 +71,4 @@ class tile extends Component {
     }
 }
 
-export default tile;
+export default Tile;

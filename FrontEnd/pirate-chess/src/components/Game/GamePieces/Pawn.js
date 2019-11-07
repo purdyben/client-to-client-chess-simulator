@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import tile from '../tile'
-import * as Constants from '../Constants'
+import tile from '../Tile'
 
 /**
  * ksakhasgr
@@ -37,7 +36,7 @@ class Pawn extends Component {
      * @param newName
      */
     setName(newName) {
-        this.state.name = newName
+        this.setState({name: newName});
     }
 
     /**
@@ -56,13 +55,11 @@ class Pawn extends Component {
      */
     posibleMove(tile, comparableTile) {
         for (let i = 0; i < this.state.moveSet.length; i++) {
-            if (this.state.MoveSet[i] == comparableTile) {
+            if (this.state.MoveSet[i] === comparableTile) {
                 return true
             }
         }
         return false
-
-
     }
 
     /**

@@ -1,6 +1,4 @@
 import HandleMovment from './HandleMovment';
-import tile from './tile';
-import GameBoard from './GameBoard';
 import board from './board';
 
 export const style = {
@@ -21,5 +19,5 @@ export const style = {
 
 export const moveHandler = new HandleMovment();
 export let moveCount = 0;
-export var gameboard = board.popTile(board.getPrev);
+export var gameboard = board.popTile(board.getPrev, board.setDefaultBoard);
 

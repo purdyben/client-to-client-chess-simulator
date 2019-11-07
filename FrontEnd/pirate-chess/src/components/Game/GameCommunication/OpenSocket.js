@@ -1,11 +1,10 @@
-import React, {Component} from 'react';
-import ChildComponent from './ChildComponent'
+import React from 'react';
 
-class OpenSocket extends Component {
-    client = new WebSocket('client://localhost:3000/client');
+export default class OpenSocket extends React.Component {
+    ws = new WebSocket('ws://coms-309-bs-4.misc.iastate.edu:8080/game/userName')
 
     componentDidMount() {
-        this.client.onopen = () => {
+        this.ws.onopen = () => {
             // on connecting, do nothing but log it to the console
             console.log('connected')
         }
@@ -17,7 +16,7 @@ class OpenSocket extends Component {
             console.log(message)
         }
 
-        this.client.onclose = () => {
+        this.ws.onclose = () => {
             console.log('disconnected')
             // automatically try to reconnect on connection loss
 
@@ -26,8 +25,6 @@ class OpenSocket extends Component {
     }
 
     render() {
-        return(< ChildComponent websocket={this.client} />)
+        return (null);
     }
 }
-
-export default OpenSocket;

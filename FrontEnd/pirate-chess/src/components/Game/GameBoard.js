@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import tile from './tile';
+import Tile from './Tile';
 import * as Constants from './Constants';
+import OpenSocket from './GameCommunication/OpenSocket'
 
 
 class GameBoard extends Component {
@@ -23,22 +24,20 @@ class GameBoard extends Component {
         selectTile: false,
     }
 
-    _imageClick(tile) {
-        if (Constants.moveHandler.handleMovment(tile))
+    _imageClick(Tile) {
+        if (Constants.moveHandler.handleMovment(Tile))
             this.forceUpdate();
 
     }
 
+    componentDidMount() {
+
+    }
+
     render() {
-        {
-            console.log("render method has been called")
-        }
-        {
-            console.log(Constants.gameboard)
-        }
+        console.log("render method has been called")
         return (
             <div className='gamePage'>
-                <tile Id={0} x={0} y={0} piece={null} color={"GreenTile"}/>
                 <div className='flex-row'>
                     {/*{[this.state.board[0][0], this.state.board[1][0], this.state.board[2][0], this.state.board[3][0],*/}
                     {/*    this.state.board[4][0], this.state.board[5][0], this.state.board[6][0], this.state.board[7][0]].map(tile => (*/}
@@ -48,27 +47,26 @@ class GameBoard extends Component {
                 </div>
                 <div className='gameBoard'>
                     <div className="grid">
-
                         {this.state.board.map(row => (
-                            row.map(tile => (
-                                // this.renderPiece(tile)
-                                <li key={row}>
-                                    {tile}
-                                </li>
-
-                            ))
+                            row.map(tile => {
+                                return (
+                                    <div>
+                                        {console.log(tile)}
+                                        <Tile id={tile.id} x={tile.x} y={tile.y} color={tile.color}
+                                              piece={tile.piece} selectedTile={tile.selectedTile} clickTile={tile}/>
+                                    </div>
+                                )
+                            })
                         ))}
                         {/*{this.state.board[7].map(tile => (*/}
                         {/*    this.displayNum(tile, false)*/}
                         {/*))}*/}
                     </div>
                     <div className="grid">
-                        {<tile Id={0} x={0} y={0} piece={null} color={"GreenTile"}/>}
+                        {<OpenSocket/>}
                         {/*{this.state.board.map(row => (*/}
                         {/*    row.map(tile => (*/}
                         {/*        tile.render()*/}
-
-
                         {/*    ))*/}
                         {/*))}*/}
                     </div>
@@ -76,6 +74,11 @@ class GameBoard extends Component {
 
             </div>
         )
+    }
+
+    mount(tile) {
+        this.ReactDOM.mount(tile)
+        return tile
     }
 
     displayNum(tile, left) {

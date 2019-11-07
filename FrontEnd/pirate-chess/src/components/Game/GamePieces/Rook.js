@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
-import tile from '../tile';
-import * as Constants from '../Constants'
 
 
-class Rook extends Component{
+class Rook extends Component {
     constructor(props) {
         super(props);
         this.props = props;
@@ -15,20 +13,29 @@ class Rook extends Component{
         this.setTile = this.setTile.bind(this);
         this.setName = this.setName.bind(this);
     }
-    getName(){
-        return(this.state.name);
+
+    state = {
+        tile: null,
+        name: null,
+    };
+
+    getName() {
+        return (this.state.name);
     }
-    setName(newName){
+
+    setName(newName) {
         this.state.name = newName;
     }
-    setTile(newTile){
+
+    setTile(newTile) {
         this.state.tile = newTile;
     }
 
 
-    posibleMoves(tile){
+    posibleMoves(tile) {
 
     };
 
 }
+
 export default Rook;

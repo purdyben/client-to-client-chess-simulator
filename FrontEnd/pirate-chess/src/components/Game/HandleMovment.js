@@ -1,5 +1,4 @@
-import React, {Component} from 'react';
-import tile from "./tile";
+import {Component} from 'react';
 
 class HandleMovment extends Component {
     constructor(props) {
@@ -9,69 +8,69 @@ class HandleMovment extends Component {
         this.getSelectedTile = this.getSelectedTile.bind(this);
         this.handleMovment = this.handleMovment.bind(this);
     }
-    state ={
+
+    state = {
         ifSelected: false,
         selectedTile: null,
         comparableTile: null,
         selected: 'Greentile'
-
-
     };
-    returnMyself(){
-        return(this);
+
+    returnMyself() {
+        return (this);
     }
 
-    handleMovment(tile){
-        console.log('this is the selected tile' + this.state.selectedTile)
-        console.log('this is the comparable tile ' + this.state.comparableTile)
-        // console.log('this is the id' + this.state.selected.state.Id)
-       if(tile.state.piece == null && this.state.selectedTile == null){
-           console.log(this.state.selectedTile)
-           return false;
-       }
-       else{
-           if(this.state.ifSelected === false){
-               tile.setSelectedTile(true);
-               this.state.selectedTile = tile;
-               this.state.ifSelected = true;
-               console.log(this.state.selectedTile)
-           }else{
-               if(true){
-                   this.moveablePiece(this.getSelectedTile(),tile);
-                   this.getSelectedTile().setSelectedTile(false);
-                   this.reset();
-                   console.log(this.state.selectedTile)
-               }
-           }
-       }
-       return true;
-    }
-    pieceMovement(selectedTile,comparableTile){
-        const bool = this.state.selectedTile.getPiece().posibleMoves(comparableTile);
-        return bool;
+    handleMovment(tile) {
+        if (tile.state.piece == null && this.state.selectedTile == null) {
+            console.log(this.selectedTile, 'select tile')
+            return false;
+        } else {
+            if (this.state.selectedTile == null) {
+                this.state.selectedTile = tile
+                tile.state.selectedTile = true
 
+            } else {
+                if (true) {
+                    this.moveablePiece(this.state.selectedTile, tile)
+                    this.reset()
+                }
+            }
+        }
+        // console.log('this is the selected tile: ' + this.state.selectedTile)
+        // console.log('this is the comparable tile: ' + this.state.comparableTile)
+        return true;
+    }
+
+    pieceMovement(selectedTile, comparableTile) {
+        const bool = this.state.selectedTile.getPiece().posibleMoves(comparableTile)
+        return bool
     }
 
 
-    reset(){
+    reset() {
         this.state.ifSelected = false;
         this.state.selectedTile = null;
         this.state.comparableTile = null;
-
-
     }
-    moveablePiece(startTile, finalTile){
-        finalTile.setPiece(startTile.getPiece());
-        startTile.setPiece(null)
+
+    moveablePiece(startTile, finalTile) {
+        finalTile.state.piece = startTile.state.piece
+        startTile.state.piece = null
+        startTile.state.selectedTile = false
+        startTile.forceUpdate();
     };
-    getIfSelected(){
+
+    getIfSelected() {
         return this.state.ifSelected;
     }
-    getComparableTile(){
+
+    getComparableTile() {
         return this.state.comparableTile;
     }
-    getSelectedTile(){
+
+    getSelectedTile() {
         return this.state.selectedTile
     }
 }
+
 export default HandleMovment;
