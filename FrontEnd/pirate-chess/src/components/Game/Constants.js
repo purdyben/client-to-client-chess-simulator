@@ -20,4 +20,8 @@ export const style = {
 export const moveHandler = new HandleMovment();
 export let moveCount = 0;
 export var gameboard = board.popTile(board.getPrev, board.setDefaultBoard);
+export function setBoard() {
+    board.setDefaultBoard(this.gameboard);
+    return this.gameboard
+}
 

@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import tile from '../Tile'
+import {gameboard} from '../Constants';
 
 /**
  * ksakhasgr
@@ -10,17 +11,13 @@ class Pawn extends Component {
      * @param props
      */
     constructor(props) {
-        super(props)
-
-        this.state = {
-            tile: props.tile,
-            name: props.name,
-            MoveSet: this.getAllPosibleMoves(),
-            firstMove: true
-        }
-        this.getName = this.getName.bind(this)
-        this.setTile = this.setTile.bind(this)
-        this.setName = this.setName.bind(this)
+        super()
+        this.name = props.name
+        this.x = props.x
+        this.y = props.y
+        this.firstMove = null
+        this.moveSet = this.getAllPosibleMoves()
+        this.resetMoves = this.resetMoves.bind(this)
     }
 
     /**
@@ -28,7 +25,7 @@ class Pawn extends Component {
      * @returns {string}
      */
     getName() {
-        return (this.state.name)
+        return (this.name)
     }
 
     /**
@@ -53,7 +50,7 @@ class Pawn extends Component {
      * @param comparableTile
      * @returns {boolean}
      */
-    posibleMove(tile, comparableTile) {
+    legalMoves(tile, comparableTile) {
         for (let i = 0; i < this.state.moveSet.length; i++) {
             if (this.state.MoveSet[i] === comparableTile) {
                 return true
@@ -67,16 +64,71 @@ class Pawn extends Component {
      * @returns {tile[]}
      */
     getAllPosibleMoves() {
-        let MoveSet: tile[]
-        if (true) {
-
-            // MoveSet[0] = (Constants.gameboard[this.state.tile.state.x][this.state.tile.state.y + 1])
-            // MoveSet[1] = (Constants.gameboard[this.state.tile.state.x][this.state.tile.state.y + 2])
+        var MoveSet = [];
+        if (this.firstMove == null) {
+            this.firstMove = true
         } else {
-
+            this.firstMove = false
         }
+
+        if (this.name == 'BlackPawn' && gameboard[this.y + 1][this.x].piece == null) {
+            MoveSet.push(gameboard[this.y + 1][this.x])
+        } else if (gameboard[this.y - 1][this.x].piece == null) {
+            MoveSet.push(gameboard[this.y - 1][this.x])
+        }
+        if (this.firstMove == true) {
+            //console.log((gameboard))
+            if (this.name == 'BlackPawn' && gameboard[this.y + 1][this.x].piece == null
+                && gameboard[this.y + 2][this.x].piece == null) {
+                MoveSet.push(gameboard[this.y + 2][this.x])
+            } else if (gameboard[this.y - 2][this.x].piece == null && gameboard[this.y - 1][this.x].piece == null) {
+                MoveSet.push(gameboard[this.y - 2][this.x])
+            }
+        }
+        if(this.x < 7){
+            if(this.name == 'BlackPawn' && gameboard[this.y+1][this.x+1].piece != null){
+                if((gameboard[this.y+1][this.x+1].piece.name).substring(0,5) == 'White' ){
+                    MoveSet.push(gameboard[this.x+1][this.y-1])
+                }
+            }else{
+
+            }
+        }
+        console.log(this)
+        // if (this.name == 'BlackPawn') {
+        let tempObject1 = gameboard[this.y-1][this.x -1]
+        if (gameboard[this.y-1][this.x].piece == null) {
+            // if((gameboard[this.y+1][this.x-1].piece.name).substring(0,5) == 'White' ){
+            //     MoveSet.push(gameboard[this.x+1][this.y-1])
+            // }
+            // if((gameboard[this.x+1][this.y-1].piece.name).substring(0,5) == 'White' ){
+            //     MoveSet.push(gameboard[this.x-1][this.y-1])
+            // }
+        }
+
+        // if( gameboard[this.x+1][this.y-1].piece != null){
+        //     console.log("runing")
+        //     if(  (gameboard[this.x+1][this.y-1].piece.name).substring(0,5) == 'Black' ){
+        //         MoveSet.push(gameboard[this.x+1][this.y-1])
+        //     }
+        // }
+        // if( gameboard[this.x-1][this.y-1].piece != null){
+        //     console.log("22runing")
+        //     if( (gameboard[this.x+1][this.y-1].piece.name).substring(0,5) == 'Black'){
+        //         MoveSet.push(gameboard[this.x-1][this.y-1] )
+        //     }
+        // }
+
+
         return MoveSet
     }
+
+    resetMoves() {
+        console.log("reset", this.moveSet)
+        this.moveSet = this.getAllPosibleMoves()
+        console.log(this.moveSet)
+    }
+
 
     /**
      *

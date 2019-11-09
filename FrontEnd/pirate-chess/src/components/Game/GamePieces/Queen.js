@@ -12,6 +12,15 @@ class Queen extends Component{
         this.setTile = this.setTile.bind(this);
         this.setName = this.setName.bind(this);
     }
+    // constructor(props) {
+    //     super()
+    //     this.name = props.name
+    //     this.x = props.x
+    //     this.y = props.y
+    //     this.firstMove = null
+    //     this.moveSet = this.getAllPosibleMoves()
+    //     this.resetMoves = this.resetMoves.bind(this)
+    // }
     getName(){
         return(this.state.name);
     }

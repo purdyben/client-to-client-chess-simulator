@@ -12,7 +12,7 @@ class GameBoard extends Component {
     }
 
     state = {
-        board: Constants.gameboard,
+        board: Constants.setBoard(),
         time: 10,
         players: [{
             player: 1,
@@ -22,6 +22,7 @@ class GameBoard extends Component {
             type: 'black'
         }],
         selectTile: false,
+
     }
 
     _imageClick(Tile) {
@@ -36,6 +37,7 @@ class GameBoard extends Component {
 
     render() {
         console.log("render method has been called")
+        console.log(Constants.gameboard)
         return (
             <div className='gamePage'>
                 <div className='flex-row'>
@@ -51,7 +53,6 @@ class GameBoard extends Component {
                             row.map(tile => {
                                 return (
                                     <div>
-                                        {console.log(tile)}
                                         <Tile id={tile.id} x={tile.x} y={tile.y} color={tile.color}
                                               piece={tile.piece} selectedTile={tile.selectedTile} clickTile={tile}/>
                                     </div>

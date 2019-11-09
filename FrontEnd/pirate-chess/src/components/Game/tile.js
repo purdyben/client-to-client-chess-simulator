@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import * as Constants from './Constants'
+import * as Constants from './Constants';
 
 
 class Tile extends Component {
@@ -14,6 +14,7 @@ class Tile extends Component {
             color: props.color,
             selectedTile: false,
         };
+        this.setPiece = this.setPiece.bind(this)
     };
 
     setSelectedTile = (bool) => {
@@ -22,9 +23,11 @@ class Tile extends Component {
 
     _TestimageClick(tile) {
         if (Constants.moveHandler.handleMovment(tile)) {
-            console.log('Tile render')
             this.forceUpdate();
         }
+    }
+    setPiece(newPiece){
+        this.setState({piece: newPiece})
     }
 
 
@@ -43,7 +46,7 @@ class Tile extends Component {
 
     render() {
         const {id, color, piece, selectedTile} = this.props
-        //console.log(this.state.piece)
+
         if (this.state.selectedTile === true) {
             return (<div className={"grid-cell"} key={`${id}`}>
                     <img style={Constants.style.GreenTile} className={"tile"}

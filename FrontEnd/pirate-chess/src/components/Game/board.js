@@ -47,31 +47,34 @@ export default class board {
             }
         }
         console.log(tileArr);
-        setDefaultBoard(tileArr);
+        //setDefaultBoard(tileArr);
         return tileArr;
     }
 
     static setDefaultBoard(tileArr) {
-        let PieceSet: any = ([new Rook({name: "Rook"}), new Knight({name: "Knight"}), new Bishop({name: "Bishop"}),
-            new Queen({name: "Queen"}), new King({name: "King"}), new Bishop({name: "Bishop"}),
-            new Knight({name: "Knight"}), new Rook({name: "Rook"}), new Rook({name: "Rook"}), new Knight({name: "Knight"}), new Bishop({name: "Bishop"}),
-            new Queen({name: "Queen"}), new King({name: "King"}), new Bishop({name: "Bishop"}),
-            new Knight({name: "Knight"}), new Rook({name: "Rook"})]);
+        let PieceSet: any = ([new Rook({name: "WhiteRook"}), new Knight({name: "WhiteKnight"}), new Bishop({name: "WhiteBishop"}),
+            new Queen({name: "WhiteQueen"}), new King({name: "WhiteKing"}), new Bishop({name: "WhiteBishop"}),
+            new Knight({name: "WhiteKnight"}), new Rook({name: "WhiteRook"}), new Rook({name: "BlackRook"}), new Knight({name: "BlackKnight"}),
+            new Bishop({name: "BlackBishop"}), new Queen({name: "BlackQueen"}), new King({name: "BlackKing"}), new Bishop({name: "BlackBishop"}),
+            new Knight({name: "BlackKnight"}), new Rook({name: "BlackRook"})]);
 
         let White = tileArr[6];
         let Black = tileArr[1];
         let i;
         for (i = 0; i < 8; i++) {
-            White[i].piece = (new Pawn({Tile: White[i], name: "WhitePawn"}));
-            Black[i].piece = (new Pawn({Tile: White[i], name: "BlackPawn"}));
+            White[i].piece = (new Pawn({x: White[i].x, y: White[i].y, name: "WhitePawn"}));
+            Black[i].piece = (new Pawn({x: Black[i].x, y: Black[i].y, name: "BlackPawn"}));
         }
         White = tileArr[7];
         Black = tileArr[0];
         for (i = 0; i < 8; i++) {
-            PieceSet[i].state.name = ('White' + PieceSet[i].state.name)
             White[i].piece = PieceSet[i];
-            PieceSet[i + 8].state.name = ('Black' + PieceSet[i + 8].state.name)
+            White[i].piece.x = White[i].x
+            White[i].piece.y = White[i].y
+
             Black[i].piece = PieceSet[i + 8];
+            Black[i].piece.x = Black[i].x
+            Black[i].piece.y = Black[i].y
         }
     };
 
@@ -84,5 +87,6 @@ export default class board {
             return (tileArr[row][col - 1].color)
         }
     }
+
 }
 
