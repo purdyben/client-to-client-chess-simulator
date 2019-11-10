@@ -24,4 +24,9 @@ export function setBoard() {
     board.setDefaultBoard(this.gameboard);
     return this.gameboard
 }
+// export function resetMoves(tile) {
+//     console.log('runging reset pawn')
+//     console.log("reset", this.moveSet)
+//     this.moveSet = tile.state.piece.getAllPosibleMoves()
+// }
 

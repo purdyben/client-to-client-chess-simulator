@@ -22,13 +22,13 @@ class HandleMovment extends Component {
     }
 
     handleMovment(tile) {
-        if(this.state.selectedTile == tile){
+        if (this.state.selectedTile == tile) {
             tile.state.selectedTile = false
             this.reset()
             return true
         }
         if (tile.state.piece == null && this.state.selectedTile == null) {
-            console.log(this.selectedTile, 'select tile')
+          //  console.log(this.selectedTile, 'select tile')
             return false;
         } else {
             if (this.state.selectedTile == null) {
@@ -39,20 +39,28 @@ class HandleMovment extends Component {
 
             } else {
                 let bool = false
-                console.log(this.state.selectedTile.state.piece.moveSet.length)
                 for (let i = 0; i < this.state.selectedTile.state.piece.moveSet.length; i++) {
-                    console.log(this.state.selectedTile.state.piece.moveSet[0].id, tile.state.id)
+                    // console.log(this.state.selectedTile.state.piece.moveSet, tile.state.id)
+                    // console.log(this.state.selectedTile.state.piece.moveSet[i].id, tile.state.id)
 
                     if (this.state.selectedTile.state.piece.moveSet[i].id == tile.state.id) {
-                        bool = true;
-                        console.log(bool)
-                        break;
+                        if (tile.state.piece != null) {
+                            if (this.checkForPieces(this.state.selectedTile, tile)) {
+                                bool = true
+                                break
+                            } else {
+                                bool = false
+                                break
+                            }
+                        }
+                        bool = true
+                        break
                     }
                 }
                 if (bool) {
                     //console.log(this.state.selectedTile.piece)
                     this.moveablePiece(this.state.selectedTile, tile)
-                    tile.state.piece.resetMoves()
+                    tile.state.piece.resetMoves();
                     //console.log(tile, " has it been reset")
                     this.reset()
 
@@ -63,15 +71,24 @@ class HandleMovment extends Component {
         // console.log('this is the comparable tile: ' + this.state.comparableTile)
         return true;
     }
-    legalMoves(tile, comparableTile) {
-        for (let i = 0; i < this.state.moveSet.length; i++) {
-            if (this.state.MoveSet[i] === comparableTile) {
-                return true
-            }
-        }
-        return false
-    }
 
+    // legalMoves(tile, comparableTile) {
+    //     for (let i = 0; i < this.state.moveSet.length; i++) {
+    //         if (tile.state.MoveSet[i] === comparableTile) {
+    //             if(this.state.MoveSet[i])
+    //             return true
+    //         }
+    //     }
+    //     return false
+    // }
+    checkForPieces(tile, comparableTile) {
+        if (tile.state.piece.name.substring(0, 5) == 'Black' && comparableTile.state.piece.name.substring(0, 5) == 'White')
+            return true
+        else if (comparableTile.state.piece.name.substring(0, 5) == 'Black' && tile.state.piece.name.substring(0, 5) == 'White')
+            return true
+        else
+            return false
+    }
 
 
     reset() {
@@ -104,11 +121,19 @@ class HandleMovment extends Component {
             selectedTile: false,
             color: finalTile.state.color
         };
-
-
-
-        //Constants.gameboard[finalTile.x][finalTile.y] = finalTile
+        this.updateMoveSets()
     };
+
+    updateMoveSets() {
+        for (let i = 0; i < 8; i++) {
+            for (let j = 0; j < 8; j++) {
+                if (Constants.gameboard[i][j].piece != null) {
+                    console.log(Constants.gameboard[i][j].piece.name)
+                    Constants.gameboard[i][j].piece.resetMoves()
+                }
+            }
+        }
+    }
 
     getIfSelected() {
         return this.state.ifSelected;

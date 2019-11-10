@@ -1,23 +1,20 @@
-import React, {Component} from 'react'
-import tile from '../Tile'
 import {gameboard} from '../Constants';
 
 /**
  * ksakhasgr
  */
-class Pawn extends Component {
+class Pawn {
     /**
      * @constructor
      * @param props
      */
     constructor(props) {
-        super()
         this.name = props.name
         this.x = props.x
         this.y = props.y
-        this.firstMove = null
+        this.firstMove = true
         this.moveSet = this.getAllPosibleMoves()
-        this.resetMoves = this.resetMoves.bind(this)
+        //this.resetMoves = this.resetMoves.bind(this)
     }
 
     /**
@@ -28,21 +25,6 @@ class Pawn extends Component {
         return (this.name)
     }
 
-    /**
-     *
-     * @param newName
-     */
-    setName(newName) {
-        this.setState({name: newName});
-    }
-
-    /**
-     *
-     * @param newTile
-     */
-    setTile(newTile) {
-        this.state.tile = newTile
-    }
 
     /**
      *
@@ -60,89 +42,105 @@ class Pawn extends Component {
     }
 
     /**
-     *
-     * @returns {tile[]}
+     * Creates the posible move for the piece storing all tiles in the MoveSet array, returns the array
+     * @returns {[]}
      */
     getAllPosibleMoves() {
         var MoveSet = [];
-        if (this.firstMove == null) {
-            this.firstMove = true
-        } else {
+
+        /*
+         sets first move
+         */
+        if (this.name == 'BlackPawn' && this.y != 1) {
+            this.firstMove = false
+        } else if (this.name == 'WhitePawn' && this.y != 6) {
             this.firstMove = false
         }
-
-        if (this.name == 'BlackPawn' && gameboard[this.y + 1][this.x].piece == null) {
-            MoveSet.push(gameboard[this.y + 1][this.x])
-        } else if (gameboard[this.y - 1][this.x].piece == null) {
-            MoveSet.push(gameboard[this.y - 1][this.x])
-        }
+        /*
+         adds the tile two tiles head if no piece is blocking it
+         */
         if (this.firstMove == true) {
-            //console.log((gameboard))
-            if (this.name == 'BlackPawn' && gameboard[this.y + 1][this.x].piece == null
-                && gameboard[this.y + 2][this.x].piece == null) {
-                MoveSet.push(gameboard[this.y + 2][this.x])
-            } else if (gameboard[this.y - 2][this.x].piece == null && gameboard[this.y - 1][this.x].piece == null) {
-                MoveSet.push(gameboard[this.y - 2][this.x])
-            }
-        }
-        if(this.x < 7){
-            if(this.name == 'BlackPawn' && gameboard[this.y+1][this.x+1].piece != null){
-                if((gameboard[this.y+1][this.x+1].piece.name).substring(0,5) == 'White' ){
-                    MoveSet.push(gameboard[this.x+1][this.y-1])
+            if (this.name == 'BlackPawn' && gameboard[this.y + 1][this.x].piece == null) {
+                if (gameboard[this.y + 2][this.x].piece == null) {
+                    MoveSet.push(gameboard[this.y + 2][this.x])
                 }
-            }else{
 
+            } else if (this.name == 'WhitePawn' && gameboard[this.y - 1][this.x].piece == null) {
+                if (gameboard[this.y - 2][this.x].piece == null) {
+                    MoveSet.push(gameboard[this.y - 2][this.x])
+                }
             }
         }
-        console.log(this)
-        // if (this.name == 'BlackPawn') {
-        let tempObject1 = gameboard[this.y-1][this.x -1]
-        if (gameboard[this.y-1][this.x].piece == null) {
-            // if((gameboard[this.y+1][this.x-1].piece.name).substring(0,5) == 'White' ){
-            //     MoveSet.push(gameboard[this.x+1][this.y-1])
-            // }
-            // if((gameboard[this.x+1][this.y-1].piece.name).substring(0,5) == 'White' ){
-            //     MoveSet.push(gameboard[this.x-1][this.y-1])
-            // }
+        /*
+        add the tiles on right side of the pawn if
+        there is an opposite colored piece
+        */
+        if (this.name == 'BlackPawn') {
+            if (this.x < 7) {
+                if (gameboard[this.y + 1][this.x + 1].piece != null &&
+                    gameboard[this.y + 1][this.x + 1].piece.name.substring(0, 5) == 'White')
+                    MoveSet.push(gameboard[this.y + 1][this.x + 1])
+            }
+        } else {
+            if (this.x < 7) {
+                if (gameboard[this.y - 1][this.x + 1].piece != null &&
+                    gameboard[this.y - 1][this.x + 1].piece.name.substring(0, 5) == 'Black')
+                    MoveSet.push(gameboard[this.y - 1][this.x + 1])
+            }
+        }
+        /*
+       add the tiles on left side of the pawn if
+       there is an opposite colored piece
+       */
+
+        if (this.name == 'BlackPawn') {
+            if (this.x > 0) {
+                if (gameboard[this.y + 1][this.x - 1].piece != null &&
+                    gameboard[this.y + 1][this.x - 1].piece.name.substring(0, 5) == 'White')
+                    MoveSet.push(gameboard[this.y + 1][this.x - 1])
+            }
+        } else {
+            if (this.x > 0) {
+                if (gameboard[this.y - 1][this.x - 1].piece != null &&
+                    gameboard[this.y - 1][this.x - 1].piece.name.substring(0, 5) == 'Black')
+                    MoveSet.push(gameboard[this.y - 1][this.x - 1])
+            }
         }
 
-        // if( gameboard[this.x+1][this.y-1].piece != null){
-        //     console.log("runing")
-        //     if(  (gameboard[this.x+1][this.y-1].piece.name).substring(0,5) == 'Black' ){
-        //         MoveSet.push(gameboard[this.x+1][this.y-1])
-        //     }
-        // }
-        // if( gameboard[this.x-1][this.y-1].piece != null){
-        //     console.log("22runing")
-        //     if( (gameboard[this.x+1][this.y-1].piece.name).substring(0,5) == 'Black'){
-        //         MoveSet.push(gameboard[this.x-1][this.y-1] )
-        //     }
-        // }
+        /*
+        adds the the tile infront of the piece if
+        there is no piece in front of the pawn
+         */
+        if (this.name == 'BlackPawn') {
+            if (this.y < 8) {
+                if (gameboard[this.y + 1][this.x].piece == null) {
+                    // console.log(gameboard[this.y + 1][this.x].piece)
+                    MoveSet.push(gameboard[this.y + 1][this.x])
+                }
 
+            }
+        } else {
+            if (this.y > -1) {
 
+                if (gameboard[this.y - 1][this.x].piece == null) {
+                    //console.log(gameboard[this.y - 1][this.x].piece, 'white pushed')
+                    MoveSet.push(gameboard[this.y - 1][this.x])
+                }
+            }
+        }
+        // console.log(this)
+        // console.log(this,MoveSet)
         return MoveSet
     }
 
+    /**
+     * reset the moveSet arr
+     */
     resetMoves() {
-        console.log("reset", this.moveSet)
         this.moveSet = this.getAllPosibleMoves()
         console.log(this.moveSet)
     }
 
-
-    /**
-     *
-     * @returns {*}
-     */
-    render() {
-        return (
-            <div>
-                <h1>hello</h1>
-                <img className={"tile"}
-                     src={`./images/${this.state.name + "Pawn"}.png`}/>
-            </div>
-        )
-    }
 
 }
 

@@ -52,11 +52,11 @@ export default class board {
     }
 
     static setDefaultBoard(tileArr) {
-        let PieceSet: any = ([new Rook({name: "WhiteRook"}), new Knight({name: "WhiteKnight"}), new Bishop({name: "WhiteBishop"}),
-            new Queen({name: "WhiteQueen"}), new King({name: "WhiteKing"}), new Bishop({name: "WhiteBishop"}),
-            new Knight({name: "WhiteKnight"}), new Rook({name: "WhiteRook"}), new Rook({name: "BlackRook"}), new Knight({name: "BlackKnight"}),
-            new Bishop({name: "BlackBishop"}), new Queen({name: "BlackQueen"}), new King({name: "BlackKing"}), new Bishop({name: "BlackBishop"}),
-            new Knight({name: "BlackKnight"}), new Rook({name: "BlackRook"})]);
+        let PieceSet: any = ([new Rook({x: 0, y: 7, name: "WhiteRook"}), new Knight({x: 1, y: 7, name: "WhiteKnight"}), new Bishop({x: 2, y: 7, name: "WhiteBishop"}),
+            new Queen({x: 3, y: 7, name: "WhiteQueen"}), new King({x: 4, y: 7,name: "WhiteKing"}), new Bishop({x: 5, y: 7, name: "WhiteBishop"}),
+            new Knight({x: 6, y: 7, name: "WhiteKnight"}), new Rook({x: 7, y: 7, name: "WhiteRook"}), new Rook({x: 0, y: 0, name: "BlackRook"}),
+            new Knight({x: 1, y: 0,name: "BlackKnight"}), new Bishop({x: 2, y: 0, name: "BlackBishop"}), new Queen({x: 3, y: 0,name: "BlackQueen"}),
+            new King({x: 4, y: 0, name: "BlackKing"}), new Bishop({x: 5, y: 0, name: "BlackBishop"}), new Knight({x: 6, y: 0,name: "BlackKnight"}), new Rook({x: 7, y: 0, name: "BlackRook"})]);
 
         let White = tileArr[6];
         let Black = tileArr[1];
@@ -75,6 +75,8 @@ export default class board {
             Black[i].piece = PieceSet[i + 8];
             Black[i].piece.x = Black[i].x
             Black[i].piece.y = Black[i].y
+            White[i].piece.getAllPosibleMoves()
+            Black[i].piece.getAllPosibleMoves()
         }
     };
 

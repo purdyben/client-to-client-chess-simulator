@@ -4,29 +4,33 @@ import * as Constants from '../Constants'
 
 
 class King extends Component{
+    /**
+     *
+     * @param props
+     * @constructor
+     */
     constructor(props) {
-        super(props);
-        this.state = {
-            tile: props.tile,
-            name: props.name
-        };
-        this.getName = this.getName.bind(this);
-        this.setTile = this.setTile.bind(this);
-        this.setName = this.setName.bind(this);
-    }
-    getName(){
-        return(this.state.name);
-    }
-    setName(newName){
-        this.state.name = newName;
-    }
-    setTile(newTile){
-        this.state.tile = newTile;
+        super()
+        this.name = props.name
+        this.x = props.x
+        this.y = props.y
+        this.moveSet = this.getAllPosibleMoves()
+        this.resetMoves = this.resetMoves.bind(this)
     }
 
-    posibleMoves(tile){
+    getAllPosibleMoves() {
+        var MoveSet = [];
 
+        return MoveSet
     };
+
+    resetMoves() {
+        this.moveSet = this.getAllPosibleMoves()
+        console.log(this.moveSet)
+    }
+    getName() {
+        return (this.name);
+    }
 
 }
 export default King;

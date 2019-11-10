@@ -1,40 +1,50 @@
-import React, {Component} from 'react';
+import {gameboard} from '../Constants';
 
 
-class Rook extends Component {
+class Rook {
+    /**
+     *
+     * @param props
+     * @constructor
+     */
     constructor(props) {
-        super(props);
-        this.props = props;
-        this.state = {
-            tile: props.tile,
-            name: props.name
-        };
-        this.getName = this.getName.bind(this);
-        this.setTile = this.setTile.bind(this);
-        this.setName = this.setName.bind(this);
+        this.name = props.name
+        this.x = props.x
+        this.y = props.y
+        this.moveSet = this.getAllPosibleMoves()
+        this.resetMoves = this.resetMoves.bind(this)
     }
+    /**
+     * Creates the posible move for the piece storing all tiles in the MoveSet array, returns the array
+     * @returns {[]}
+     */
+    getAllPosibleMoves() {
+        var MoveSet = [];
+        for (let i = 0; i < 8; i++) {
+            // if(gameboard[i][this.x].piece != null && gameboard[i][this.x].piece.name.substring(0,5) == ''){
+            //     MoveSet.push(gameboard[i][this.x])
+            //     break
+            // }
+            MoveSet.push(gameboard[i][this.x])
+            MoveSet.push(gameboard[this.y][i])
+        }
+        // for (let i = 0; i < 8; i++) {
+        //
+        // }
 
-    state = {
-        tile: null,
-        name: null,
+        return MoveSet
     };
+    /**
+     * reset the moveSet arr
+     */
+    resetMoves() {
+        this.moveSet = this.getAllPosibleMoves()
+        console.log(this.moveSet)
+    }
 
     getName() {
-        return (this.state.name);
+        return (this.name);
     }
-
-    setName(newName) {
-        this.state.name = newName;
-    }
-
-    setTile(newTile) {
-        this.state.tile = newTile;
-    }
-
-
-    posibleMoves(tile) {
-
-    };
 
 }
 
