@@ -27,7 +27,6 @@ class Knight {
          * moves down
          */
         if (this.y < 6) {
-            console.log(this)
             if (this.x < 7) {
                 MoveSet.push(gameboard[this.y + 2][this.x + 1])
             }
@@ -69,7 +68,7 @@ class Knight {
     };
 
     /**
-     * reset the moveSet arr
+     * reset moveSet arr
      */
     resetMoves() {
         this.moveSet = this.getAllPosibleMoves()

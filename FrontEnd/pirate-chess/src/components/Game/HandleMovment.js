@@ -35,7 +35,7 @@ class HandleMovment extends Component {
                 this.setState({selectedTile: tile})
                 this.state.selectedTile = tile
                 tile.state.selectedTile = true
-                console.log(tile)
+                console.log(tile, tile.state.piece.moveSet)
 
             } else {
                 let bool = false

@@ -14,6 +14,7 @@ class Rook {
         this.moveSet = this.getAllPosibleMoves()
         this.resetMoves = this.resetMoves.bind(this)
     }
+
     /**
      * Creates the posible move for the piece storing all tiles in the MoveSet array, returns the array
      * @returns {[]}
@@ -34,6 +35,7 @@ class Rook {
 
         return MoveSet
     };
+
     /**
      * reset the moveSet arr
      */

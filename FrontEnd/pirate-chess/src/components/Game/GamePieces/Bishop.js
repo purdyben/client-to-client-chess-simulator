@@ -29,7 +29,7 @@ class Bishop {
             if (this.x - i > -1 && this.y - i > -1) {
                 MoveSet.push(gameboard[this.y - i][this.x - i])
             }
-            if (this.x - i < 8 && this.y + i < 8 && this.x - i > -1)  {
+            if (this.x - i < 8 && this.y + i < 8 && this.x - i > -1) {
                 MoveSet.push(gameboard[this.y + i][this.x - i])
             }
             if (this.x + i > -1 && this.x + i < 8 && this.y - i > -1) {
@@ -40,6 +40,7 @@ class Bishop {
         this.moveSet = MoveSet
         return MoveSet
     };
+
     /**
      * reset the moveSet arr
      */

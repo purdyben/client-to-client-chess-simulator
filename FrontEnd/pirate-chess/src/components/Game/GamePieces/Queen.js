@@ -47,6 +47,7 @@ class Queen {
         this.moveSet = MoveSet
         return MoveSet
     };
+
     /**
      * reset the moveSet arr
      */
