@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import tile from '../tile';
-import Draggable from 'react-draggable';
-
-
+import * as Constants from '../Constants'
 class Queen extends Component{
     constructor(props) {
         super(props);
@@ -25,8 +23,9 @@ class Queen extends Component{
     }
 
 
-    // PosibleMoves(){
-    //
-    // };
+    posibleMoves(tile){
+
+    };
+
 }
 export default Queen ;

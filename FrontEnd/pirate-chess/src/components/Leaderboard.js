@@ -17,7 +17,7 @@ export default class Leaderboard extends React.Component {
         this.setState({name : res.data[0].name});
       })
 
-      axios.get('http://coms-309-bs-4.misc.iastate.edu:8080/test/hello')
+      axios.get('http://coms-309-bs-4.misc.iastate.edu:8080/users')
           .then(response => {
               console.log(response);
           });
