@@ -104,7 +104,14 @@ public class GameServer {
 		{
 			receivingUser = player2Map.get(sendingUser);
 		}
-		sendMove(receivingUser, move);
+		/**
+		 * Another check to prevent player from sending moves
+		 * when another player has not been found
+		 */
+		if(receivingUser != null)
+		{
+			sendMove(receivingUser, move);
+		}
 	}
 
 	@OnClose
