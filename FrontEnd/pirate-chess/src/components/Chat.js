@@ -2,7 +2,6 @@ import React from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
 import {Button, Form, FormGroup, Input} from 'reactstrap';
 import CHeader from './CustomHeader';
-import axios from 'axios';
 
 export default class Chat extends React.Component {
   constructor(props) {
@@ -23,7 +22,7 @@ export default class Chat extends React.Component {
   handleSubmit(event) {
       event.preventDefault();
       console.log(this.state.message);
-      this.ws.send(JSON.stringify(this.state.message));
+      this.ws.send(JSON.stringify('user' + this.state.message));
   }
 
   ws = new WebSocket('ws://coms-309-bs-4.misc.iastate.edu:8080/chat/userName')
