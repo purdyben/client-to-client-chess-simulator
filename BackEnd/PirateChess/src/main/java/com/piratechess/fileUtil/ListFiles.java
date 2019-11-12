@@ -13,23 +13,27 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
+/**
+ * NOTE: methods were set to static to be accessed by GhostServer
+ * @author Colby McKinley
+ *
+ */
 public class ListFiles {
 	public static final int DEPTH = 1;
 
-	public Set<String> listFilesUsingJavaIO(String dir) {
+	static public Set<String> listFilesUsingJavaIO(String dir) {
 		return Stream.of(new File(dir).listFiles()).filter(file -> !file.isDirectory()).map(File::getName)
 				.collect(Collectors.toSet());
 	}
 
-	public Set<String> listFilesUsingFileWalk(String dir, int depth) throws IOException {
+	static public Set<String> listFilesUsingFileWalk(String dir, int depth) throws IOException {
 		try (Stream<Path> stream = Files.walk(Paths.get(dir), depth)) {
 			return stream.filter(file -> !Files.isDirectory(file)).map(Path::getFileName).map(Path::toString)
 					.collect(Collectors.toSet());
 		}
 	}
 
-	public Set<String> listFilesUsingFileWalkAndVisitor(String dir) throws IOException {
+	static public Set<String> listFilesUsingFileWalkAndVisitor(String dir) throws IOException {
 		Set<String> fileList = new HashSet<>();
 		Files.walkFileTree(Paths.get(dir), new SimpleFileVisitor<Path>() {
 			@Override
@@ -43,7 +47,7 @@ public class ListFiles {
 		return fileList;
 	}
 
-	public Set<String> listFilesUsingDirectoryStream(String dir) throws IOException {
+	static public Set<String> listFilesUsingDirectoryStream(String dir) throws IOException {
 		Set<String> fileList = new HashSet<>();
 		try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(dir))) {
 			for (Path path : stream) {
