@@ -33,7 +33,15 @@ public class GameServer {
 	 * Function which maps users to session
 	 */
 	private static Map<String, Session> usersSessionMap = new HashMap<>();
-
+	/**
+	 * Function which maps player 1 to player 2
+	 */
+	private static Map<String, String> player1Map = new HashMap<>();
+	/**
+	 * Function which maps player 2 to player 1
+	 */
+	private static Map<String, String> player2Map = new HashMap<>();
+	
 	private final Logger logger = LoggerFactory.getLogger(GameServer.class);
 	
 	
@@ -47,9 +55,21 @@ public class GameServer {
 	 */
 	@OnOpen
 	public void onOpen(Session session, @PathParam("userName") String displayName) throws IOException {
-		logger.info(displayName + " has entered the game");
+		logger.info(displayName + " has entered matchmaking");
 		sessionUsersMap.put(session, displayName);
 		usersSessionMap.put(displayName, session);
+		/**
+		 * If there is now an odd of players, wait for another to join
+		 */
+		if(usersSessionMap.size()%2!=0)
+		{
+			logger.info(displayName + " is waiting for a match.");
+		}
+		else//if even
+		{
+			player1Map.put(usersSessionMap.keySet().toArray()[usersSessionMap.size()-1].toString(), displayName);//?
+			player2Map.put(displayName, usersSessionMap.keySet().toArray()[usersSessionMap.size()-1].toString());
+		}
 	}
 
 	/**
@@ -68,6 +88,8 @@ public class GameServer {
 		 * {receiverUser} + " " + move;
 		 */
 		String receivingUser = move.split(" ")[0].substring(1);
+		//String receivingUser = player1Map.get(sendingUser);
+		//if(receivingUser == null) {receivingUser = player2Map.get(sendingUser);}
 		sendMove(receivingUser, "[DM] " + sendingUser + ": " + move);
 	}
 
@@ -104,4 +126,6 @@ public class GameServer {
 			e.printStackTrace();
 		}
 	}
+	
+	//logger method
 }
