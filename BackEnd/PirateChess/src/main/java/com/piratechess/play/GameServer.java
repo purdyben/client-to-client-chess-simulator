@@ -72,8 +72,8 @@ public class GameServer {
 			 * The players are mapped to each other so that they don't have to type "@playername move"
 			 * The players also cannot send moves to players outside of their game now
 			 */
-			player1Map.put(usersSessionMap.keySet().toArray()[usersSessionMap.size()-1].toString(), displayName);//?
-			player2Map.put(displayName, usersSessionMap.keySet().toArray()[usersSessionMap.size()-1].toString());
+			player1Map.put(usersSessionMap.keySet().toArray()[usersSessionMap.size()-2].toString(), displayName);//?
+			player2Map.put(displayName, usersSessionMap.keySet().toArray()[usersSessionMap.size()-2].toString());
 		}
 	}
 
