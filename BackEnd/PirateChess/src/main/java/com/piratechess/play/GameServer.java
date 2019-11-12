@@ -67,7 +67,10 @@ public class GameServer {
 		{
 			logger.info(displayName + " is waiting for a match.");
 		}
-		else//if even
+		/**
+		 * If the amount of players is now even, match newest user with second newest user
+		 */
+		else
 		{
 			/**
 			 * The players are mapped to each other so that they don't have to type "@playername move"
@@ -153,7 +156,6 @@ public class GameServer {
 
 	/**
 	 * Sends a message to a particular user.
-	 * 
 	 * @param receiver - receiver display name
 	 * @param message  - chess move (Algebraic notation)
 	 */

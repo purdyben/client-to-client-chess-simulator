@@ -75,10 +75,14 @@ public class ChatServer {
 			logger.info("Entered into broadcast");
 			broadcast(message);
 		}
-		else
+		else if(usersSessionMap.containsKey(receivingUser))
 		{
-		sendMessageToParticularUser(receivingUser, "[DM] " + sendingUser + ": " + message);
-		sendMessageToParticularUser(sendingUser, "[DM] " + sendingUser + ": " + message);
+			sendMessageToParticularUser(receivingUser, "[DM] " + sendingUser + ": " + message);
+			sendMessageToParticularUser(sendingUser, "[DM] " + sendingUser + ": " + message);
+		}
+		else//if receiving user is blank or not found, send a message back to sender
+		{
+			sendMessageToParticularUser(sendingUser, "User:" + receivingUser + " not found");
 		}
 	}
 
