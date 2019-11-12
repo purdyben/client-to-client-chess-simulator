@@ -17,8 +17,7 @@ maven-build:
  stage: mavenbuild
  only:
   - master
-  - configuring-ci-cd
-  - 13-use-case-2
+  - use-case-4
  tags:
   - backend   
  script:
@@ -32,8 +31,7 @@ maven-test:
  stage: maventest
  only:
   - master
-  - configuring-ci-cd
-  - 13-use-case-2
+  - use-case-4
  tags:
   - backend
  script:
@@ -51,8 +49,7 @@ autoDeploy:
  stage: autodeploy 
  only:
   - master
-  - configuring-ci-cd
-  - 13-use-case-2
+  - use-case-4
  tags:
   - backend
  script:
@@ -80,8 +77,7 @@ FrontEnd:
   #- postgres:latest
  only:
   - master
-  - configuring-ci-cd
-  - 13-use-case-2
+  - use-case-4
  tags:
   - backend
  script:
