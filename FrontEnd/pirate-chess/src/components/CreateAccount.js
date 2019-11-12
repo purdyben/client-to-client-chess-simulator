@@ -1,46 +1,68 @@
 import React from 'react';
 import {Button, Form, FormGroup, Input, Label} from 'reactstrap';
 import CHeader from './CustomHeader';
-import Axios from 'axios';
+import axios from 'axios';
 
 export default class CreateAccount extends React.Component {
-    state = {
-      username: "",
-      password: "",
-      confirmPassword: ""
+    constructor(props) {
+        super(props);
+    
+        this.state = {
+        };
+    
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentDidMount() {
-        const response = await axios.post(
-            'https://example.com',
-            { username: this.state.username },
-            { headers: { 'Content-Type': 'application/json' } }
-          )
-          console.log(response.data)
+    handleChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+    };
+    
+    
+    handleSubmit(event) {
+        event.preventDefault();
+
+        if(this.state.password == this.state.confirmPassword) {
+            const response = axios.post(
+                'http://coms-309-bs-4.misc.iastate.edu:8080/users/new',
+                { user: this.state.username },
+                //{ password: this.state.password },
+                { headers: { 'Content-Type': 'application/json' } }
+            )
+            console.log(response.data);
+            this.props.history.push('/login');
+        } else {
+            alert('Passwords do not match');
+        }
     }
 
     render() {
+        const {
+            username,
+            password,
+            confirmPassword
+          } = this.state;
         return (
             <header className="App-header">
                 <CHeader/>
                 <img style={{width: 150, height: 150}} src="logo.png" className="App-logo-small" alt="logo"/>
                 <div className="Login-buttons">
-                    <Form>
+                    <Form onSubmit={this.handleSubmit}>
                         <FormGroup>
-                            <Label for="newUsername">Enter Username</Label>
-                            <Input type="newUsername" name="newUsername" id="newUsername" placeholder="Username"/>
+                            <Label for="username">Enter Username</Label>
+                            <Input value={username} type="text" name="username" id="username" placeholder="Username" onChange={this.handleChange}/>
                         </FormGroup>
                         <FormGroup>
-                            <Label for="newPassword">Password</Label>
-                            <Input type="newPassword" name="newPassword" id="newPassword" placeholder="Password"/>
+                            <Label for="password">Password</Label>
+                            <Input value={password} type="password" name="password" id="password" placeholder="Password" onChange={this.handleChange}/>
                         </FormGroup>
                         <FormGroup>
                             <Label for="confirmNewPassword">Confirm Password</Label>
-                            <Input type="confirmNewPassword" name="confirmNewPassword" id="confirmNewPassword"
-                                placeholder="Confirm Password"/>
+                            <Input value={confirmPassword} type="password" name="confirmPassword" id="confirmPassword"
+                                placeholder="Confirm Password" onChange={this.handleChange}/>
                         </FormGroup>
+                        <Button color="primary" size="lg" type="submit" block>Create Account</Button>
                     </Form>
-                    <Button color="primary" size="lg" href="/mainScreen" block>Create Account</Button>
                     <br/>
                 </div>
             </header>
