@@ -1,7 +1,8 @@
 package com.piratechess.play;
 
 import java.io.IOException;
-import java.util.HashMap;
+//import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.websocket.OnClose;
@@ -28,19 +29,19 @@ public class GameServer {
 	/**
 	 * Function which maps sessions to users
 	 */
-	private static Map<Session, String> sessionUsersMap = new HashMap<>();
+	private static Map<Session, String> sessionUsersMap = new LinkedHashMap<>();
 	/**
 	 * Function which maps users to session
 	 */
-	private static Map<String, Session> usersSessionMap = new HashMap<>();
+	private static Map<String, Session> usersSessionMap = new LinkedHashMap<>();
 	/**
 	 * Function which maps player 1 to player 2
 	 */
-	private static Map<String, String> player1Map = new HashMap<>();
+	private static Map<String, String> player1Map = new LinkedHashMap<>();
 	/**
 	 * Function which maps player 2 to player 1
 	 */
-	private static Map<String, String> player2Map = new HashMap<>();
+	private static Map<String, String> player2Map = new LinkedHashMap<>();
 	
 	private final Logger logger = LoggerFactory.getLogger(GameServer.class);
 	
