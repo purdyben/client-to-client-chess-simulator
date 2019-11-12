@@ -62,6 +62,7 @@ public class GameServer {
 	public void onMessage(Session session, String move) throws IOException {
 		logger.info("Entered into Message: Got Message:" + move);
 		String sendingUser = sessionUsersMap.get(session);
+		//File
 		/*
 		 * From the client side, just do the following... move = "@" +
 		 * {receiverUser} + " " + move;
