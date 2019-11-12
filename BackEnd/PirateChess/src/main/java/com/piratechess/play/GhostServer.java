@@ -114,7 +114,7 @@ public class GhostServer {
 			 * If not, do nothing or do next move in log
 			 * Should just be calculating if that space is taken or not based on the current game log being recorded for this game
 			 */
-			sendMove(sendingUser, "[DM]GhostPlayer: " + nextMove);
+			sendMove(sendingUser, nextMove);
 			logger.info("Entered into reply: Sent Message:" + nextMove);
 			curMove++;
 			usersCurMoveMap.put(sendingUser, curMove);
