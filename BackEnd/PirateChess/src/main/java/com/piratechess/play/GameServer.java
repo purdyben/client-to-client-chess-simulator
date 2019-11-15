@@ -80,6 +80,7 @@ public class GameServer {
 			player1Map.put(usersSessionMap.keySet().toArray()[usersSessionMap.size()-2].toString(), displayName);//?
 			player2Map.put(displayName, usersSessionMap.keySet().toArray()[usersSessionMap.size()-2].toString());
 			sendMove(displayName, "Connected and found opponent: " + player2Map.get(displayName));
+			sendMove(player2Map.get(displayName), "Connected and found opponent: " + displayName);
 		}
 	}
 
