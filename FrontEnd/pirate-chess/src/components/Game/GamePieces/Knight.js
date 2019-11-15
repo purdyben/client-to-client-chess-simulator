@@ -72,7 +72,7 @@ class Knight {
      */
     resetMoves() {
         this.moveSet = this.getAllPosibleMoves()
-        console.log(this.moveSet)
+       // console.log(this.moveSet)
     }
 
     getName() {

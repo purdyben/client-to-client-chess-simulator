@@ -48,6 +48,7 @@ export default class board {
         }
         console.log(tileArr);
         //setDefaultBoard(tileArr);
+
         return tileArr;
     }
 

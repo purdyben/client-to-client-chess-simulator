@@ -23,8 +23,16 @@ export default class OpenSocket extends React.Component {
         }
 
     }
+    componentWillMount() {
+        this.ws.onopen = () => {
+            console.log('WebSocket Client Connected');
+        };
+        this.ws.onmessage = (message) => {
+            console.log(message);
+        };
+    }
 
-    render() {
-        return (null);
+    render(){
+        return (null)
     }
 }

@@ -13,6 +13,7 @@ class Rook {
         this.y = props.y
         this.moveSet = this.getAllPosibleMoves()
         this.resetMoves = this.resetMoves.bind(this)
+        this.castle = true
     }
 
     /**
@@ -21,17 +22,54 @@ class Rook {
      */
     getAllPosibleMoves() {
         var MoveSet = [];
-        for (let i = 0; i < 8; i++) {
-            // if(gameboard[i][this.x].piece != null && gameboard[i][this.x].piece.name.substring(0,5) == ''){
-            //     MoveSet.push(gameboard[i][this.x])
-            //     break
-            // }
-            MoveSet.push(gameboard[i][this.x])
-            MoveSet.push(gameboard[this.y][i])
+        /**
+         * right
+         */
+        for (let i = this.x; i < 8; i++) {
+            if (i + 1 < 8 && gameboard[this.y][i + 1].piece == null) {
+                MoveSet.push(gameboard[this.y][i + 1])
+            }
+            if (i + 1 < 8 && gameboard[this.y][i + 1].piece != null) {
+                MoveSet.push(gameboard[this.y][i + 1])
+                break
+            }
         }
-        // for (let i = 0; i < 8; i++) {
-        //
-        // }
+        /**
+         * left
+         */
+        for (let i = this.x; i >= 0; i--) {
+            if (i - 1 >= 0 && gameboard[this.y][i - 1].piece == null) {
+                MoveSet.push(gameboard[this.y][i - 1])
+            }
+            if (i - 1 >= 0 && gameboard[this.y][i - 1].piece != null) {
+                MoveSet.push(gameboard[this.y][i - 1])
+                break
+            }
+        }
+        /**
+         * up
+         */
+        for (let i = this.y; i < 8; i++) {
+            if (i + 1 < 8 && gameboard[i + 1][this.x].piece == null) {
+                MoveSet.push(gameboard[i + 1][this.x])
+            }
+            if (i + 1 < 8 && gameboard[i + 1][this.x].piece != null) {
+                MoveSet.push(gameboard[i + 1][this.x])
+                break
+            }
+        }
+        /**
+         * down
+         */
+        for (let i = this.y; i >= 0; i--) {
+            if (i - 1 >= 0 && gameboard[i - 1][this.x].piece == null) {
+                MoveSet.push(gameboard[i - 1][this.x])
+            }
+            if (i - 1 >= 0 && gameboard[i - 1][this.x].piece != null) {
+                MoveSet.push(gameboard[i - 1][this.x])
+                break
+            }
+        }
 
         return MoveSet
     };
@@ -41,7 +79,7 @@ class Rook {
      */
     resetMoves() {
         this.moveSet = this.getAllPosibleMoves()
-        console.log(this.moveSet)
+       // console.log(this.moveSet)
     }
 
     getName() {

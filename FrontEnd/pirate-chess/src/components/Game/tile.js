@@ -18,7 +18,7 @@ class Tile extends Component {
     };
 
     setSelectedTile = (bool) => {
-        this.state.selectedTile = bool;
+        this.setState({selectedTile: bool})
     }
 
     _TestimageClick(tile) {
@@ -45,13 +45,14 @@ class Tile extends Component {
     }
 
     render() {
-        const {id, color, piece, selectedTile} = this.props
+        const {id, color, /*piece,selectedTile*/} = this.props
 
         if (this.state.selectedTile === true) {
             return (<div className={"grid-cell"} key={`${id}`}>
                     <img style={Constants.style.GreenTile} className={"tile"}
                          src={`./images/${this.state.piece.getName()}.png`} onClick={() => this._TestimageClick(this)}
                          alt={`${id}`}/>
+                    <h style={Constants.style.GreenTile}  className={"tile"}>{`${this.state.id}`}</h>
                 </div>
             )
         } else if (this.state.piece != null) {

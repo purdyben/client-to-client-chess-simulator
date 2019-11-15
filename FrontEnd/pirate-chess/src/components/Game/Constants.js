@@ -1,5 +1,6 @@
 import HandleMovment from './HandleMovment';
 import board from './board';
+import OpenSocket from './GameCommunication/OpenSocket'
 
 export const style = {
 
@@ -20,13 +21,21 @@ export const style = {
 export const moveHandler = new HandleMovment();
 export let moveCount = 0;
 export var gameboard = board.popTile(board.getPrev, board.setDefaultBoard);
+
 export function setBoard() {
     board.setDefaultBoard(this.gameboard);
+    this.updateAllMoveSets()
     return this.gameboard
 }
-// export function resetMoves(tile) {
-//     console.log('runging reset pawn')
-//     console.log("reset", this.moveSet)
-//     this.moveSet = tile.state.piece.getAllPosibleMoves()
-// }
+export let GameSocket = new OpenSocket();
+export function updateAllMoveSets(){
+    for (let i = 0; i < 8; i++) {
+        for (let j = 0; j < 8; j++) {
+            if (this.gameboard[i][j].piece != null) {
+                // console.log(Constants.gameboard[i][j].piece.name)
+                this.gameboard[i][j].piece.resetMoves()
+            }
+        }
+    }
+}
 

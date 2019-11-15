@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
+import GameBoard from './GameBoard'
 
 class GamePage extends Component {
 
@@ -7,8 +8,8 @@ class GamePage extends Component {
         return (
             <div>
                 <div>
-                    <img src="./images/logo.png" className="App-logo-small"/>
-                    <header>hello</header>
+                    <img className="tile" src={`./logo.png`}  alt={''}/>
+                    <GameBoard/>
                 </div>
             </div>
 

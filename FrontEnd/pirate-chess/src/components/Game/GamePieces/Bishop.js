@@ -20,20 +20,50 @@ class Bishop {
      */
     getAllPosibleMoves() {
         var MoveSet = [];
+        /**
+         * up right
+         */
         for (let i = 1; i < 8; i++) {
-
             if (this.x + i < 8 && this.y + i < 8) {
-
                 MoveSet.push(gameboard[this.y + i][this.x + i])
+                if (gameboard[this.y + i][this.x + i].piece != null) {
+                    break;
+                }
             }
+        }
+        /**
+         * bottom left
+         */
+        for (let i = 1; i < 8; i++) {
             if (this.x - i > -1 && this.y - i > -1) {
                 MoveSet.push(gameboard[this.y - i][this.x - i])
+                if (gameboard[this.y - i][this.x - i].piece != null) {
+                    break;
+                }
             }
+        }
+        /**
+         * bottom right
+         */
+        for (let i = 1; i < 8; i++) {
             if (this.x - i < 8 && this.y + i < 8 && this.x - i > -1) {
                 MoveSet.push(gameboard[this.y + i][this.x - i])
+                if (gameboard[this.y + i][this.x - i].piece != null) {
+                    break;
+                }
             }
+        }
+
+
+        /**
+         * up left
+         */
+        for (let i = 1; i < 8; i++) {
             if (this.x + i > -1 && this.x + i < 8 && this.y - i > -1) {
                 MoveSet.push(gameboard[this.y - i][this.x + i])
+                if (gameboard[this.y - i][this.x + i].piece != null) {
+                    break;
+                }
             }
 
         }
@@ -46,7 +76,7 @@ class Bishop {
      */
     resetMoves() {
         this.moveSet = this.getAllPosibleMoves()
-        console.log(this.moveSet)
+        // console.log(this.moveSet)
     }
 
     getName() {

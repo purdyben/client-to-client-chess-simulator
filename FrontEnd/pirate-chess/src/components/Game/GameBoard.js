@@ -23,6 +23,7 @@ class GameBoard extends Component {
         }],
         selectTile: false,
 
+
     }
 
     _imageClick(Tile) {
@@ -40,13 +41,20 @@ class GameBoard extends Component {
         console.log(Constants.gameboard)
         return (
             <div className='gamePage'>
-                <div className='flex-row'>
-                    {/*{[this.state.board[0][0], this.state.board[1][0], this.state.board[2][0], this.state.board[3][0],*/}
-                    {/*    this.state.board[4][0], this.state.board[5][0], this.state.board[6][0], this.state.board[7][0]].map(tile => (*/}
-                    {/*    /!*<h1>ya</h1>*!/*/}
-                    {/*    this.displayNum(tile, false)*/}
-                    {/*))}*/}
+                <div>
+                    <OpenSocket/>
                 </div>
+                <div className='flex-row'>
+                    {[Constants.gameboard[0][0], Constants.gameboard[1][0], Constants.gameboard[2][0],
+                        Constants.gameboard[3][0], Constants.gameboard[4][0], Constants.gameboard[5][0],
+                        Constants.gameboard[6][0], Constants.gameboard[7][0]].map(tile => {
+                        return (<div className='tile'>
+                            <h style={Constants.style.GreenTile} className={"tile"}>{`${tile.id}`}</h>
+                        </div>)
+                    })}
+
+                </div>
+
                 <div className='gameBoard'>
                     <div className="grid">
                         {this.state.board.map(row => (
@@ -59,19 +67,16 @@ class GameBoard extends Component {
                                 )
                             })
                         ))}
-                        {/*{this.state.board[7].map(tile => (*/}
-                        {/*    this.displayNum(tile, false)*/}
-                        {/*))}*/}
                     </div>
                     <div className="grid">
-                        {<OpenSocket/>}
-                        {/*{this.state.board.map(row => (*/}
-                        {/*    row.map(tile => (*/}
-                        {/*        tile.render()*/}
-                        {/*    ))*/}
-                        {/*))}*/}
+                        {Constants.gameboard[7].map(tile => {
+                            return (<div className='tile'>
+                                <h style={Constants.style.GreenTile} className={"tile"}>{`${tile.id}`}</h>
+                            </div>)
+                        })}
                     </div>
                 </div>
+
 
             </div>
         )

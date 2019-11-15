@@ -22,13 +22,13 @@ class HandleMovment extends Component {
     }
 
     handleMovment(tile) {
-        if (this.state.selectedTile == tile) {
+        if (this.state.selectedTile === tile) {
             tile.state.selectedTile = false
             this.reset()
             return true
         }
         if (tile.state.piece == null && this.state.selectedTile == null) {
-          //  console.log(this.selectedTile, 'select tile')
+            console.log(this.selectedTile, 'select tile')
             return false;
         } else {
             if (this.state.selectedTile == null) {
@@ -36,6 +36,8 @@ class HandleMovment extends Component {
                 this.state.selectedTile = tile
                 tile.state.selectedTile = true
                 console.log(tile, tile.state.piece.moveSet)
+                this.updateMoveSets()
+
 
             } else {
                 let bool = false
@@ -43,7 +45,7 @@ class HandleMovment extends Component {
                     // console.log(this.state.selectedTile.state.piece.moveSet, tile.state.id)
                     // console.log(this.state.selectedTile.state.piece.moveSet[i].id, tile.state.id)
 
-                    if (this.state.selectedTile.state.piece.moveSet[i].id == tile.state.id) {
+                    if (this.state.selectedTile.state.piece.moveSet[i].id === tile.state.id) {
                         if (tile.state.piece != null) {
                             if (this.checkForPieces(this.state.selectedTile, tile)) {
                                 bool = true
@@ -71,26 +73,14 @@ class HandleMovment extends Component {
         // console.log('this is the comparable tile: ' + this.state.comparableTile)
         return true;
     }
-
-    // legalMoves(tile, comparableTile) {
-    //     for (let i = 0; i < this.state.moveSet.length; i++) {
-    //         if (tile.state.MoveSet[i] === comparableTile) {
-    //             if(this.state.MoveSet[i])
-    //             return true
-    //         }
-    //     }
-    //     return false
-    // }
     checkForPieces(tile, comparableTile) {
-        if (tile.state.piece.name.substring(0, 5) == 'Black' && comparableTile.state.piece.name.substring(0, 5) == 'White')
+        if (tile.state.piece.name.substring(0, 5) === 'Black' && comparableTile.state.piece.name.substring(0, 5) === 'White')
             return true
-        else if (comparableTile.state.piece.name.substring(0, 5) == 'Black' && tile.state.piece.name.substring(0, 5) == 'White')
+        else if (comparableTile.state.piece.name.substring(0, 5) === 'Black' && tile.state.piece.name.substring(0, 5) === 'White')
             return true
         else
             return false
     }
-
-
     reset() {
         this.state.ifSelected = false;
         this.state.selectedTile = null;
@@ -98,12 +88,19 @@ class HandleMovment extends Component {
     }
 
     moveablePiece(startTile, finalTile) {
-        finalTile.state.piece = startTile.state.piece
-        startTile.state.piece = null
-        startTile.state.selectedTile = false
-        finalTile.state.piece.x = finalTile.state.x
-        finalTile.state.piece.y = finalTile.state.y
-        startTile.forceUpdate()
+        //this.sendMessage('sending data')
+        if(this.Castle(startTile,finalTile) && startTile.state.piece.name.substring(5,9) === 'King'){
+
+        }else {
+            finalTile.state.piece = startTile.state.piece
+            startTile.state.piece = null
+            startTile.state.selectedTile = false
+            finalTile.state.piece.x = finalTile.state.x
+            finalTile.state.piece.y = finalTile.state.y
+            startTile.forceUpdate()
+        }
+
+
 
         Constants.gameboard[startTile.state.y][startTile.state.x] = {
             id: startTile.state.id,
@@ -121,17 +118,24 @@ class HandleMovment extends Component {
             selectedTile: false,
             color: finalTile.state.color
         };
-        this.updateMoveSets()
+        Constants.updateAllMoveSets()
     };
+    Castle(tile,finalTile){
+        return false
+    }
 
     updateMoveSets() {
-        for (let i = 0; i < 8; i++) {
-            for (let j = 0; j < 8; j++) {
-                if (Constants.gameboard[i][j].piece != null) {
-                    console.log(Constants.gameboard[i][j].piece.name)
-                    Constants.gameboard[i][j].piece.resetMoves()
-                }
-            }
+        console.log(this.state.selectedTile.state.piece)
+        this.state.selectedTile.state.piece.resetMoves()
+    }
+
+    sendMessage=(data)=>{
+        console.log(Constants.GameSocket)
+        try {
+            Constants.GameSocket.send(data) //send data to the server
+            console.log('send')
+        } catch (error) {
+            console.log(error) // catch error
         }
     }
 
