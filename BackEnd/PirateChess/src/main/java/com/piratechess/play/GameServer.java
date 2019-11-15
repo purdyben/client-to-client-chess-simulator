@@ -66,6 +66,7 @@ public class GameServer {
 		if(usersSessionMap.size()%2!=0)
 		{
 			logger.info(displayName + " is waiting for a match.");
+			sendMove(displayName, "Connected and waiting for a match");
 		}
 		/**
 		 * If the amount of players is now even, match newest user with second newest user
@@ -78,6 +79,7 @@ public class GameServer {
 			 */
 			player1Map.put(usersSessionMap.keySet().toArray()[usersSessionMap.size()-2].toString(), displayName);//?
 			player2Map.put(displayName, usersSessionMap.keySet().toArray()[usersSessionMap.size()-2].toString());
+			sendMove(displayName, "Connected and found opponent: " + player2Map.get(displayName));
 		}
 	}
 
@@ -126,14 +128,14 @@ public class GameServer {
 		/**
 		 * Close opponent's session by recursively calling onClose
 		 */
-		if(player1Map.get(net_id)!=null)
-		{
-			onClose(usersSessionMap.get(player1Map.get(net_id)));
-		}
-		else if(player2Map.get(net_id)!=null)
-		{
-			onClose(usersSessionMap.get(player2Map.get(net_id)));
-		}
+		//if(player1Map.get(net_id)!=null)
+		//{
+			//onClose(usersSessionMap.get(player1Map.get(net_id)));
+		//}
+		//else if(player2Map.get(net_id)!=null)
+		//{
+			//onClose(usersSessionMap.get(player2Map.get(net_id)));
+		//}
 			
 		sessionUsersMap.remove(session);
 		usersSessionMap.remove(net_id);
