@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {Table, Button, ButtonGroup} from 'reactstrap';
 import {Container, Row, Col} from 'react-bootstrap';
+import CHeader from './CustomHeader';
 
 export default class Profile extends React.Component {
   
@@ -23,6 +24,7 @@ export default class Profile extends React.Component {
   render() {
     return (
       <header className="App-header">
+        <CHeader/>
         <Container>
           <Row>
             <Col>
