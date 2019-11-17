@@ -25,12 +25,12 @@ export default class CreateAccount extends React.Component {
         if(this.state.password == this.state.confirmPassword) {
             const response = axios.post(
                 'http://coms-309-bs-4.misc.iastate.edu:8080/users/new',
-                { user: this.state.username },
-                //{ password: this.state.password },
+                { userName: this.state.username },
+                { userPassword: this.state.password },
                 { headers: { 'Content-Type': 'application/json' } }
             )
-            console.log(response.data);
-            this.props.history.push('/login');
+            console.log(response);
+            //this.props.history.push('/login');
         } else {
             alert('Passwords do not match');
         }

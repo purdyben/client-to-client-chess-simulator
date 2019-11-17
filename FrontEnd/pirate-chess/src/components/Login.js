@@ -24,11 +24,11 @@ export default class Login extends React.Component {
 
         const response = axios.post(
             'http://coms-309-bs-4.misc.iastate.edu:8080/login',
-            { user: this.state.username },
-            { password: this.state.password },
+            { userName: this.state.username },
+            { userPassword: this.state.password },
             { headers: { 'Content-Type': 'application/json' } }
         )
-        console.log(response.data);
+        console.log(response);
         this.props.history.push('/mainScreen');
         
     }
