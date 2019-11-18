@@ -27,6 +27,8 @@ const Home = () => (
             <Button color="secondary" size="lg" href="/mainScreen" block>Guest Login</Button>
         </div>
         <NavLink href="/createAccount" classname="Create-account-link">Create Account</NavLink>
+        <br/>
+        <br/>
     </header>
 );
 function App() {

@@ -22,17 +22,19 @@ export default class CreateAccount extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        if(this.state.password == this.state.confirmPassword) {
+        if(this.state.username != undefined && this.state.username.length > 5 && 
+            this.state.password != undefined && this.state.password == this.state.confirmPassword && 
+            this.state.password.length > 7 && this.state.email != undefined && this.state.email.length > 5) {
             const response = axios.post(
                 'http://coms-309-bs-4.misc.iastate.edu:8080/users/new',
-                { userName: this.state.username },
-                { userPassword: this.state.password },
+                { userPassword: this.state.password, userName: this.state.username, 
+                    displayName: this.state.username, email: this.state.email},
                 { headers: { 'Content-Type': 'application/json' } }
             )
             console.log(response);
-            //this.props.history.push('/login');
+            this.props.history.push('/login');
         } else {
-            alert('Passwords do not match');
+            alert('Passwords must match \nPassword must be at least 8 characters long \nUsername must be at least 5 characters long \nEmail must be at least 5 characters long');
         }
     }
 
@@ -40,7 +42,8 @@ export default class CreateAccount extends React.Component {
         const {
             username,
             password,
-            confirmPassword
+            confirmPassword,
+            email
           } = this.state;
         return (
             <header className="App-header">
@@ -53,7 +56,11 @@ export default class CreateAccount extends React.Component {
                             <Input value={username} type="text" name="username" id="username" placeholder="Username" onChange={this.handleChange}/>
                         </FormGroup>
                         <FormGroup>
-                            <Label for="password">Password</Label>
+                            <Label for="email">Enter Email</Label>
+                            <Input value={email} type="email" name="email" id="email" placeholder="Email" onChange={this.handleChange}/>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="password">Enter Password</Label>
                             <Input value={password} type="password" name="password" id="password" placeholder="Password" onChange={this.handleChange}/>
                         </FormGroup>
                         <FormGroup>

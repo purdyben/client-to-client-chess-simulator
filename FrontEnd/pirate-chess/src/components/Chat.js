@@ -22,9 +22,7 @@ export default class Chat extends React.Component {
 
   handleSubmit(event) {
       event.preventDefault();
-      console.log(this.state.message);
       this.ws.send(JSON.stringify('!all ' + this.state.message));
-      this.setState({displayChat: this.state.displayChat + "\n" + this.state.message})
   }
 
   ws = new WebSocket('ws://coms-309-bs-4.misc.iastate.edu:8080/chat/userName')
@@ -39,7 +37,7 @@ export default class Chat extends React.Component {
       // listen to data sent from the websocket server
       const message = JSON.parse(evt.data)
       this.setState({dataFromServer: message})
-      console.log(message.substring(5))
+      this.setState({displayChat: this.state.displayChat + "\n" + message.substring(5)})
     }
 
     this.ws.onclose = () => {

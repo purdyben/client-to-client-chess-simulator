@@ -9,28 +9,32 @@ export default class Leaderboard extends React.Component {
     name: ""
   }
   componentDidMount() {
-    //coms-309-bs-4.misc.iastate.edu:8080/test/hello
-    axios.get(`https://jsonplaceholder.typicode.com/users`)
-      .then(res => {
-        //console.log(res.data[0]);
-        this.setState({persons : res.data});
-        //console.log(this.state.persons[0].name);
-        this.setState({name : res.data[0].name});
-      })
-
       axios.get('http://coms-309-bs-4.misc.iastate.edu:8080/users')
           .then(response => {
-              console.log(response);
+              console.log(response.data);
+              this.setState({persons: response.data});
           });
+  }
+
+  createTable() {
+    let table = [];
+    console.log(this.state.persons.length)
+    for(let i = 0; i < this.state.persons.size; i++) {
+      return(<tr>
+        <th scope="row">[i]</th>
+        <td>{this.state.persons}[i]</td>
+        <td>[Point Value]</td>
+        <td>[Rank]</td>
+        </tr>)
+    }
   }
   
   render() {
+    var i = 1;
     return (
       <header className="App-header">
         <CHeader/>
-        <img src="logo.png" className="App-logo-small" alt="logo" />
-        <Button color="primary" size="sm" href="/mainScreen">Main Screen</Button>
-        <br></br>
+        <br/>
         <h1>
           Leaderboard
         </h1>
@@ -46,31 +50,23 @@ export default class Leaderboard extends React.Component {
             <tr>
               <th>#</th>
               <th>Display Name</th>
-              <th>Points</th>
-              <th>Ranking</th>
+              <th>Games Played</th>
+              <th>Rank Score</th>
             </tr>
           </thead>
           <tbody>
+            {this.state.persons.map((person)=>
             <tr>
-              <th scope="row">1</th>
-              <td>{this.state.name}</td>
-              <td>[Point Value]</td>
-              <td>[Rank]</td>
+              <th scope="row">{i++}</th>
+              <td>{person.displayName}</td>
+              <td>{person.numGames}</td>
+              <td>{person.rankScore}</td>
             </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td>[Name]</td>
-              <td>[Point Value]</td>
-              <td>[Rank]</td>
-            </tr>
-            <tr>
-              <th scope="row">3</th>
-              <td>[Name]</td>
-              <td>[Point Value]</td>
-              <td>[Rank]</td>
-            </tr>
+          )}
           </tbody>
         </Table>
+        <br/>
+        <br/>
       </header>
     )
   }

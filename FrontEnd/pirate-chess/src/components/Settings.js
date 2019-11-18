@@ -44,14 +44,12 @@ export default class Settings extends React.Component {
           <Container>
             <Row>
               <Col>
-                <img src="logo.png" className="App-logo" alt="logo" />
-                <br></br>
-                <Button color="primary" size="sm" href="/mainScreen">Main Screen</Button>
+                <br/>
                 <h1>
                   Settings
                 </h1>
-              </Col>
-              <Col>
+                <br/>
+                <br/>
                 <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} size="lg">
                 <DropdownToggle caret color="primary" block>
                   Theme
@@ -64,8 +62,10 @@ export default class Settings extends React.Component {
                   <DropdownItem>Green</DropdownItem>
                 </DropdownMenu>
               </Dropdown>
-                <br></br>
-                <img src="chess-board.jpg" className="App-logo" alt="logo" /> {/*Preview image*/}
+                <br/>
+                <br/>
+                <br/>
+                <br/>
               </Col>
             </Row>
           </Container>
