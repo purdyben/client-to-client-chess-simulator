@@ -34,7 +34,7 @@ export default class CreateAccount extends React.Component {
             console.log(response);
             this.props.history.push('/login');
         } else {
-            alert('Passwords must match \nPassword must be at least 8 characters long \nUsername must be at least 5 characters long \nEmail must be at least 5 characters long');
+            alert('Make sure the following are correct: \n\nUsername must be at least 5 characters long \nEmail must be at least 5 characters long \nPassword must be at least 8 characters long \nPasswords must match ');
         }
     }
 
@@ -48,7 +48,6 @@ export default class CreateAccount extends React.Component {
         return (
             <header className="App-header">
                 <CHeader/>
-                <img style={{width: 150, height: 150}} src="logo.png" className="App-logo-small" alt="logo"/>
                 <div className="Login-buttons">
                     <Form onSubmit={this.handleSubmit}>
                         <FormGroup>
@@ -70,6 +69,7 @@ export default class CreateAccount extends React.Component {
                         </FormGroup>
                         <Button color="primary" size="lg" type="submit" block>Create Account</Button>
                     </Form>
+                    <br/>
                     <br/>
                 </div>
             </header>

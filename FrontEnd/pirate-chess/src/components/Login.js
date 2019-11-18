@@ -39,7 +39,7 @@ export default class Login extends React.Component {
         return (
             <header className="App-header">
                 <CHeader/>
-                <img src="logo.png" className="App-logo" alt="logo"/>
+                <img src="logo.png" className="App-logo-small" alt="logo"/>
                 <div className="Login-buttons">
                 <Form onSubmit={this.handleSubmit}>
                         <FormGroup>
@@ -53,6 +53,8 @@ export default class Login extends React.Component {
                         <Button color="primary" size="lg" type="submit" block>Login</Button>
                     </Form>
                 </div>
+                <br/>
+                <br/>
             </header>
         )
     }
