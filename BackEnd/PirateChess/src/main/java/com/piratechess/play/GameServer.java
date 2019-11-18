@@ -129,10 +129,10 @@ public class GameServer {
 		sessionUsersMap.remove(session);
 		usersSessionMap.remove(net_id);
 		
-		player1Map.remove(net_id);
 		player1Map.remove(player1Map.get(net_id));
-		player2Map.remove(net_id);
+		player1Map.remove(net_id);
 		player2Map.remove(player2Map.get(net_id));
+		player2Map.remove(net_id);
 	}
 
 	/**

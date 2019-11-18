@@ -84,9 +84,9 @@ public class GhostServer {
 		 * Save that game log and an index value of zero to the user key of moves and curMove maps
 		 */
 		Random rand = new Random();
-		int selectedLog = rand.nextInt(fileList.size());
-		logger.info(displayName + "playing against log #" + selectedLog);
-		ArrayList<String>moves = GameReader.getFileAsArrayList(FileConstants.GAME_LOG_DIRECTORY + "log"+ selectedLog + ".txt");
+		int selectedLog = rand.nextInt(fileList.size()-1)+1;//-1 to avoid log0 bc its a test
+		logger.info(displayName + " playing against log #" + selectedLog);
+		ArrayList<String>moves = GameReader.getFileAsArrayList(FileConstants.GAME_LOG_DIRECTORY + "log"+ selectedLog + ".txt");//+1 to avoid log0
 		//ArrayList<String>moves = GameReader.getFileAsArrayList(FileConstants.GAME_LOG_LOCAL_DIRECTORY + "log"+ selectedLog + ".txt");
 		usersMovesMap.put(displayName, moves);
 		usersCurMoveMap.put(displayName, 0);
@@ -100,7 +100,7 @@ public class GhostServer {
 	 * @throws IOException
 	 */
 	@OnMessage
-	public void onMessage(Session session, String move) throws IOException {
+	public String onMessage(Session session, String move) throws IOException {
 		logger.info("Entered into Message: Got Message:" + move);
 		String sendingUser = sessionUsersMap.get(session);
 		logger.info("SendingUser:"+sendingUser);
@@ -118,7 +118,9 @@ public class GhostServer {
 			logger.info("Entered into reply: Sent Message:" + nextMove);
 			curMove++;
 			usersCurMoveMap.put(sendingUser, curMove);
+			return nextMove;
 		}
+		return "No move to make";
 	}
 
 	@OnClose
