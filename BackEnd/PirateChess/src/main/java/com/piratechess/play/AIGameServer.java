@@ -25,7 +25,7 @@ import com.piratechess.gameUtil.Move;
  * @author Colby McKinley
  *
  */
-@ServerEndpoint("/game/{userName}")
+@ServerEndpoint("/aigame/{userName}")
 @Component
 public class AIGameServer {
 
