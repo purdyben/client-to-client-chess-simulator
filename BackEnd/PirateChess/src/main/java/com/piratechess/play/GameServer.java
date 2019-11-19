@@ -94,13 +94,13 @@ public class GameServer {
 	 * @return String move-used in GameTests.java
 	 */
 	@OnMessage
-	public String onMessage(Session session, String move) throws IOException {
+	public void onMessage(Session session, String move) throws IOException {//String
 		logger.info("Move:" + move);
 		String sendingUser = sessionUsersMap.get(session);
 		logger.info(sendingUser);
 		if(sendingUser == null) {
 			logger.info("Disconnected");
-			return "Disconnected";
+			//return "Disconnected";
 		}
 		/**
 		String gameName = gameMap.get(sendingUser);
@@ -131,9 +131,9 @@ public class GameServer {
 		if (receivingUser != null) {
 			logger.info(receivingUser);
 			sendMove(receivingUser, move);}
-		else
-			return sendingUser + " has no opponent";
-		return move;
+		//else
+			//return sendingUser + " has no opponent";
+		//return move;
 	}
 
 	@OnClose
