@@ -31,9 +31,9 @@ public class GameTests {
 	public void verifyCallToIsOpenConnection() {
 		WebSocketSession session = mock(WebSocketSession.class);
 		when(session.isOpen()).thenReturn(true);
-        
+
 	}
-	
+
 	@Test
 	public void verifyCallToOnClose() {
 		Session session = mock(Session.class);
@@ -46,9 +46,9 @@ public class GameTests {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	@Test
 	public void verifyCallToSendMessage() {
 		WebSocketSession session = mock(WebSocketSession.class);

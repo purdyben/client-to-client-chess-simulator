@@ -54,7 +54,6 @@ public class ChatServer {
 
 	/**
 	 * We are only doing one-on-one conversations for now
-	 * 
 	 * @param session
 	 * @param message
 	 * @throws IOException
@@ -65,20 +64,37 @@ public class ChatServer {
 		String sendingUser = sessionUsersMap.get(session);
 		
 		/*
-		 * From the client side, just do the following... message = "@" +
-		 * {receivingUser} + " " + message;
+		 * From the client side, just do the following... message = "@" + {receivingUser} + " " + message;
 		 * To broadcast to everyone, receivingUser="!all"
 		 */
 		String receivingUser = message.split(" ")[0].substring(1);
-		if(receivingUser.equals("!all"))
+		//if(receivingUser.equals("!all"))
+		//{
+			//logger.info("Entered into broadcast");
+			//broadcast(message);
+		//}
+		/**
+		 * If receivingUser is found, send message to them and to sender
+		 */
+		if(usersSessionMap.containsKey(receivingUser))//else if
 		{
-			logger.info("Entered into broadcast");
-			broadcast(message);
+			sendMessageToParticularUser(receivingUser, "[DM] " + sendingUser + ": " + message);
+			sendMessageToParticularUser(sendingUser, "[DM] " + sendingUser + ": " + message);
 		}
+		/**
+		 * If receivingUser is blank or not found, send message to all users
+		 */
 		else
 		{
-		sendMessageToParticularUser(receivingUser, "[DM] " + sendingUser + ": " + message);
-		sendMessageToParticularUser(sendingUser, "[DM] " + sendingUser + ": " + message);
+			if(receivingUser == "")
+			{
+				sendMessageToParticularUser(sendingUser, "User:" + receivingUser + " not found");
+			}
+			else
+			{
+				logger.info("Entered into broadcast");
+				broadcast(message);
+			}
 		}
 	}
 
