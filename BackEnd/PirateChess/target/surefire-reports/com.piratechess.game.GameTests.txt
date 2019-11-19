@@ -1,0 +1,19 @@
+-------------------------------------------------------------------------------
+Test set: com.piratechess.game.GameTests
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.351 s <<< FAILURE! - in com.piratechess.game.GameTests
+verifyCallToSendMessage(com.piratechess.game.GameTests)  Time elapsed: 0.117 s  <<< ERROR!
+java.lang.ClassCastException: org.springframework.web.socket.WebSocketSession$MockitoMock$1961859668 cannot be cast to javax.websocket.Session
+	at com.piratechess.game.GameTests.verifyCallToSendMessage(GameTests.java:59)
+
+verifyCallToOnClose(com.piratechess.game.GameTests)  Time elapsed: 0.191 s  <<< ERROR!
+org.mockito.exceptions.misusing.NotAMockException: 
+
+Argument passed to verify() is of type GameServer and is not a mock!
+Make sure you place the parenthesis correctly!
+See the examples of correct verifications:
+    verify(mock).someMethod();
+    verify(mock, times(10)).someMethod();
+    verify(mock, atLeastOnce()).someMethod();
+	at com.piratechess.game.GameTests.verifyCallToOnClose(GameTests.java:44)
+

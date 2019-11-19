@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.piratechess.leaderboard.LeaderboardTests
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.821 s - in com.piratechess.leaderboard.LeaderboardTests
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 16.574 s - in com.piratechess.leaderboard.LeaderboardTests
