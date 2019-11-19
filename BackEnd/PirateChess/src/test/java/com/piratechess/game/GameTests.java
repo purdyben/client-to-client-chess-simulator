@@ -32,15 +32,7 @@ public class GameTests {
 	public void verifyCallToIsOpenConnection() {
 		WebSocketSession session = mock(WebSocketSession.class);
 		when(session.isOpen()).thenReturn(true);
-        TextMessage textMsg = new TextMessage("FUCK ME IN THE ASS".getBytes());
-		GameServer textHandler = new GameServer();
-		try {
-			textHandler.onMessage((Session) session, textHandler.toString());
-			verify(session, times(1)).sendMessage(textMsg);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+        
 	}
 	
 	@Test
@@ -59,12 +51,17 @@ public class GameTests {
 	}
 	
 	@Test
-	public void verifyCallToGameFileName() {
+	public void verifyCallToSendMessage() {
 		WebSocketSession session = mock(WebSocketSession.class);
 		when(session.isOpen()).thenReturn(true);
-		WebSocketMessage<String> msg = "FUCK ME IN THE ASS";
+		TextMessage textMsg = new TextMessage("FUCK ME IN THE ASS".getBytes());
 		GameServer textHandler = new GameServer();
-		textHandler.onMessage((Session) session, msg.getPayload());
-		verify(session, times(1)).sendMessage(msg);
+		try {
+			textHandler.onMessage((Session) session, textHandler.toString());
+			verify(session, times(1)).sendMessage(textMsg);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
