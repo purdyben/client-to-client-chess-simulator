@@ -1,19 +1,13 @@
-/**
- * 
- */
 package com.piratechess.gameUtil;
 
 import java.util.ArrayList;
 
 /**
- * @author Gunnar Atli
+ * @author Colby McKinley
  *
  */
 public class Rook extends Piece {
 
-	/**
-	 * 
-	 */
 	public Rook(boolean color) {
 		super(color);
 		value = 5;

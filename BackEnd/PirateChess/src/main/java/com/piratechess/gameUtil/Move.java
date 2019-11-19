@@ -64,7 +64,7 @@ public class Move {
 	}
 	
 	/**
-	 * This is some fucking beautfil ass codes
+	 * This is some fucking beautiful ass codes
 	 * To bad its No-Nut November.
 	 */
 	public boolean equals(Object o){

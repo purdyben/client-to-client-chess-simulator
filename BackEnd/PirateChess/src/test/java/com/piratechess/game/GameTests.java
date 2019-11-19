@@ -1,41 +1,70 @@
-/**
 package com.piratechess.game;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
-import java.util.List;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import com.piratechess.play.GameServerConfiguration;
-import com.piratechess.play.GameServer;
-import com.piratechess.user.User;
 
 import javax.websocket.Session;
-@RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketMessage;
+import org.springframework.web.socket.WebSocketSession;
+
+import com.piratechess.play.GameServer;
+
+@RunWith(MockitoJUnitRunner.class)
 public class GameTests {
-	@Autowired
-	private GameServerConfiguration config;
-	@Autowired
-	private GameServer server = new GameServer();
-	@Autowired
-	private Session session;
+
+	@Before
+	public void setup() {
+		MockitoAnnotations.initMocks(this);
+	}
+
 	@Test
-	public void onOpenTest() throws IOException {
-		User a = new User("Ben", "BP", "benp@iastate.edu", "password", "master", 11);
-		User b = new User("Gekyume", "BP", "ben@iastate.edu", "password", "master", 12);
-		server.onOpen(session, a.getDisplayName());
-		server.onOpen(session, b.getDisplayName());
+	public void verifyCallToIsOpenConnection() {
+		WebSocketSession session = mock(WebSocketSession.class);
+		when(session.isOpen()).thenReturn(true);
+        TextMessage textMsg = new TextMessage("FUCK ME IN THE ASS".getBytes());
+		GameServer textHandler = new GameServer();
+		try {
+			textHandler.onMessage((Session) session, textHandler.toString());
+			verify(session, times(1)).sendMessage(textMsg);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void verifyCallToOnClose() {
+		Session session = mock(Session.class);
+		when(session.isOpen()).thenReturn(true);
+		GameServer gameHandler = new GameServer();
+		try {
+			gameHandler.onClose(session);
+			verify(gameHandler, times(1)).onClose(session);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		server.onMessage(session, "Bdb8");
-		server.onClose(session);
+	}
+	
+	@Test
+	public void verifyCallToGameFileName() {
+		WebSocketSession session = mock(WebSocketSession.class);
+		when(session.isOpen()).thenReturn(true);
+		WebSocketMessage<String> msg = "FUCK ME IN THE ASS";
+		GameServer textHandler = new GameServer();
+		textHandler.onMessage((Session) session, msg.getPayload());
+		verify(session, times(1)).sendMessage(msg);
 	}
 }
-**/
