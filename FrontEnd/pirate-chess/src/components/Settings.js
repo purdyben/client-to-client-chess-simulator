@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {Dropdown, DropdownToggle, DropdownMenu, DropdownItem, Button} from 'reactstrap';
 import {Container, Row, Col} from 'react-bootstrap';
+import CHeader from './CustomHeader';
 
 export default class Settings extends React.Component {
   
@@ -39,6 +40,7 @@ export default class Settings extends React.Component {
   render() {
       return (
         <header className="App-header">
+          <CHeader/>
           <Container>
             <Row>
               <Col>
