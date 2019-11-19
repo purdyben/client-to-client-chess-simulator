@@ -8,13 +8,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.piratechess.play.GameServer;
 import javax.websocket.*;
 import static org.mockito.Mockito.*;
-import org.mockito.Mock;
 import org.mockito.InjectMocks;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class GameTests {
-	@Mock
-	MessageHandler.Whole<String> msgHandler;
 	@InjectMocks
 	GameServer server;
 	
@@ -53,6 +50,9 @@ public class GameTests {
 		server.onOpen(session, "Gekyume");
 		server.onOpen(session2, "Yeet");
 		server.onClose(session);
-		assert(server.onMessage(session2, "2")).equals("Disconnected");
+		assert(!session2.isOpen());
+		server.onOpen(session2, "YeetMK2");
+		server.onOpen(session3, "OddManNotSoOut");
+		assert(server.onMessage(session3, "3").equals("3"));
 	}
 }

@@ -80,11 +80,12 @@ public class GameServer {
 			/**
 			 * Changed gameName to follow what GhostServer expects
 			 */
+			/**
 			String gameName = "log" + ListFiles.listFilesUsingDirectoryStream(FileConstants.GAME_LOG_DIRECTORY).size() + ".txt";
 			//String gameName = "log" + ListFiles.listFilesUsingDirectoryStream(FileConstants.GAME_LOG_LOCAL_DIRECTORY).size() +".txt";
 			gameMap.put(usersSessionMap.keySet().toArray()[usersSessionMap.size() - 2].toString(), gameName);
 			gameMap.put(usersSessionMap.keySet().toArray()[usersSessionMap.size() - 1].toString(), gameName);
-			
+			**/
 			return displayName + " assigned as black. " + usersSessionMap.keySet().toArray()[usersSessionMap.size() - 2].toString() + " assigned as white.";
 		}
 	}
@@ -147,6 +148,12 @@ public class GameServer {
 		
 		sessionUsersMap.remove(session);
 		usersSessionMap.remove(net_id);
+		
+		if(usersSessionMap.get(whitePlayersMap.get(net_id))!=null)
+			usersSessionMap.get(whitePlayersMap.get(net_id)).close();
+		else if(usersSessionMap.get(blackPlayersMap.get(net_id))!=null)
+			usersSessionMap.get(blackPlayersMap.get(net_id)).close();
+
 		/**
 		 * Remove opponent's session
 		 */
