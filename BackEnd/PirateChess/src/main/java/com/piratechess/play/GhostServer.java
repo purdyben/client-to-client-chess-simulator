@@ -161,5 +161,4 @@ public class GhostServer {
 		}
 
 	}
-	//https://stackoverflow.com/questions/36814292/how-to-test-a-java-ee7-websocket!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }

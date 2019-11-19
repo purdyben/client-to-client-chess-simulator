@@ -9,7 +9,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -47,8 +49,8 @@ public class ListFiles {
 		return fileList;
 	}
 
-	static public Set<String> listFilesUsingDirectoryStream(String dir) throws IOException {
-		Set<String> fileList = new HashSet<>();
+	static public List<String> listFilesUsingDirectoryStream(String dir) throws IOException {
+		List<String> fileList = new ArrayList<>();
 		try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(dir))) {
 			for (Path path : stream) {
 				if (!Files.isDirectory(path)) {
