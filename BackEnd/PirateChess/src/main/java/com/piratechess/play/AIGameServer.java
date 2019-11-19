@@ -16,6 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.piratechess.gameUtil.Board;
+import com.piratechess.gameUtil.Move;
+
 /**
  * Creates a text connection between client and AI
  * 
@@ -34,7 +37,9 @@ public class AIGameServer {
 	 * Function which maps users to session
 	 */
 	private static Map<String, Session> usersSessionMap = new LinkedHashMap<>();
-	private static Map<String, String> whitePlayersMap = new LinkedHashMap<>();
+	private static Map<String, String> playerMap = new LinkedHashMap<>();
+	private static Map<String, Game> boardMap = new LinkedHashMap<>();
+
 	private final Logger logger = LoggerFactory.getLogger(AIGameServer.class);
 
 	/**
@@ -49,7 +54,8 @@ public class AIGameServer {
 	public void onOpen(Session session, @PathParam("userName") String displayName) throws IOException {
 		sessionUsersMap.put(session, displayName);
 		usersSessionMap.put(displayName, session);
-		whitePlayersMap.put(usersSessionMap.keySet().toArray()[usersSessionMap.size() - 1].toString(), displayName);
+		playerMap.put(usersSessionMap.keySet().toArray()[usersSessionMap.size() - 1].toString(), displayName);
+		boardMap.put(displayName, new Game(null, null, new Board()));
 	}
 
 	/**
@@ -63,26 +69,28 @@ public class AIGameServer {
 	public void onMessage(Session session, String move) throws IOException {
 		logger.info("Move:" + move);
 		String sendingUser = sessionUsersMap.get(session);
-		String aiMove = AIService.processMove(move);
+		Move personMove = AIService.processMove(move);
+		Move aiMove = null;
+		AIService.play(boardMap.get(sendingUser), personMove, aiMove);
 		/*
 		 * From the client side, move = "@" + {receiverUser} + " " + move
 		 */
-		String receivingUser = whitePlayersMap.get(sendingUser);
+		String receivingUser = playerMap.get(sendingUser);
 		if (receivingUser != null)
-			sendMove(receivingUser, aiMove);
+			sendMove(receivingUser, aiMove.toString());
 	}
 
 	@OnClose
 	public void onClose(Session session) throws IOException {
 		logger.info("Entered into Close");
 		String username = sessionUsersMap.get(session);
-		if (whitePlayersMap.get(username) != null)
-			onClose(usersSessionMap.get(whitePlayersMap.get(username)));
+		if (playerMap.get(username) != null)
+			onClose(usersSessionMap.get(playerMap.get(username)));
 		sessionUsersMap.remove(session);
 		usersSessionMap.remove(username);
 
-		whitePlayersMap.remove(username);
-		whitePlayersMap.remove(whitePlayersMap.get(username));
+		playerMap.remove(username);
+		playerMap.remove(playerMap.get(username));
 	}
 
 	/**
