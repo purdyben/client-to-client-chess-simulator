@@ -28,9 +28,7 @@ export default class Profile extends React.Component {
         <Container>
           <Row>
             <Col>
-            <img src="logo.png" className="App-logo-small" alt="logo" />
             <br></br>
-            <Button color="primary" size="sm" href="/mainScreen">Main Screen</Button>
               <h1>
                 Profile
               </h1>

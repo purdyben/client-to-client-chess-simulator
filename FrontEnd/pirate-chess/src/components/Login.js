@@ -24,15 +24,13 @@ export default class Login extends React.Component {
 
         const response = axios.post(
             'http://coms-309-bs-4.misc.iastate.edu:8080/login',
-            { userName: this.state.username },
-            { userPassword: this.state.password },
+            { userName: this.state.username, userPassword: this.state.password },
             { headers: { 'Content-Type': 'application/json' } }
         )
         console.log(response);
-        this.props.history.push('/mainScreen');
+        //this.props.history.push('/mainScreen');
         
     }
-
     render() {
         const {
             username,
@@ -41,7 +39,7 @@ export default class Login extends React.Component {
         return (
             <header className="App-header">
                 <CHeader/>
-                <img src="logo.png" className="App-logo" alt="logo"/>
+                <img src="logo.png" className="App-logo-small" alt="logo"/>
                 <div className="Login-buttons">
                 <Form onSubmit={this.handleSubmit}>
                         <FormGroup>
@@ -55,6 +53,8 @@ export default class Login extends React.Component {
                         <Button color="primary" size="lg" type="submit" block>Login</Button>
                     </Form>
                 </div>
+                <br/>
+                <br/>
             </header>
         )
     }
