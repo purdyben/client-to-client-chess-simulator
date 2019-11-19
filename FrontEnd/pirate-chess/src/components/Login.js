@@ -28,7 +28,7 @@ export default class Login extends React.Component {
             { headers: { 'Content-Type': 'application/json' } }
         )
         console.log(response);
-        this.props.history.push('/mainScreen');
+        //this.props.history.push('/mainScreen');
         
     }
     render() {

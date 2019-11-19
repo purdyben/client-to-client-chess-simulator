@@ -16,13 +16,13 @@ export default class Chat extends React.Component {
   }
 
   handleChange = event => {
-      this.setState({ [event.target.name]: event.target.value });
+    this.setState({ [event.target.name]: event.target.value });
   };
 
 
   handleSubmit(event) {
-      event.preventDefault();
-      this.ws.send(JSON.stringify('!all ' + this.state.message));
+    event.preventDefault();
+    this.ws.send(JSON.stringify('!all ' + this.state.message));
   }
 
   ws = new WebSocket('ws://coms-309-bs-4.misc.iastate.edu:8080/chat/userName')
