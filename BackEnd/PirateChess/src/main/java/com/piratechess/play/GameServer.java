@@ -116,23 +116,19 @@ public class GameServer {
 	@OnClose
 	public void onClose(Session session) throws IOException {
 		logger.info("Entered into Close");
-		String net_id = sessionUsersMap.get(session);
-
-		/**
-		 * Close opponent's session by recursively calling onClose
-		 */
-		if (whitePlayersMap.get(net_id) != null)
-			onClose(usersSessionMap.get(whitePlayersMap.get(net_id)));
-		else if (blackPlayersMap.get(net_id) != null)
-			onClose(usersSessionMap.get(blackPlayersMap.get(net_id)));
+		String username = sessionUsersMap.get(session);
+		if (whitePlayersMap.get(username) != null)
+			onClose(usersSessionMap.get(whitePlayersMap.get(username)));
+		else if (blackPlayersMap.get(username) != null)
+			onClose(usersSessionMap.get(blackPlayersMap.get(username)));
 
 		sessionUsersMap.remove(session);
-		usersSessionMap.remove(net_id);
+		usersSessionMap.remove(username);
 
-		whitePlayersMap.remove(net_id);
-		whitePlayersMap.remove(whitePlayersMap.get(net_id));
-		blackPlayersMap.remove(net_id);
-		blackPlayersMap.remove(blackPlayersMap.get(net_id));
+		whitePlayersMap.remove(username);
+		whitePlayersMap.remove(whitePlayersMap.get(username));
+		blackPlayersMap.remove(username);
+		blackPlayersMap.remove(blackPlayersMap.get(username));
 	}
 
 	/**
