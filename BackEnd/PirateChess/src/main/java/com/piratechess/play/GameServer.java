@@ -1,11 +1,9 @@
 package com.piratechess.play;
 
-import com.piratechess.fileUtil.GameReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.ArrayList;
+
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
@@ -17,9 +15,6 @@ import javax.websocket.server.ServerEndpoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-
-import com.piratechess.fileUtil.FileConstants;
-import com.piratechess.fileUtil.ListFiles;
 
 /**
  * Creates a text connection between two clients
@@ -143,33 +138,21 @@ public class GameServer {
 
 	@OnClose
 	public void onClose(Session session) throws IOException {
-		String net_id = sessionUsersMap.get(session);
-		logger.info(net_id + " Entered into Close");
-		
-		sessionUsersMap.remove(session);
-		usersSessionMap.remove(net_id);
-		
-		if(usersSessionMap.get(whitePlayersMap.get(net_id))!=null)
-			usersSessionMap.get(whitePlayersMap.get(net_id)).close();
-		else if(usersSessionMap.get(blackPlayersMap.get(net_id))!=null)
-			usersSessionMap.get(blackPlayersMap.get(net_id)).close();
+		logger.info("Entered into Close");
+		String username = sessionUsersMap.get(session);
+		if (whitePlayersMap.get(username) != null)
+			onClose(usersSessionMap.get(whitePlayersMap.get(username)));
+		else if (blackPlayersMap.get(username) != null)
+			onClose(usersSessionMap.get(blackPlayersMap.get(username)));
 
-		/**
-		 * Remove opponent's session
-		 */
-		sessionUsersMap.remove(usersSessionMap.get(whitePlayersMap.get(net_id)));
-		sessionUsersMap.remove(usersSessionMap.get(blackPlayersMap.get(net_id)));
-		usersSessionMap.remove(whitePlayersMap.get(net_id));
-		usersSessionMap.remove(blackPlayersMap.get(net_id));
-		/**
-		 * Remove user and opponent from player maps
-		 */
-		whitePlayersMap.remove(whitePlayersMap.get(net_id));
-		whitePlayersMap.remove(net_id);
-		
-		blackPlayersMap.remove(blackPlayersMap.get(net_id));
-		blackPlayersMap.remove(net_id);
-		session.close();
+		sessionUsersMap.remove(session);
+		usersSessionMap.remove(username);
+
+		whitePlayersMap.remove(username);
+		whitePlayersMap.remove(whitePlayersMap.get(username));
+		blackPlayersMap.remove(username);
+		blackPlayersMap.remove(blackPlayersMap.get(username));
+
 	}
 
 	/**
