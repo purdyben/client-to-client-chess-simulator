@@ -150,6 +150,8 @@ public class GameServer {
 		/**
 		 * Remove opponent's session
 		 */
+		usersSessionMap.get(whitePlayersMap.get(net_id)).close();
+		usersSessionMap.get(blackPlayersMap.get(net_id)).close();
 		sessionUsersMap.remove(usersSessionMap.get(whitePlayersMap.get(net_id)));
 		sessionUsersMap.remove(usersSessionMap.get(blackPlayersMap.get(net_id)));
 		usersSessionMap.remove(whitePlayersMap.get(net_id));
