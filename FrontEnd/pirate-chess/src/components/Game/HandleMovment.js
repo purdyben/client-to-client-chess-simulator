@@ -1,26 +1,39 @@
-import {Component} from 'react';
+import React,{Component} from 'react';
+import Tile from './Tile'
+import ReactDOM from 'react-dom'
 import * as Constants from './Constants';
 
+// import {wSocket} from './Constants';
+
 class HandleMovment extends Component {
+    /**
+     * @constructor
+     * @param props
+     */
     constructor(props) {
         super(props);
-        this.getIfSelected = this.getIfSelected.bind(this);
-        this.getComparableTile = this.getComparableTile.bind(this);
-        this.getSelectedTile = this.getSelectedTile.bind(this);
+        this.state = {
+            ifSelected: false,
+            selectedTile: null,
+            comparableTile: null,
+            selected: 'Greentile'
+        }
         this.handleMovment = this.handleMovment.bind(this);
     }
 
-    state = {
-        ifSelected: false,
-        selectedTile: null,
-        comparableTile: null,
-        selected: 'Greentile'
-    };
-
+    /**
+     *
+     * @returns {HandleMovment}
+     */
     returnMyself() {
         return (this);
     }
 
+    /**
+     *
+     * @param tile
+     * @returns {boolean}
+     */
     handleMovment(tile) {
         if (this.state.selectedTile === tile) {
             tile.state.selectedTile = false
@@ -42,9 +55,6 @@ class HandleMovment extends Component {
             } else {
                 let bool = false
                 for (let i = 0; i < this.state.selectedTile.state.piece.moveSet.length; i++) {
-                    // console.log(this.state.selectedTile.state.piece.moveSet, tile.state.id)
-                    // console.log(this.state.selectedTile.state.piece.moveSet[i].id, tile.state.id)
-
                     if (this.state.selectedTile.state.piece.moveSet[i].id === tile.state.id) {
                         if (tile.state.piece != null) {
                             if (this.checkForPieces(this.state.selectedTile, tile)) {
@@ -61,7 +71,7 @@ class HandleMovment extends Component {
                 }
                 if (bool) {
                     //console.log(this.state.selectedTile.piece)
-                    this.moveablePiece(this.state.selectedTile, tile)
+                    this.MovePiece(this.state.selectedTile, tile)
                     tile.state.piece.resetMoves();
                     //console.log(tile, " has it been reset")
                     this.reset()
@@ -73,6 +83,13 @@ class HandleMovment extends Component {
         // console.log('this is the comparable tile: ' + this.state.comparableTile)
         return true;
     }
+
+    /**
+     *
+     * @param tile
+     * @param comparableTile
+     * @returns {boolean}
+     */
     checkForPieces(tile, comparableTile) {
         if (tile.state.piece.name.substring(0, 5) === 'Black' && comparableTile.state.piece.name.substring(0, 5) === 'White')
             return true
@@ -81,17 +98,39 @@ class HandleMovment extends Component {
         else
             return false
     }
+
+    /**
+     *
+     */
     reset() {
         this.state.ifSelected = false;
         this.state.selectedTile = null;
         this.state.comparableTile = null;
     }
 
-    moveablePiece(startTile, finalTile) {
-        //this.sendMessage('sending data')
-        if(this.Castle(startTile,finalTile) && startTile.state.piece.name.substring(5,9) === 'King'){
+    /**
+     *
+     * @param startTile
+     * @param finalTile
+     * @constructor
+     */
+    MovePiece(startTile, finalTile) {
+        /**
+         *
+         * @type {string}
+         */
+        let text = '{ "Move" : [' + `{"tile": "${startTile.state.id}", "x": "${startTile.state.x}", "y": "${startTile.state.y}" },` +
+            ` { "finalTile": "${finalTile.state.id}", "x": "${finalTile.state.x}", "y": "${finalTile.state.y}"}]}`
 
-        }else {
+        window.wSocket.send(text)
+
+        /**
+         *
+         */
+        if (this.Castle(startTile, finalTile) && startTile.state.piece.name.substring(5, 9) === 'King') {
+
+
+        } else {
             finalTile.state.piece = startTile.state.piece
             startTile.state.piece = null
             startTile.state.selectedTile = false
@@ -99,9 +138,10 @@ class HandleMovment extends Component {
             finalTile.state.piece.y = finalTile.state.y
             startTile.forceUpdate()
         }
-
-
-
+        /**
+         *
+         * @type {{color: *, piece: null, selectedTile: boolean, x: *, y: *, id: *}}
+         */
         Constants.gameboard[startTile.state.y][startTile.state.x] = {
             id: startTile.state.id,
             x: startTile.state.x,
@@ -110,6 +150,10 @@ class HandleMovment extends Component {
             selectedTile: false,
             color: startTile.state.color
         };
+        /**
+         *
+         * @type {{color: *, piece: *, selectedTile: boolean, x: *, y: *, id: *}}
+         */
         Constants.gameboard[finalTile.state.y][finalTile.state.x] = {
             id: finalTile.state.id,
             x: finalTile.state.x,
@@ -120,36 +164,50 @@ class HandleMovment extends Component {
         };
         Constants.updateAllMoveSets()
     };
-    Castle(tile,finalTile){
+
+    /**
+     *
+     * @param startTile
+     * @param finalTile
+     */
+    receiveMove(startTile, finalTile){
+        finalTile.piece = startTile.piece;
+        startTile.piece = null
+        finalTile.piece.x = finalTile.x;
+        finalTile.piece.y = finalTile.y;
+        console.log(startTile,finalTile)
+       // gameBoard.render()
+        //gameBoard.setState({board: gameBoard.renderBoard()})
+        // sTile = document.findElementById(startTile.id)
+        // console.log(sTile)
+        {/*var myComponentInstance = ReactDOM.render(<Tile/>, finalTile.id)*/}
+        //console.log(node)
+        {/*console.log( <Tile ref={startTile.id}/>)*/}
+
+
+        Constants.updateAllMoveSets()
+    }
+
+    /**
+     *
+     * @param tile
+     * @param finalTile
+     * @returns {boolean}
+     * @constructor
+     */
+    Castle(tile, finalTile) {
         return false
     }
 
+    /**
+     *
+     */
     updateMoveSets() {
         console.log(this.state.selectedTile.state.piece)
         this.state.selectedTile.state.piece.resetMoves()
     }
 
-    sendMessage=(data)=>{
-        console.log(Constants.GameSocket)
-        try {
-            Constants.GameSocket.send(data) //send data to the server
-            console.log('send')
-        } catch (error) {
-            console.log(error) // catch error
-        }
-    }
 
-    getIfSelected() {
-        return this.state.ifSelected;
-    }
-
-    getComparableTile() {
-        return this.state.comparableTile;
-    }
-
-    getSelectedTile() {
-        return this.state.selectedTile
-    }
 }
 
 export default HandleMovment;

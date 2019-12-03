@@ -85,44 +85,75 @@ class King {
         // console.log(this.moveSet)
     }
 
+    /**
+     *
+     * @param arr
+     * @returns {[]}
+     */
     checkForChecks(arr) {
         var listOfTiles = [];
         let newSet = []
-        for (let i = 0; i < 8; i++) {
-            for (let j = 0; j < 8; j++) {
-                if (gameboard[i][j].piece != null && gameboard[i][j].piece.name.substring(0, 5) === 'Black') {
-                     if(gameboard[i][j].piece.name.substring(5, 9) === 'Pawn'){
-                         console.log("pawn",gameboard[i][j].piece.protectedTiles.length)
-                         for(let k = 0 ; k < gameboard[i][j].piece.protectedTiles.length; k++){
-                             console.log('id:',gameboard[i][j].piece.protectedTiles[k].id)
-                             listOfTiles.push(gameboard[i][j].piece.protectedTiles[k].id)
-                         }
-                     }
-                     else{
-                         for(let k = 0 ; k < gameboard[i][j].piece.moveSet.length; k++){
-                             listOfTiles.push(gameboard[i][j].piece.moveSet[k].id)
-                         }
-                     }
-                      // console.log(gameboard[i][j].piece.moveSet)
-
-                   // listOfTiles.push(gameboard[i][j].piece.moveSet)
+        if (this.name === 'WhiteKing') {
+            for (let i = 0; i < 8; i++) {
+                for (let j = 0; j < 8; j++) {
+                    if (gameboard[i][j].piece != null && gameboard[i][j].piece.name.substring(0, 5) === 'Black') {
+                        if (gameboard[i][j].piece.name.substring(5, 9) === 'Pawn') {
+                            // console.log("pawn",gameboard[i][j].piece.protectedTiles.length)
+                            for (let k = 0; k < gameboard[i][j].piece.protectedTiles.length; k++) {
+                                //  console.log('id:',gameboard[i][j].piece.protectedTiles[k].id)
+                                listOfTiles.push(gameboard[i][j].piece.protectedTiles[k].id)
+                            }
+                        } else {
+                            for (let k = 0; k < gameboard[i][j].piece.moveSet.length; k++) {
+                                listOfTiles.push(gameboard[i][j].piece.moveSet[k].id)
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            /**
+             *
+             */
+            for (let i = 0; i < 8; i++) {
+                for (let j = 0; j < 8; j++) {
+                    if (gameboard[i][j].piece !== null && gameboard[i][j].piece.name.substring(0, 5) === 'White') {
+                        if (gameboard[i][j].piece.name.substring(5, 9) === 'Pawn') {
+                            // console.log("pawn",gameboard[i][j].piece.protectedTiles.length)
+                            for (let k = 0; k < gameboard[i][j].piece.protectedTiles.length; k++) {
+                                //  console.log('id:',gameboard[i][j].piece.protectedTiles[k].id)
+                                listOfTiles.push(gameboard[i][j].piece.protectedTiles[k].id)
+                            }
+                        } else {
+                            for (let k = 0; k < gameboard[i][j].piece.moveSet.length; k++) {
+                                listOfTiles.push(gameboard[i][j].piece.moveSet[k].id)
+                            }
+                        }
+                    }
                 }
             }
         }
-        console.log(listOfTiles)
+
+        //console.log(listOfTiles)
         for (let i = 0; i < arr.length; i++) {
             if (this.checkSingleTile(arr[i], listOfTiles)) {
                 newSet.push(arr[i])
             }
         }
-
+        // console.log(newSet)
         return newSet
     }
 
+    /**
+     *
+     * @param tile
+     * @param listOfTiles
+     * @returns {boolean}
+     */
     checkSingleTile(tile, listOfTiles) {
         for (let j = 0; j < listOfTiles.length; j++) {
             if (tile.id === listOfTiles[j]) {
-                console.log(tile.id, listOfTiles[j], false)
+                //console.log(tile.id, listOfTiles[j], false)
                 return false
             }
 
@@ -130,7 +161,10 @@ class King {
         return true
     }
 
-
+    /**
+     *
+     * @returns {*}
+     */
     getName() {
         return (this.name);
     }

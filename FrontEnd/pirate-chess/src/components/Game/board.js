@@ -1,4 +1,3 @@
-import React from 'react';
 import Rook from "./GamePieces/Rook";
 import Knight from "./GamePieces/Knight";
 import Bishop from "./GamePieces/Bishop";

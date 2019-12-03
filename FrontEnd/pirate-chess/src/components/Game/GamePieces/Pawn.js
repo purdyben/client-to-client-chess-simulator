@@ -15,7 +15,7 @@ class Pawn {
         this.firstMove = true
         this.moveSet = this.getAllPosibleMoves()
         this.protectedTiles = this.setProtectedTiles();
-        //this.resetMoves = this.resetMoves.bind(this)
+
     }
 
     /**
@@ -52,22 +52,22 @@ class Pawn {
         /*
          sets first move
          */
-        if (this.name == 'BlackPawn' && this.y != 1) {
+        if (this.name === 'BlackPawn' && this.y !== 1) {
             this.firstMove = false
-        } else if (this.name == 'WhitePawn' && this.y != 6) {
+        } else if (this.name === 'WhitePawn' && this.y !== 6) {
             this.firstMove = false
         }
         /*
          adds the tile two tiles head if no piece is blocking it
          */
-        if (this.firstMove == true) {
-            if (this.name == 'BlackPawn' && gameboard[this.y + 1][this.x].piece == null) {
-                if (gameboard[this.y + 2][this.x].piece == null) {
+        if (this.firstMove === true) {
+            if (this.name === 'BlackPawn' && gameboard[this.y + 1][this.x].piece === null) {
+                if (gameboard[this.y + 2][this.x].piece === null) {
                     MoveSet.push(gameboard[this.y + 2][this.x])
                 }
 
-            } else if (this.name == 'WhitePawn' && gameboard[this.y - 1][this.x].piece == null) {
-                if (gameboard[this.y - 2][this.x].piece == null) {
+            } else if (this.name === 'WhitePawn' && gameboard[this.y - 1][this.x].piece === null) {
+                if (gameboard[this.y - 2][this.x].piece === null) {
                     MoveSet.push(gameboard[this.y - 2][this.x])
                 }
             }
@@ -76,16 +76,16 @@ class Pawn {
         add the tiles on right side of the pawn if
         there is an opposite colored piece
         */
-        if (this.name == 'BlackPawn') {
-            if (this.x < 7 && this.y != 7) {
+        if (this.name === 'BlackPawn') {
+            if (this.x < 7 && this.y !== 7) {
                 if (gameboard[this.y + 1][this.x + 1].piece != null &&
-                    gameboard[this.y + 1][this.x + 1].piece.name.substring(0, 5) == 'White')
+                    gameboard[this.y + 1][this.x + 1].piece.name.substring(0, 5) === 'White')
                     MoveSet.push(gameboard[this.y + 1][this.x + 1])
             }
         } else {
-            if (this.x < 7 && this.y != 0) {
+            if (this.x < 7 && this.y !== 0) {
                 if (gameboard[this.y - 1][this.x + 1].piece != null &&
-                    gameboard[this.y - 1][this.x + 1].piece.name.substring(0, 5) == 'Black')
+                    gameboard[this.y - 1][this.x + 1].piece.name.substring(0, 5) === 'Black')
                     MoveSet.push(gameboard[this.y - 1][this.x + 1])
             }
         }
@@ -94,16 +94,16 @@ class Pawn {
        there is an opposite colored piece
        */
 
-        if (this.name == 'BlackPawn') {
-            if (this.x > 0 && this.y != 7) {
-                if (gameboard[this.y + 1][this.x - 1].piece != null &&
-                    gameboard[this.y + 1][this.x - 1].piece.name.substring(0, 5) == 'White')
+        if (this.name === 'BlackPawn') {
+            if (this.x > 0 && this.y !== 7) {
+                if (gameboard[this.y + 1][this.x - 1].piece !== null &&
+                    gameboard[this.y + 1][this.x - 1].piece.name.substring(0, 5) === 'White')
                     MoveSet.push(gameboard[this.y + 1][this.x - 1])
             }
         } else {
-            if (this.x > 0 && this.y != 0) {
-                if (gameboard[this.y - 1][this.x - 1].piece != null &&
-                    gameboard[this.y - 1][this.x - 1].piece.name.substring(0, 5) == 'Black')
+            if (this.x > 0 && this.y !== 0) {
+                if (gameboard[this.y - 1][this.x - 1].piece !== null &&
+                    gameboard[this.y - 1][this.x - 1].piece.name.substring(0, 5) === 'Black')
                     MoveSet.push(gameboard[this.y - 1][this.x - 1])
             }
         }
@@ -112,18 +112,18 @@ class Pawn {
         adds the the tile infront of the piece if
         there is no piece in front of the pawn
          */
-        if (this.name == 'BlackPawn') {
-            if (this.y != 7) {
-                if (gameboard[this.y + 1][this.x].piece == null) {
+        if (this.name === 'BlackPawn') {
+            if (this.y !== 7) {
+                if (gameboard[this.y + 1][this.x].piece === null) {
                     // console.log(gameboard[this.y + 1][this.x].piece)
                     MoveSet.push(gameboard[this.y + 1][this.x])
                 }
 
             }
         } else {
-            if (this.y != 0) {
+            if (this.y !== 0) {
 
-                if (gameboard[this.y - 1][this.x].piece == null) {
+                if (gameboard[this.y - 1][this.x].piece === null) {
                     //console.log(gameboard[this.y - 1][this.x].piece, 'white pushed')
                     MoveSet.push(gameboard[this.y - 1][this.x])
                 }
@@ -137,13 +137,12 @@ class Pawn {
 
     setProtectedTiles() {
         var tempTiles = []
-        if (this.name == 'BlackPawn') {
-            console.log('protected tiles', this.x, this.y)
+        if (this.name === 'BlackPawn') {
+            // console.log('protected tiles', this.x, this.y)
             if (this.y < 7) {
                 if (this.x < 7 && this.x > 0) {
                     tempTiles = [gameboard[this.y + 1][this.x + 1], gameboard[this.y + 1][this.x - 1]]
                 } else if (this.x === 0) {
-                    console.log('black left edge')
                     tempTiles = [gameboard[this.y + 1][this.x + 1]]
                 } else if (this.x === 7) {
                     tempTiles = [gameboard[this.y + 1][this.x - 1]]

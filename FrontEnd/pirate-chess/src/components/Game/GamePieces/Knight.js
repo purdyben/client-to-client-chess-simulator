@@ -75,6 +75,10 @@ class Knight {
        // console.log(this.moveSet)
     }
 
+    /**
+     *
+     * @returns {*}
+     */
     getName() {
         return (this.name);
     }

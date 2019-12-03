@@ -1,55 +1,104 @@
 import React, {Component} from 'react';
 import Tile from './Tile';
 import * as Constants from './Constants';
-import OpenSocket from './GameCommunication/OpenSocket'
-
+import ReactDOM from 'react-dom'
 
 class GameBoard extends Component {
-
+    /**
+     * @constructor
+     * @param props
+     */
     constructor(props) {
         super(props);
         this._imageClick = this._imageClick.bind(this);
+        this.renderBoard = this.renderBoard.bind(this);
+
+        this.state = {
+            board: Constants.setBoard(),
+            time: 10,
+            players: [{
+                player: 1,
+                type: 'white'
+            }, {
+                player: 2,
+                type: 'black',
+            }],
+            selectTile: false,
+        }
     }
 
-    state = {
-        board: Constants.setBoard(),
-        time: 10,
-        players: [{
-            player: 1,
-            type: 'white'
-        }, {
-            player: 2,
-            type: 'black'
-        }],
-        selectTile: false,
+    /**
+     * componentDidMount Game websocket
+     */
+    componentDidMount() {
+        window.wSocket.onopen = () => {
+            // on connecting, do nothing but log it to the console
+            console.log('connected')
+        }
+        /**
+         *
+         * @param evt
+         */
+        window.wSocket.onmessage = evt => {
+            console.log(evt)
+            console.log('Received data: ' + evt.data);
+            let obj = JSON.parse(evt.data)
+            //console.log(obj.Move[0].x, obj.Move[1].x)
+            //console.log(Constants.gameboard[obj.Move[0].y][obj.Move[0].x], Constants.gameboard[obj.Move[1].y][obj.Move[1].x])
+            Constants.moveHandler.receiveMove(Constants.gameboard[obj.Move[0].y][obj.Move[0].x], Constants.gameboard[obj.Move[1].y][obj.Move[1].x])
+            console.log(this.state.board)
+            //let eleId = document.findElementById(obj.Move[0].id)
+            var sgs =  ReactDOM.findDOMNode(obj.Move[0].id)
+            console.log(sgs)
+        }
+        /**
+         *
+         */
+        window.wSocket.onclose = () => {
+            console.log('disconnected')
+            // automatically try to reconnect on connection loss
 
+        }
 
     }
 
+    /**
+     *
+     * @param Tile
+     * @private
+     */
     _imageClick(Tile) {
         if (Constants.moveHandler.handleMovment(Tile))
             this.forceUpdate();
 
     }
 
-    componentDidMount() {
-
+    renderBoard() {
+        return (this.state.board.map(row => (
+                row.map(tile => {
+                    return (
+                        <div key={tile.id}>
+                            <Tile id={tile.id} x={tile.x} y={tile.y} color={tile.color}
+                                  piece={tile.piece} selectedTile={tile.selectedTile} clickTile={tile}/>
+                        </div>
+                    )
+                })
+            )
+        ))
     }
+
 
     render() {
         console.log("render method has been called")
         console.log(Constants.gameboard)
         return (
             <div className='gamePage'>
-                <div>
-                    <OpenSocket/>
-                </div>
                 <div className='flex-row'>
                     {[Constants.gameboard[0][0], Constants.gameboard[1][0], Constants.gameboard[2][0],
                         Constants.gameboard[3][0], Constants.gameboard[4][0], Constants.gameboard[5][0],
                         Constants.gameboard[6][0], Constants.gameboard[7][0]].map(tile => {
                         return (<div className='tile'>
-                            <h style={Constants.style.GreenTile} className={"tile"}>{`${tile.id}`}</h>
+                            <p style={Constants.style.OrangeTile} className={"tile"}>{`${tile.id}`}</p>
                         </div>)
                     })}
 
@@ -57,21 +106,12 @@ class GameBoard extends Component {
 
                 <div className='gameBoard'>
                     <div className="grid">
-                        {this.state.board.map(row => (
-                            row.map(tile => {
-                                return (
-                                    <div>
-                                        <Tile id={tile.id} x={tile.x} y={tile.y} color={tile.color}
-                                              piece={tile.piece} selectedTile={tile.selectedTile} clickTile={tile}/>
-                                    </div>
-                                )
-                            })
-                        ))}
+                        {this.renderBoard()}
                     </div>
                     <div className="grid">
                         {Constants.gameboard[7].map(tile => {
                             return (<div className='tile'>
-                                <h style={Constants.style.GreenTile} className={"tile"}>{`${tile.id}`}</h>
+                                <p style={Constants.style.OrangeTile} className={"tile"}>{`${tile.id}`}</p>
                             </div>)
                         })}
                     </div>
@@ -80,23 +120,6 @@ class GameBoard extends Component {
 
             </div>
         )
-    }
-
-    mount(tile) {
-        this.ReactDOM.mount(tile)
-        return tile
-    }
-
-    displayNum(tile, left) {
-        if (tile.getId().substring(0, 1) === "a" && left === true) {
-            return (<div className={"grid-cell"} key={`${tile.getId()}`}>
-                <p className={"leftRow"}>{tile.getId().substring(1, 2)}</p>
-            </div>)
-        } else if (tile.getId().substring(1, 2) === "1") {
-            return (<div className={"grid-cell"} key={`${tile.getId()}`}>
-                <p className={"tile"}>{tile.getId()}</p>
-            </div>)
-        }
     }
 
     renderPiece(tile) {

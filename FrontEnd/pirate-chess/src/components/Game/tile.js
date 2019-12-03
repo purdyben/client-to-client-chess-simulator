@@ -3,9 +3,14 @@ import * as Constants from './Constants';
 
 
 class Tile extends Component {
-
+    /**
+     * @constructor
+     * @param props
+     */
     constructor(props) {
         super(props);
+        this.myRef = React.createRef();
+
         this.state = {
             id: props.id,
             x: props.x,
@@ -17,20 +22,76 @@ class Tile extends Component {
         this.setPiece = this.setPiece.bind(this)
     };
 
+    /**
+     *
+     * @param newPiece
+     */
+    setPiece(newPiece) {
+        this.setState({piece: newPiece})
+    }
+
+    /**
+     *
+     * @param bool
+     */
     setSelectedTile = (bool) => {
         this.setState({selectedTile: bool})
     }
 
-    _TestimageClick(tile) {
+    /**
+     *
+     * @param tile
+     * @private
+     */
+    _imageClick(tile) {
         if (Constants.moveHandler.handleMovment(tile)) {
             this.forceUpdate();
         }
     }
-    setPiece(newPiece){
-        this.setState({piece: newPiece})
+
+    componentDidMount() {
+
+
     }
 
+    /**
+     *
+     * @returns {*}
+     */
+    render() {
+        const {id, color, /*piece,selectedTile*/} = this.props
+        if (this.state.selectedTile === true) {
+            return (<div className={"grid-cell"} ref={`${id}`} key={`${id}`}>
+                    <img style={Constants.style.GreenTile} className={"tile"}
+                         src={`./images/${this.state.piece.getName()}.png`} onClick={() => this._imageClick(this)}
+                         alt={`${id}`}/>
+                    {/*<p  style={Constants.style.GreenTile}  className={"tile"}>{`${this.state.id}`}</p>*/}
+                </div>
+            )
+        } else if (this.state.piece != null) {
+            return (<div className={"grid-cell"} ref={`${id}`} key={`${id}`}>
+                    <img style={this.getstyle(color)} className={"tile"}
+                         src={`./images/${this.state.piece.getName()}.png`} onClick={() => this._imageClick(this)}
+                         alt={`${id}`}/>
+                </div>
+            )
+        } else {
+            return (
+                <div className={"grid-cell"} ref={`${id}`} key={`${id}`}>
+                    <img className={"tile"}
+                         src={`./images/${color}.png`} onClick={() => this._imageClick(this)}
+                         alt={`${id}`}/>
+                </div>
+            )
+        }
 
+    }
+
+    /**
+     *
+     * @param color
+     * @returns {style.OrangeTile|{backgroundImage}|style.WhiteTile|{backgroundImage}|style.BlackTile|{backgroundImage}|style.GreenTile|{backgroundImage}}
+     */
     getstyle(color) {
         switch (color) {
             case 'OrangeTile':
@@ -44,35 +105,7 @@ class Tile extends Component {
         }
     }
 
-    render() {
-        const {id, color, /*piece,selectedTile*/} = this.props
 
-        if (this.state.selectedTile === true) {
-            return (<div className={"grid-cell"} key={`${id}`}>
-                    <img style={Constants.style.GreenTile} className={"tile"}
-                         src={`./images/${this.state.piece.getName()}.png`} onClick={() => this._TestimageClick(this)}
-                         alt={`${id}`}/>
-                    <h style={Constants.style.GreenTile}  className={"tile"}>{`${this.state.id}`}</h>
-                </div>
-            )
-        } else if (this.state.piece != null) {
-            return (<div className={"grid-cell"} key={`${id}`}>
-                    <img style={this.getstyle(color)} className={"tile"}
-                         src={`./images/${this.state.piece.getName()}.png`} onClick={() => this._TestimageClick(this)}
-                         alt={`${id}`}/>
-                </div>
-            )
-        } else {
-            return (
-                <div className={"grid-cell"} key={`${id}`}>
-                    <img className={"tile"}
-                         src={`./images/${color}.png`} onClick={() => this._TestimageClick(this)}
-                         alt={`${id}`}/>
-                </div>
-            )
-        }
-
-    }
 }
 
 export default Tile;
