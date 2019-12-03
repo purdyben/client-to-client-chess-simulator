@@ -13,24 +13,27 @@ import personList from './components/HTTP_Requests/personList';
 // import testAxios from './components/HTTP_Requests/testAxios';
 // import testPostAxios from './components/HTTP_Requests/testPostAxios';
 import GameBoard from './components/Game/GameBoard';
-import GamePage from './components/Game/GamePage'
+import Chat from './components/Chat';
+import CHeader from './components/CustomHeader';
 
 
 const Home = () => (
     <header className="App-header">
+        <CHeader/>
         <img src="logo.png" className="App-logo" alt="logo"/>
         <div className="Login-buttons">
             <Button color="primary" size="lg" href="/login" block>Login</Button>
             <Button color="secondary" size="lg" href="/mainScreen" block>Guest Login</Button>
         </div>
         <NavLink href="/createAccount" classname="Create-account-link">Create Account</NavLink>
+        <br/>
+        <br/>
     </header>
 );
 function App() {
     return (
         <Router>
             <div className="App">
-                <Route exact path="/GamePage" component={GamePage}/>
                 <Route exact path="/GameBoard" component={GameBoard}/>
                 <Route exact path="/" component={Home}/>
                 <Route exact path="/login" component={Login}/>
@@ -42,6 +45,7 @@ function App() {
                 <Route exact path="/settings" component={Settings}/>
                 <Route exact path="/howToPlay" component={HowToPlay}/>
                 <Route exact path="/personList" component={personList}/>
+                <Route exact path="/chat" component={Chat}/>
             </div>
         </Router>
     );

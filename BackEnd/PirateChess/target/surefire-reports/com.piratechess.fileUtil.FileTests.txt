@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: com.piratechess.fileUtil.FileTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.971 s <<< FAILURE! - in com.piratechess.fileUtil.FileTests
+com.piratechess.fileUtil.FileTests  Time elapsed: 0.969 s  <<< ERROR!
+java.lang.ExceptionInInitializerError
+Caused by: java.lang.NullPointerException
+

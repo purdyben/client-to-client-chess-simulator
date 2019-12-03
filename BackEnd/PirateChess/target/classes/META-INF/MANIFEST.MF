@@ -1,7 +1,6 @@
 Manifest-Version: 1.0
-Build-Jdk-Spec: 9
 Implementation-Title: PirateChess
-Implementation-Version: 0.0.1-SNAPSHOT
-Main-Class: com.piratechess.PirateChessApplication
+Implementation-Version: 1.0.0
+Build-Jdk-Spec: 1.8
 Created-By: Maven Integration for Eclipse
 

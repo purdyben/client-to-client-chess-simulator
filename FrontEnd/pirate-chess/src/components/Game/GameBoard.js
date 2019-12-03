@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import Tile from './Tile';
 import * as Constants from './Constants';
-import ReactDOM from 'react-dom'
+import Timer from './Timer.js';
+import CHeader from '../CustomHeader';
+
 
 class GameBoard extends Component {
     /**
@@ -93,6 +95,9 @@ class GameBoard extends Component {
         console.log(Constants.gameboard)
         return (
             <div className='gamePage'>
+                <CHeader/>
+                <Timer/>
+                <tile Id={0} x={0} y={0} piece={null} color={"GreenTile"}/>
                 <div className='flex-row'>
                     {[Constants.gameboard[0][0], Constants.gameboard[1][0], Constants.gameboard[2][0],
                         Constants.gameboard[3][0], Constants.gameboard[4][0], Constants.gameboard[5][0],

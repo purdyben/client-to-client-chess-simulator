@@ -1,7 +1,7 @@
 package com.piratechess.play;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.websocket.OnClose;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 /**
  * Creates a text connection between two clients
  * 
- * @author Colby McKinley
+ * @author Colby McKinley and Jonathan Vetting
  *
  */
 @ServerEndpoint("/game/{userName}")
@@ -28,11 +28,15 @@ public class GameServer {
 	/**
 	 * Function which maps sessions to users
 	 */
-	private static Map<Session, String> sessionUsersMap = new HashMap<>();
+	private static Map<Session, String> sessionUsersMap = new LinkedHashMap<>();
 	/**
 	 * Function which maps users to session
 	 */
-	private static Map<String, Session> usersSessionMap = new HashMap<>();
+	private static Map<String, Session> usersSessionMap = new LinkedHashMap<>();
+	private static Map<String, String> whitePlayersMap = new LinkedHashMap<>();
+	private static Map<String, String> blackPlayersMap = new LinkedHashMap<>();
+	private static Map<String, String> gameMap = new LinkedHashMap<>();
+
 
 	private final Logger logger = LoggerFactory.getLogger(GameServer.class);
 
@@ -43,39 +47,112 @@ public class GameServer {
 	 * @param displayName - The of display name the user who wants to chat to
 	 *                    others.
 	 * @throws IOException
+	 * @return String -used in GameTests.java
 	 */
 	@OnOpen
-	public void onOpen(Session session, @PathParam("userName") String displayName) throws IOException {
-		logger.info(displayName + " has entered the game");
+	public String onOpen(Session session, @PathParam("userName") String displayName) throws IOException {
 		sessionUsersMap.put(session, displayName);
 		usersSessionMap.put(displayName, session);
+		/**
+		 * Players are now mapped to games in pairs when they join the endpoint If there
+		 * is now an odd of players, wait for another to join
+		 */
+		if (usersSessionMap.size() % 2 != 0) {
+			logger.info(displayName + " is waiting for a match.");
+			return displayName + " is waiting for a match.";
+		}
+		else {
+			logger.info(displayName + " assigned as black. " + usersSessionMap.keySet().toArray()[usersSessionMap.size() - 2].toString() + " assigned as white.");
+			/**
+			 * The players are mapped to each other so that they don't have to type
+			 * "@playername move" The players also cannot send moves to players outside of
+			 * their game now
+			 */
+			whitePlayersMap.put(usersSessionMap.keySet().toArray()[usersSessionMap.size() - 2].toString(), displayName);
+			blackPlayersMap.put(displayName, usersSessionMap.keySet().toArray()[usersSessionMap.size() - 2].toString());
+			
+			//String gameName = "GAME" + ListFiles.listFilesUsingDirectoryStream(FileConstants.GAME_LOG_DIRECTORY).size();
+			/**
+			 * Changed gameName to follow what GhostServer expects
+			 */
+			/**
+			String gameName = "log" + ListFiles.listFilesUsingDirectoryStream(FileConstants.GAME_LOG_DIRECTORY).size() + ".txt";
+			//String gameName = "log" + ListFiles.listFilesUsingDirectoryStream(FileConstants.GAME_LOG_LOCAL_DIRECTORY).size() +".txt";
+			gameMap.put(usersSessionMap.keySet().toArray()[usersSessionMap.size() - 2].toString(), gameName);
+			gameMap.put(usersSessionMap.keySet().toArray()[usersSessionMap.size() - 1].toString(), gameName);
+			**/
+			return displayName + " assigned as black. " + usersSessionMap.keySet().toArray()[usersSessionMap.size() - 2].toString() + " assigned as white.";
+		}
 	}
 
 	/**
 	 * 
 	 * @param session
-	 * @param move - Algebraic notation of chess move
-	 * @see https://en.wikipedia.org/wiki/Algebraic_notation_(chess)
+	 * @param move    - Algebraic notation of chess move
+	 * @see https:en.wikipedia.org/wiki/Algebraic_notation_(chess)
 	 * @throws IOException
+	 * @return String move-used in GameTests.java
 	 */
 	@OnMessage
-	public void onMessage(Session session, String move) throws IOException {
-		logger.info("Entered into Message: Got Message:" + move);
+	public void onMessage(Session session, String move) throws IOException {//String
+		logger.info("Move:" + move);
 		String sendingUser = sessionUsersMap.get(session);
+		logger.info(sendingUser);
+		if(sendingUser == null) {
+			logger.info("Disconnected");
+			//return "Disconnected";
+		}
+		/**
+		String gameName = gameMap.get(sendingUser);
+		FileWriter out = null;
+		try {
+			logger.info("Entered into writer: "+ gameName);
+			out = new FileWriter(gameName);
+			ArrayList<String> lines = GameReader.getFileAsArrayList(gameName);
+			for (String l : lines)
+			{
+				out.write(l);
+				logger.info(l);
+			}
+			out.write(move);
+		} finally {
+			if (out != null)
+				out.close();
+		}
+		**/
+		
 		/*
-		 * From the client side, just do the following... move = "@" +
-		 * {receiverUser} + " " + move;
+		 * From the client side, move = "@" + {receiverUser} + " " + move
 		 */
-		String receivingUser = move.split(" ")[0].substring(1);
-		sendMove(receivingUser, "[DM] " + sendingUser + ": " + move);
+		String receivingUser = whitePlayersMap.get(sendingUser);
+		logger.info(receivingUser);
+		if (receivingUser == null)
+			receivingUser = blackPlayersMap.get(sendingUser);
+		if (receivingUser != null) {
+			logger.info(receivingUser);
+			sendMove(receivingUser, move);}
+		//else
+			//return sendingUser + " has no opponent";
+		//return move;
 	}
 
 	@OnClose
 	public void onClose(Session session) throws IOException {
 		logger.info("Entered into Close");
-		String net_id = sessionUsersMap.get(session);
+		String username = sessionUsersMap.get(session);
+		if (whitePlayersMap.get(username) != null)
+			onClose(usersSessionMap.get(whitePlayersMap.get(username)));
+		else if (blackPlayersMap.get(username) != null)
+			onClose(usersSessionMap.get(blackPlayersMap.get(username)));
+
 		sessionUsersMap.remove(session);
-		usersSessionMap.remove(net_id);
+		usersSessionMap.remove(username);
+
+		whitePlayersMap.remove(username);
+		whitePlayersMap.remove(whitePlayersMap.get(username));
+		blackPlayersMap.remove(username);
+		blackPlayersMap.remove(blackPlayersMap.get(username));
+
 	}
 
 	/**
