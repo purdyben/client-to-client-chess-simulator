@@ -1,97 +1,130 @@
 import React, {Component} from 'react';
-import tile from './tile';
+import Tile from './Tile';
 import * as Constants from './Constants';
 import Timer from './Timer.js';
 import CHeader from '../CustomHeader';
 
 
 class GameBoard extends Component {
-
+    /**
+     * @constructor
+     * @param props
+     */
     constructor(props) {
         super(props);
         this._imageClick = this._imageClick.bind(this);
+        this.renderBoard = this.renderBoard.bind(this);
+
+        this.state = {
+            board: Constants.setBoard(),
+            time: 10,
+            players: [{
+                player: 1,
+                type: 'white'
+            }, {
+                player: 2,
+                type: 'black',
+            }],
+            selectTile: false,
+        }
     }
 
-    state = {
-        board: Constants.gameboard,
-        time: 10,
-        players: [{
-            player: 1,
-            type: 'white'
-        }, {
-            player: 2,
-            type: 'black'
-        }],
-        selectTile: false,
+    /**
+     * componentDidMount Game websocket
+     */
+    componentDidMount() {
+        window.wSocket.onopen = () => {
+            // on connecting, do nothing but log it to the console
+            console.log('connected')
+        }
+        /**
+         *
+         * @param evt
+         */
+        window.wSocket.onmessage = evt => {
+            console.log(evt)
+            console.log('Received data: ' + evt.data);
+            let obj = JSON.parse(evt.data)
+            //console.log(obj.Move[0].x, obj.Move[1].x)
+            //console.log(Constants.gameboard[obj.Move[0].y][obj.Move[0].x], Constants.gameboard[obj.Move[1].y][obj.Move[1].x])
+            Constants.moveHandler.receiveMove(Constants.gameboard[obj.Move[0].y][obj.Move[0].x], Constants.gameboard[obj.Move[1].y][obj.Move[1].x])
+            console.log(this.state.board)
+            //let eleId = document.findElementById(obj.Move[0].id)
+            var sgs =  ReactDOM.findDOMNode(obj.Move[0].id)
+            console.log(sgs)
+        }
+        /**
+         *
+         */
+        window.wSocket.onclose = () => {
+            console.log('disconnected')
+            // automatically try to reconnect on connection loss
+
+        }
+
     }
 
-    _imageClick(tile) {
-        if (Constants.moveHandler.handleMovment(tile))
+    /**
+     *
+     * @param Tile
+     * @private
+     */
+    _imageClick(Tile) {
+        if (Constants.moveHandler.handleMovment(Tile))
             this.forceUpdate();
 
     }
 
+    renderBoard() {
+        return (this.state.board.map(row => (
+                row.map(tile => {
+                    return (
+                        <div key={tile.id}>
+                            <Tile id={tile.id} x={tile.x} y={tile.y} color={tile.color}
+                                  piece={tile.piece} selectedTile={tile.selectedTile} clickTile={tile}/>
+                        </div>
+                    )
+                })
+            )
+        ))
+    }
+
+
     render() {
-        {
-            console.log("render method has been called")
-        }
-        {
-            console.log(Constants.gameboard)
-        }
+        console.log("render method has been called")
+        console.log(Constants.gameboard)
         return (
             <div className='gamePage'>
                 <CHeader/>
                 <Timer/>
                 <tile Id={0} x={0} y={0} piece={null} color={"GreenTile"}/>
                 <div className='flex-row'>
-                    {/*{[this.state.board[0][0], this.state.board[1][0], this.state.board[2][0], this.state.board[3][0],*/}
-                    {/*    this.state.board[4][0], this.state.board[5][0], this.state.board[6][0], this.state.board[7][0]].map(tile => (*/}
-                    {/*    /!*<h1>ya</h1>*!/*/}
-                    {/*    this.displayNum(tile, false)*/}
-                    {/*))}*/}
+                    {[Constants.gameboard[0][0], Constants.gameboard[1][0], Constants.gameboard[2][0],
+                        Constants.gameboard[3][0], Constants.gameboard[4][0], Constants.gameboard[5][0],
+                        Constants.gameboard[6][0], Constants.gameboard[7][0]].map(tile => {
+                        return (<div className='tile'>
+                            <p style={Constants.style.OrangeTile} className={"tile"}>{`${tile.id}`}</p>
+                        </div>)
+                    })}
+
                 </div>
+
                 <div className='gameBoard'>
                     <div className="grid">
-
-                        {this.state.board.map(row => (
-                            row.map(tile => (
-                                // this.renderPiece(tile)
-                                <li key={row}>
-                                    {tile}
-                                </li>
-
-                            ))
-                        ))}
-                        {/*{this.state.board[7].map(tile => (*/}
-                        {/*    this.displayNum(tile, false)*/}
-                        {/*))}*/}
+                        {this.renderBoard()}
                     </div>
                     <div className="grid">
-                        {<tile Id={0} x={0} y={0} piece={null} color={"GreenTile"}/>}
-                        {/*{this.state.board.map(row => (*/}
-                        {/*    row.map(tile => (*/}
-                        {/*        tile.render()*/}
-
-
-                        {/*    ))*/}
-                        {/*))}*/}
+                        {Constants.gameboard[7].map(tile => {
+                            return (<div className='tile'>
+                                <p style={Constants.style.OrangeTile} className={"tile"}>{`${tile.id}`}</p>
+                            </div>)
+                        })}
                     </div>
                 </div>
+
 
             </div>
         )
-    }
-
-    displayNum(tile, left) {
-        if (tile.getId().substring(0, 1) === "a" && left === true) {
-            return (<div className={"grid-cell"} key={`${tile.getId()}`}>
-                <p className={"leftRow"}>{tile.getId().substring(1, 2)}</p>
-            </div>)
-        } else if (tile.getId().substring(1, 2) === "1") {
-            return (<div className={"grid-cell"} key={`${tile.getId()}`}>
-                <p className={"tile"}>{tile.getId()}</p>
-            </div>)
-        }
     }
 
     renderPiece(tile) {

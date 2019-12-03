@@ -1,77 +1,213 @@
-import React, {Component} from 'react';
-import tile from "./tile";
+import React,{Component} from 'react';
+import Tile from './Tile'
+import ReactDOM from 'react-dom'
+import * as Constants from './Constants';
+
+// import {wSocket} from './Constants';
 
 class HandleMovment extends Component {
+    /**
+     * @constructor
+     * @param props
+     */
     constructor(props) {
         super(props);
-        this.getIfSelected = this.getIfSelected.bind(this);
-        this.getComparableTile = this.getComparableTile.bind(this);
-        this.getSelectedTile = this.getSelectedTile.bind(this);
+        this.state = {
+            ifSelected: false,
+            selectedTile: null,
+            comparableTile: null,
+            selected: 'Greentile'
+        }
         this.handleMovment = this.handleMovment.bind(this);
     }
-    state ={
-        ifSelected: false,
-        selectedTile: null,
-        comparableTile: null,
-        selected: 'Greentile'
 
-
-    };
-    returnMyself(){
-        return(this);
+    /**
+     *
+     * @returns {HandleMovment}
+     */
+    returnMyself() {
+        return (this);
     }
 
-    handleMovment(tile){
-        console.log('this is the selected tile' + this.state.selectedTile)
-        console.log('this is the comparable tile ' + this.state.comparableTile)
-        // console.log('this is the id' + this.state.selected.state.Id)
-       if(tile.state.piece == null && this.state.selectedTile == null){
-           console.log(this.state.selectedTile)
-           return false;
-       }
-       else{
-           if(this.state.ifSelected === false){
-               tile.setSelectedTile(true);
-               this.state.selectedTile = tile;
-               this.state.ifSelected = true;
-               console.log(this.state.selectedTile)
-           }else{
-               if(true){
-                   this.moveablePiece(this.getSelectedTile(),tile);
-                   this.getSelectedTile().setSelectedTile(false);
-                   this.reset();
-                   console.log(this.state.selectedTile)
-               }
-           }
-       }
-       return true;
+    /**
+     *
+     * @param tile
+     * @returns {boolean}
+     */
+    handleMovment(tile) {
+        if (this.state.selectedTile === tile) {
+            tile.state.selectedTile = false
+            this.reset()
+            return true
+        }
+        if (tile.state.piece == null && this.state.selectedTile == null) {
+            console.log(this.selectedTile, 'select tile')
+            return false;
+        } else {
+            if (this.state.selectedTile == null) {
+                this.setState({selectedTile: tile})
+                this.state.selectedTile = tile
+                tile.state.selectedTile = true
+                console.log(tile, tile.state.piece.moveSet)
+                this.updateMoveSets()
+
+
+            } else {
+                let bool = false
+                for (let i = 0; i < this.state.selectedTile.state.piece.moveSet.length; i++) {
+                    if (this.state.selectedTile.state.piece.moveSet[i].id === tile.state.id) {
+                        if (tile.state.piece != null) {
+                            if (this.checkForPieces(this.state.selectedTile, tile)) {
+                                bool = true
+                                break
+                            } else {
+                                bool = false
+                                break
+                            }
+                        }
+                        bool = true
+                        break
+                    }
+                }
+                if (bool) {
+                    //console.log(this.state.selectedTile.piece)
+                    this.MovePiece(this.state.selectedTile, tile)
+                    tile.state.piece.resetMoves();
+                    //console.log(tile, " has it been reset")
+                    this.reset()
+
+                }
+            }
+        }
+        // console.log('this is the selected tile: ' + this.state.selectedTile)
+        // console.log('this is the comparable tile: ' + this.state.comparableTile)
+        return true;
     }
-    pieceMovement(selectedTile,comparableTile){
-        const bool = this.state.selectedTile.getPiece().posibleMoves(comparableTile);
-        return bool;
 
+    /**
+     *
+     * @param tile
+     * @param comparableTile
+     * @returns {boolean}
+     */
+    checkForPieces(tile, comparableTile) {
+        if (tile.state.piece.name.substring(0, 5) === 'Black' && comparableTile.state.piece.name.substring(0, 5) === 'White')
+            return true
+        else if (comparableTile.state.piece.name.substring(0, 5) === 'Black' && tile.state.piece.name.substring(0, 5) === 'White')
+            return true
+        else
+            return false
     }
 
-
-    reset(){
+    /**
+     *
+     */
+    reset() {
         this.state.ifSelected = false;
         this.state.selectedTile = null;
         this.state.comparableTile = null;
-
-
     }
-    moveablePiece(startTile, finalTile){
-        finalTile.setPiece(startTile.getPiece());
-        startTile.setPiece(null)
+
+    /**
+     *
+     * @param startTile
+     * @param finalTile
+     * @constructor
+     */
+    MovePiece(startTile, finalTile) {
+        /**
+         *
+         * @type {string}
+         */
+        let text = '{ "Move" : [' + `{"tile": "${startTile.state.id}", "x": "${startTile.state.x}", "y": "${startTile.state.y}" },` +
+            ` { "finalTile": "${finalTile.state.id}", "x": "${finalTile.state.x}", "y": "${finalTile.state.y}"}]}`
+
+        window.wSocket.send(text)
+
+        /**
+         *
+         */
+        if (this.Castle(startTile, finalTile) && startTile.state.piece.name.substring(5, 9) === 'King') {
+
+
+        } else {
+            finalTile.state.piece = startTile.state.piece
+            startTile.state.piece = null
+            startTile.state.selectedTile = false
+            finalTile.state.piece.x = finalTile.state.x
+            finalTile.state.piece.y = finalTile.state.y
+            startTile.forceUpdate()
+        }
+        /**
+         *
+         * @type {{color: *, piece: null, selectedTile: boolean, x: *, y: *, id: *}}
+         */
+        Constants.gameboard[startTile.state.y][startTile.state.x] = {
+            id: startTile.state.id,
+            x: startTile.state.x,
+            y: startTile.state.y,
+            piece: null,
+            selectedTile: false,
+            color: startTile.state.color
+        };
+        /**
+         *
+         * @type {{color: *, piece: *, selectedTile: boolean, x: *, y: *, id: *}}
+         */
+        Constants.gameboard[finalTile.state.y][finalTile.state.x] = {
+            id: finalTile.state.id,
+            x: finalTile.state.x,
+            y: finalTile.state.y,
+            piece: finalTile.state.piece,
+            selectedTile: false,
+            color: finalTile.state.color
+        };
+        Constants.updateAllMoveSets()
     };
-    getIfSelected(){
-        return this.state.ifSelected;
+
+    /**
+     *
+     * @param startTile
+     * @param finalTile
+     */
+    receiveMove(startTile, finalTile){
+        finalTile.piece = startTile.piece;
+        startTile.piece = null
+        finalTile.piece.x = finalTile.x;
+        finalTile.piece.y = finalTile.y;
+        console.log(startTile,finalTile)
+       // gameBoard.render()
+        //gameBoard.setState({board: gameBoard.renderBoard()})
+        // sTile = document.findElementById(startTile.id)
+        // console.log(sTile)
+        {/*var myComponentInstance = ReactDOM.render(<Tile/>, finalTile.id)*/}
+        //console.log(node)
+        {/*console.log( <Tile ref={startTile.id}/>)*/}
+
+
+        Constants.updateAllMoveSets()
     }
-    getComparableTile(){
-        return this.state.comparableTile;
+
+    /**
+     *
+     * @param tile
+     * @param finalTile
+     * @returns {boolean}
+     * @constructor
+     */
+    Castle(tile, finalTile) {
+        return false
     }
-    getSelectedTile(){
-        return this.state.selectedTile
+
+    /**
+     *
+     */
+    updateMoveSets() {
+        console.log(this.state.selectedTile.state.piece)
+        this.state.selectedTile.state.piece.resetMoves()
     }
+
+
 }
+
 export default HandleMovment;

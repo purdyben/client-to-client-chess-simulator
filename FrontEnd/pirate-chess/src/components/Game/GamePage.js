@@ -1,27 +1,20 @@
-import React, {Component} from 'react';
-import GameBoard from './GameBoard';
-import OpenSocket from'./GameCommunication/OpenSocket'
-import ChildComponent from './GameCommunication/ChildComponent'
+import React, {Component} from 'react'
+import GameBoard from './GameBoard'
+
 class GamePage extends Component {
 
 
     render() {
-
-
         return (
             <div>
-
-
                 <div>
-                    <img src="./logo.png" className="App-logo-small"/>
-                    <OpenSocket/>
+                    <img className="tile" src={`./logo.png`}  alt={''}/>
+                    <GameBoard/>
                 </div>
             </div>
 
         );
-
     }
-
-
 }
+
 export default GamePage;

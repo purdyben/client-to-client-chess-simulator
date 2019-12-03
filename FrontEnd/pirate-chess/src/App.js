@@ -4,7 +4,6 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Login from './components/Login';
 import CreateAccount from './components/CreateAccount';
 import MainScreen from './components/MainScreen';
-
 import Leaderboard from './components/Leaderboard';
 import Tournament from './components/Tournament';
 import Profile from './components/Profile';
