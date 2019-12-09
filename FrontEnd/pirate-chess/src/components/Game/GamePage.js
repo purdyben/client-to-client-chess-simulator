@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import GameBoard from './GameBoard'
-
+import CHeader from "../CustomHeader";
+import PickURL from "./PickURL";
 class GamePage extends Component {
 
 
@@ -8,7 +9,7 @@ class GamePage extends Component {
         return (
             <div>
                 <div>
-                    <img className="tile" src={`./logo.png`}  alt={''}/>
+                    <CHeader/>
                     <GameBoard/>
                 </div>
             </div>

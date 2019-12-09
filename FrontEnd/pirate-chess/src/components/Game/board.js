@@ -75,8 +75,8 @@ export default class board {
             Black[i].piece = PieceSet[i + 8];
             Black[i].piece.x = Black[i].x
             Black[i].piece.y = Black[i].y
-            White[i].piece.getAllPosibleMoves()
-            Black[i].piece.getAllPosibleMoves()
+            White[i].piece.getAllPossibleMoves()
+            Black[i].piece.getAllPossibleMoves()
         }
     };
 

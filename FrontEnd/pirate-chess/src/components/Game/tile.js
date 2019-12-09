@@ -9,8 +9,6 @@ class Tile extends Component {
      */
     constructor(props) {
         super(props);
-        this.myRef = React.createRef();
-
         this.state = {
             id: props.id,
             x: props.x,
@@ -20,22 +18,14 @@ class Tile extends Component {
             selectedTile: false,
         };
         this.setPiece = this.setPiece.bind(this)
+        this.reRender = this.reRender.bind(this)
     };
-
-    /**
-     *
-     * @param newPiece
-     */
-    setPiece(newPiece) {
-        this.setState({piece: newPiece})
+    reRender(){
+        this.forceUpdate();
     }
 
-    /**
-     *
-     * @param bool
-     */
-    setSelectedTile = (bool) => {
-        this.setState({selectedTile: bool})
+    setPiece(newPiece) {
+        this.setState({piece: newPiece})
     }
 
     /**
@@ -44,40 +34,45 @@ class Tile extends Component {
      * @private
      */
     _imageClick(tile) {
-        if (Constants.moveHandler.handleMovment(tile)) {
-            this.forceUpdate();
-        }
+        Constants.moveHandler.handleMovment(tile)
+        this.props.imageClick()
     }
-
-    componentDidMount() {
-
-
-    }
-
     /**
-     *
+     *Returns an the tiles current model based
      * @returns {*}
      */
     render() {
-        const {id, color, /*piece,selectedTile*/} = this.props
+        const {id, color, piece,selectedTile} = this.props;
+        /**
+         * shows if a tile is selected ( green background
+         */
         if (this.state.selectedTile === true) {
-            return (<div className={"grid-cell"} ref={`${id}`} key={`${id}`}>
+            return (<div className={"grid-cell"} key={`${id}`} id={`${id}`}>
                     <img style={Constants.style.GreenTile} className={"tile"}
-                         src={`./images/${this.state.piece.getName()}.png`} onClick={() => this._imageClick(this)}
+                         src={`./images/${piece.getName()}.png`} onClick={() => this._imageClick(this)}
                          alt={`${id}`}/>
                     {/*<p  style={Constants.style.GreenTile}  className={"tile"}>{`${this.state.id}`}</p>*/}
                 </div>
             )
-        } else if (this.state.piece != null) {
-            return (<div className={"grid-cell"} ref={`${id}`} key={`${id}`}>
+
+        }
+        /**
+         * shows if a tile if there is a piece
+         */
+        else if (piece != null) {
+            return (<div className={"grid-cell"} key={`${id}`} id={`${id}`}>
                     <img style={this.getstyle(color)} className={"tile"}
-                         src={`./images/${this.state.piece.getName()}.png`} onClick={() => this._imageClick(this)}
+                         src={`./images/${piece.getName()}.png`} onClick={() => this._imageClick(this)}
                          alt={`${id}`}/>
                 </div>
             )
-        } else {
+        }
+        /**
+         * shows if a tile if there is no piece
+         */
+        else {
             return (
-                <div className={"grid-cell"} ref={`${id}`} key={`${id}`}>
+                <div className={"grid-cell"} key={`${id}`} id={`${id}`}>
                     <img className={"tile"}
                          src={`./images/${color}.png`} onClick={() => this._imageClick(this)}
                          alt={`${id}`}/>
@@ -104,8 +99,6 @@ class Tile extends Component {
                 return Constants.style.BlackTile
         }
     }
-
-
 }
 
 export default Tile;

@@ -1,6 +1,4 @@
-import React,{Component} from 'react';
-import Tile from './Tile'
-import ReactDOM from 'react-dom'
+import React, {Component} from 'react';
 import * as Constants from './Constants';
 
 // import {wSocket} from './Constants';
@@ -69,6 +67,7 @@ class HandleMovment extends Component {
                         break
                     }
                 }
+
                 if (bool) {
                     //console.log(this.state.selectedTile.piece)
                     this.MovePiece(this.state.selectedTile, tile)
@@ -91,6 +90,22 @@ class HandleMovment extends Component {
      * @returns {boolean}
      */
     checkForPieces(tile, comparableTile) {
+        // let Rook;
+        // let King;
+        // if (tile.state.piece !== null && comparableTile.state.piece !== null) {
+        //     if (tile.state.piece.name.substring(5, tile.state.piece.name.length-1) === 'King' &&
+        //         comparableTile.state.piece.name.substring(5, comparableTile.state.piece.name.length-1) === 'Rook') {
+        //         Rook = comparableTile.state.piece;
+        //         King = tile.state.piece;
+        //
+        //
+        //     } else if (tile.name.substring(5, tile.state.piece.name.length-1) === 'Rook' &&
+        //         comparableTile.state.piece.name.substring(5, comparableTile.state.piece.name.length-1) === 'King') {
+        //         King = comparableTile.state.piece;
+        //         Rook = tile.state.piece;
+        //     }
+        // }
+
         if (tile.state.piece.name.substring(0, 5) === 'Black' && comparableTile.state.piece.name.substring(0, 5) === 'White')
             return true
         else if (comparableTile.state.piece.name.substring(0, 5) === 'Black' && tile.state.piece.name.substring(0, 5) === 'White')
@@ -119,15 +134,15 @@ class HandleMovment extends Component {
          *
          * @type {string}
          */
-        let text = '{ "Move" : [' + `{"tile": "${startTile.state.id}", "x": "${startTile.state.x}", "y": "${startTile.state.y}" },` +
-            ` { "finalTile": "${finalTile.state.id}", "x": "${finalTile.state.x}", "y": "${finalTile.state.y}"}]}`
+        let text = '{ "Move" : [' + `{"id": "${startTile.state.id}", "x": "${startTile.state.x}", "y": "${startTile.state.y}", "color": "${startTile.state.color}"},` +
+            ` { "id": "${finalTile.state.id}", "x": "${finalTile.state.x}", "y": "${finalTile.state.y}","color": "${finalTile.state.color}"}]}`
 
         window.wSocket.send(text)
 
         /**
          *
          */
-        if (this.Castle(startTile, finalTile) && startTile.state.piece.name.substring(5, 9) === 'King') {
+        if (this.Castle(startTile, finalTile)) {
 
 
         } else {
@@ -170,19 +185,21 @@ class HandleMovment extends Component {
      * @param startTile
      * @param finalTile
      */
-    receiveMove(startTile, finalTile){
+    receiveMove(startTile, finalTile) {
         finalTile.piece = startTile.piece;
         startTile.piece = null
         finalTile.piece.x = finalTile.x;
         finalTile.piece.y = finalTile.y;
-        console.log(startTile,finalTile)
-       // gameBoard.render()
+        console.log(startTile, finalTile)
+        // gameBoard.render()
         //gameBoard.setState({board: gameBoard.renderBoard()})
         // sTile = document.findElementById(startTile.id)
         // console.log(sTile)
-        {/*var myComponentInstance = ReactDOM.render(<Tile/>, finalTile.id)*/}
+        {/*var myComponentInstance = ReactDOM.render(<Tile/>, finalTile.id)*/
+        }
         //console.log(node)
-        {/*console.log( <Tile ref={startTile.id}/>)*/}
+        {/*console.log( <Tile ref={startTile.id}/>)*/
+        }
 
 
         Constants.updateAllMoveSets()
@@ -196,6 +213,22 @@ class HandleMovment extends Component {
      * @constructor
      */
     Castle(tile, finalTile) {
+        // let Rook;
+        // let King;
+        //
+        // if (tile.state.piece.name.substring(5, tile.state.piece.name.length) === 'King' &&
+        //     finalTile.state.piece.name.substring(5, finalTile.state.piece.name.length) === 'Rook') {
+        //     Rook = finalTile.state.piece
+        //     King = tile.state.piece
+        //
+        //
+        // } else if (tile.state.piece.name.substring(5, tile.state.piece.name.length) === 'Rook' &&
+        //     finalTile.state.piece.name.substring(5, finalTile.state.piece.name.length) === 'King') {
+        //     King = finalTile.state.piece
+        //     Rook = tile.state.piece
+        // }
+
+
         return false
     }
 

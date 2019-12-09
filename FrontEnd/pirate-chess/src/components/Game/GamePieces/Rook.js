@@ -11,7 +11,7 @@ class Rook {
         this.name = props.name
         this.x = props.x
         this.y = props.y
-        this.moveSet = this.getAllPosibleMoves()
+        this.moveSet = this.getAllPossibleMoves()
         this.resetMoves = this.resetMoves.bind(this)
         this.castle = true
     }
@@ -20,8 +20,13 @@ class Rook {
      * Creates the posible move for the piece storing all tiles in the MoveSet array, returns the array
      * @returns {[]}
      */
-    getAllPosibleMoves() {
+    getAllPossibleMoves() {
         var MoveSet = [];
+        if (this.name === 'BlackRook' && (this.y !== 0 && this.x !== 0 || this.y !== 0 && this.x !== 7 ) ) {
+            this.castle = false
+        } else if (this.name === 'WhiteRook' && (this.y !== 7 && this.x !== 0 || this.y !== 7 && this.x !== 7) ) {
+            this.castle = false
+        }
         /**
          * right
          */
@@ -78,8 +83,8 @@ class Rook {
      * reset the moveSet arr
      */
     resetMoves() {
-        this.moveSet = this.getAllPosibleMoves()
-       // console.log(this.moveSet)
+        this.moveSet = this.getAllPossibleMoves()
+        // console.log(this.moveSet)
     }
 
     getName() {

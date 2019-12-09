@@ -44,7 +44,7 @@ function Iran() {
  */
 export function setBoard() {
     board.setDefaultBoard(this.gameboard);
-    this.updateAllMoveSets()
+    this.updateAllMoveSets();
     return this.gameboard
 }
 

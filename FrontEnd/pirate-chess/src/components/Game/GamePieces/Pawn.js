@@ -13,7 +13,7 @@ class Pawn {
         this.x = props.x
         this.y = props.y
         this.firstMove = true
-        this.moveSet = this.getAllPosibleMoves()
+        this.moveSet = this.getAllPossibleMoves()
         this.protectedTiles = this.setProtectedTiles();
 
     }
@@ -26,29 +26,12 @@ class Pawn {
         return (this.name)
     }
 
-
-    /**
-     *
-     * @param tile
-     * @param comparableTile
-     * @returns {boolean}
-     */
-    legalMoves(tile, comparableTile) {
-        for (let i = 0; i < this.state.moveSet.length; i++) {
-            if (this.state.MoveSet[i] === comparableTile) {
-                return true
-            }
-        }
-        return false
-    }
-
     /**
      * Creates the posible move for the piece storing all tiles in the MoveSet array, returns the array
      * @returns {[]}
      */
-    getAllPosibleMoves() {
+    getAllPossibleMoves() {
         var MoveSet = [];
-
         /*
          sets first move
          */
@@ -169,7 +152,7 @@ class Pawn {
      * reset the moveSet arr
      */
     resetMoves() {
-        this.moveSet = this.getAllPosibleMoves()
+        this.moveSet = this.getAllPossibleMoves()
         //console.log(this.moveSet)
     }
 

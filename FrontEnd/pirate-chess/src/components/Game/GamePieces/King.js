@@ -8,11 +8,11 @@ class King {
      * @constructor
      */
     constructor(props) {
-        this.name = props.name
-        this.x = props.x
-        this.y = props.y
-        this.moveSet = this.getAllPosibleMoves()
-        this.resetMoves = this.resetMoves.bind(this)
+        this.name = props.name;
+        this.x = props.x;
+        this.y = props.y;
+        this.moveSet = this.getAllPossibleMoves();
+        this.resetMoves = this.resetMoves.bind(this);
         this.castle = true
 
     }
@@ -21,8 +21,15 @@ class King {
      * Creates the posible move for the piece storing all tiles in the MoveSet array, returns the array
      * @returns {[]}
      */
-    getAllPosibleMoves() {
+    getAllPossibleMoves() {
         var MoveSet = [];
+
+        if (this.name === 'BlackKing' && this.y !== 0 && this.x !== 4) {
+            this.castle = false
+        } else if (this.name === 'WhitePawn' && this.y !== 7 && this.x !== 4) {
+            this.castle = false
+        }
+
         //  console.log(this,this.x, this.y,MoveSet)
         /**
          * down
@@ -81,7 +88,7 @@ class King {
      * reset moveSet arr
      */
     resetMoves() {
-        this.moveSet = this.getAllPosibleMoves()
+        this.moveSet = this.getAllPossibleMoves()
         // console.log(this.moveSet)
     }
 

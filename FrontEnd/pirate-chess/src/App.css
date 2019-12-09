@@ -32,6 +32,14 @@
     align-items: center;
     justify-content: center;
 }
+.row{
+    flex-direction: column;
+}
+.buttonSize{
+    height: 10vmin;
+    width: 20vmin;
+}
+
 .gameBoard{
     background-color: beige;
     height: 100%;
@@ -72,6 +80,7 @@
     height: 5%;
     width: 75%;
 }
+
 #testImage{
     background-image: url('/public/images/WhiteTile.png');
     height: 10vmin;

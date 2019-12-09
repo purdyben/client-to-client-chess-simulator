@@ -10,7 +10,7 @@ class Knight {
         this.name = props.name
         this.x = props.x
         this.y = props.y
-        this.moveSet = this.getAllPosibleMoves()
+        this.moveSet = this.getAllPossibleMoves()
         this.resetMoves = this.resetMoves.bind(this)
     }
 
@@ -18,7 +18,7 @@ class Knight {
      * Creates the posible move for the piece storing all tiles in the MoveSet array, returns the array
      * @returns {[]}
      */
-    getAllPosibleMoves() {
+    getAllPossibleMoves() {
         var MoveSet = [];
         for (let i = 0; i < 8; i++) {
             break
@@ -71,7 +71,7 @@ class Knight {
      * reset moveSet arr
      */
     resetMoves() {
-        this.moveSet = this.getAllPosibleMoves()
+        this.moveSet = this.getAllPossibleMoves()
        // console.log(this.moveSet)
     }
 

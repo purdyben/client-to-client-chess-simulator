@@ -10,7 +10,7 @@ class Queen {
         this.name = props.name
         this.x = props.x
         this.y = props.y
-        this.moveSet = this.getAllPosibleMoves()
+        this.moveSet = this.getAllPossibleMoves()
         this.resetMoves = this.resetMoves.bind(this)
     }
 
@@ -18,7 +18,7 @@ class Queen {
      * Creates the posible move for the piece storing all tiles in the MoveSet array, returns the array
      * @returns {[]}
      */
-    getAllPosibleMoves() {
+    getAllPossibleMoves() {
         var MoveSet = [];
         /**
          * up right
@@ -124,7 +124,7 @@ class Queen {
      * reset the moveSet arr
      */
     resetMoves() {
-        this.moveSet = this.getAllPosibleMoves()
+        this.moveSet = this.getAllPossibleMoves()
         //console.log(this.moveSet)
     }
 
